@@ -1,0 +1,89 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\拉勾网\project.xml">
+       <DBConnections>
+      <Children DBName="datamining" Name="MongoDB" TypeName="MongoDBConnector" ConnectString="mongodb://127.0.0.1" AutoConnect="True" />
+      <Children DBName="anjuke" Name="MongoDB-anjuke" TypeName="MongoDBConnector" ConnectString="mongodb://127.0.0.1" AutoConnect="True" />
+	  <Children DBName="" Name="文件管理" TypeName="FileManager" ConnectString="" AutoConnect="True">    
+        <Children Name="打开新文件" Size="0" Description="" />
+      </Children>
+     
+    </DBConnections>
+    <Children Name="拉勾网" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <Children Position="0" MergeType="Append" IsExecute="False" ETLSelector="拉勾网城市" Column="" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children Position="0" MergeType="Cross" IsExecute="False" ETLSelector="拉勾网工作经验" Column="城市" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children Position="0" MergeType="Cross" IsExecute="False" ETLSelector="拉勾网学历" Column="工作经验" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children Position="0" MergeType="Cross" IsExecute="False" ETLSelector="拉勾网公司阶段" Column="学历" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children Position="0" MergeType="Cross" IsExecute="False" ETLSelector="拉勾网行业" Column="公司阶段" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children MergeWith="学历 公司阶段 行业 城市" Format="http://www.lagou.com/jobs/list_?gj={0}&amp;xl={1}&amp;jd={2}&amp;hy={3}&amp;px=new&amp;city={4}#filterBox" Column="工作经验" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;tab_pos&quot;]/span" IsManyData="False" GetText="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="count" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="int(int(value)/12.0)+1" Column="count" NewColumn="page" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Position="0" MountColumn="[count]" DisplayProgress="True" Column="" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children MinValue="1" MaxValue="[page]" Interval="1" RepeatCount="1" Column="npage" Enabled="True" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="" Format="first=false&amp;pn={0}&amp;kd=" Column="npage" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MergeWith="学历 公司阶段 行业 城市" Format="http://www.lagou.com/jobs/positionAjax.json?gj={0}&amp;xl={1}&amp;jd={2}&amp;hy={3}&amp;px=new&amp;city={4}" Column="工作经验" NewColumn="rurl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children PostData="[npage]" CrawlerSelector="拉勾网工作页面" Column="rurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Former="&quot;result&quot;:" End=",&quot;start&quot;:0}}" HaveStartEnd="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="StrExtractTF" Group="Transformer" />
+      <Children ScriptWorkMode="文档列表" Column="Content" NewColumn="" Enabled="True" OneOutput="False" Type="JsonTF" Group="Transformer" />
+      <Children Column="imstate" Enabled="True" Type="TableEX" Group="Executor" />
+      <Children ScriptWorkMode="不进行转换" Script="' '.join(value)" Column="companyLabelList" NewColumn="" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+    </Children>
+    <Children Name="拉勾网城市" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <Children Content="http://www.lagou.com/zhaopin/Java/?labelWords=label" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;filterCollapse&quot;]/div[1]/li/a" IsManyData="True" GetText="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Script="全国|更多" Count="1" Revert="True" Column="Text" Priority="0" Enabled="True" Type="RegexFT" Group="Filter" />
+      <Children Column="Text" NewColumn="城市" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+    </Children>
+    <Children Name="网页采集器-通用" Type="SmartCrawler" URL="http://bj.lianjia.com/xiaoqu/dongcheng/" RootXPath="" IsMultiData="One" URLFilter="https://www.dianping.com/shopall/2/0" ContentFilter="" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://bj.lianjia.com/xiaoqu/dongcheng/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Host: sh.lianjia.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Referer: http://sh.lianjia.com/xiaoqu/pudongxinqu/rs&#xA;Cookie:select_city=310000;expires=Tue;02-May-2016 08:33:27 GMT=;Max-Age=10800;path=/;domain=lianjia.com;logger_session=04fc647541648916f02c196be90416c6;01-May-2016 11:33:27 GMT=;lianjia_uuid=09d7c5c6c0648d5ed0a23a1cec2554a4;29-Apr-26 08:33:27 GMT=;lianjia_ssid=b1df96aa-9105-4268-a62d-5135d882d340;01-May-16 09:03:27 GMT=;25-Apr-2016 10:17:43 GMT=;24-Apr-2016 09:49:06 GMT=;23-Apr-16 10:19:06 GMT=;20-Apr-2016 07:16:23 GMT=;20-Apr-2016 07:04:03 GMT=;19-Apr-2016 10:04:04 GMT=;Hm_lvt_efa595b768cc9dc7d7f9823368e795f1=1448962258;miyue_hide=%20index%20%20index%20;lianjia_token=1.00d071de9c67232cada8481ddb370dc5bf;CNZZDATA1253492439=1517051447-1456825654-http%253A%252F%252Fbj.lianjia.com%252F%7C1457523199;CNZZDATA1254525948=1648576429-1456823381-http%253A%252F%252Fbj.lianjia.com%252F%7C1457522174;CNZZDATA1255633284=1453068874-1456824283-http%253A%252F%252Fbj.lianjia.com%252F%7C1457518273;CNZZDATA1255604082=954323645-1456824402-http%253A%252F%252Fbj.lianjia.com%252F%7C1457521865;_qzja=1.783490784.1456826188682.1457520368276.1457523536152.1457523543323.1457523562064.0.0.0.16.4;_jzqx=1.1446617231.1458633590.27.jzqsr=bj%2Efang%2Elianjia%2Ecom|jzqct=/loupan/pg5bp300ep360/.jzqsr=bj%2Elianjia%2Ecom|jzqct=/ershoufang/;_jzqy=1.1446173025.1460218600.39.jzqsr=baidu.jzqsr=baidu;_jzqa=1.1379173988059079000.1446170008.1460218600.1460424315.110;_smt_uid=566a2605.445893cd;_gat=1;ubt_load_interval_b=1461048933231;ubt_load_interval_c=1461048933231;CNZZDATA1257993097=2080063891-1461030713-%7C1461044225;ubta=2299869246.2487901422.1459386193064.1461048932591.1461048933351.58;ubtb=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtc=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtd=17;_ga=GA1.2.2126031770.1446170005&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+    </Children>
+    <Children Name="拉勾网工作经验" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <Children Content="http://www.lagou.com/zhaopin/Java/?labelWords=label" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;filterCollapse&quot;]/li[1]/a" IsManyData="True" GetText="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="Text" NewColumn="工作经验" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children Skip="1" Take="10" Revert="False" Column="工作经验" Priority="0" Enabled="True" Type="NumRangeFT" Group="Filter" />
+    </Children>
+    <Children Name="拉勾网学历" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <Children Content="http://www.lagou.com/zhaopin/Java/?labelWords=label" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;filterCollapse&quot;]/li[2]/a" IsManyData="True" GetText="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Skip="1" Take="10" Revert="False" Column="Text" Priority="0" Enabled="True" Type="NumRangeFT" Group="Filter" />
+      <Children Column="Text" NewColumn="学历" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+    </Children>
+    <Children Name="拉勾网公司阶段" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <Children Content="http://www.lagou.com/zhaopin/Java/?labelWords=label" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;filterCollapse&quot;]/li[3]/a" IsManyData="True" GetText="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Skip="1" Take="10" Revert="False" Column="Text" Priority="0" Enabled="True" Type="NumRangeFT" Group="Filter" />
+      <Children Column="Text" NewColumn="公司阶段" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+    </Children>
+    <Children Name="拉勾网行业" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <Children Content="http://www.lagou.com/zhaopin/Java/?labelWords=label" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;filterCollapse&quot;]/div[2]/li/a" IsManyData="True" GetText="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Script="不限|更多" Count="1" Revert="True" Column="Text" Priority="0" Enabled="True" Type="RegexFT" Group="Filter" />
+      <Children Column="Text" NewColumn="行业" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+    </Children>
+    <Children Name="拉勾网工作页面" Type="SmartCrawler" URL="http://www.lagou.com/jobs/list_?gj=1年以下&amp;xl=大专&amp;jd=成长型&amp;hy=移动互联网&amp;px=new&amp;city=北京#filterBox" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/1 16:36:24" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.lagou.com/jobs/list_?gj=1年以下&amp;xl=大专&amp;jd=成长型&amp;hy=移动互联网&amp;px=new&amp;city=北京#filterBox" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="POST" Parameters="Host: www.lagou.com&#xD;&#xA;Connection: keep-alive&#xD;&#xA;Content-Length: 20&#xD;&#xA;Accept: application/json, text/javascript, */*; q=0.01&#xD;&#xA;Origin: http://www.lagou.com&#xD;&#xA;X-Requested-With: XMLHttpRequest&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xD;&#xA;Content-Type: application/x-www-form-urlencoded; charset=UTF-8&#xD;&#xA;Referer: http://www.lagou.com/jobs/list_?gj=1%E5%B9%B4%E4%BB%A5%E4%B8%8B&amp;xl=%E5%A4%A7%E4%B8%93&amp;jd=%E6%88%90%E9%95%BF%E5%9E%8B&amp;hy=%E7%A7%BB%E5%8A%A8%E4%BA%92%E8%81%94%E7%BD%91&amp;px=new&amp;city=%E5%8C%97%E4%BA%AC&#xD;&#xA;Accept-Encoding: gzip, deflate&#xD;&#xA;Accept-Language: zh-CN,zh;q=0.8&#xD;&#xA;Cookie: user_trace_token=20151126111354-b9b3d684-93eb-11e5-bd45-525400f775ce; LGUID=20151126111354-b9b3d98d-93eb-11e5-bd45-525400f775ce; tencentSig=1442059264; JSESSIONID=703355710399E809A21376405171C118; LGMOID=20160328223055-62A7621C6AC29989927FAA636BE6BC36; hideSlideBanner=1; index_location_city=%E5%8C%97%E4%BA%AC; _gat=1; SEARCH_ID=c429b5ca928b4e2d97b9aa8bf1a0285e; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1457426170,1457426922,1457427780,1459175451; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1459177063; _ga=GA1.2.1111751565.1448507629; LGSID=20160328223056-af3163bc-f4f1-11e5-bab0-5254005c3644; LGRID=20160328225748-6fc47154-f4f5-11e5-b682-525400f775ce" />
+    </Children>
+  </Doc>
+</root>
