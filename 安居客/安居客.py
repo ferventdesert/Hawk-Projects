@@ -6,9 +6,16 @@ def get(ar,index):
 		return ar[l+index];
 	else:
 		return ar[index];
+		
+def execute(ar,filter,func):
+	for r in ar:
+		if filter(r):
+			func(r);
 unabled=[户型图存储方案,户型图存储,安居客户型列表,安居客评价,安居客楼盘详情,相册存储方案,安居客相册];
 for e in unabled:
 	e.etls[0].Enabled=False
+
+execute(详细参数.etls,lambda x:x.TypeName=='WriteFileTextTF',lambda x:x.Enabled==False);
 
 #下面是可能需要修改的配置:
 ###################################################
