@@ -6,7 +6,6 @@
 	  <Children DBName="" Name="文件管理" TypeName="FileManager" ConnectString="" AutoConnect="True">    
         <Children Name="打开新文件" Size="0" Description="" />
       </Children>
-     
     </DBConnections>
     <Children Name="链家二手房清洗" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/1 16:32:51" Description="任务描述" ScriptPath="">
       <Children Content="sh" Column="city" Name="城市" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
