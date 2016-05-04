@@ -1,0 +1,216 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\安居客\project.xml">
+    <DBConnections>
+      <Children DBName="anjuke" Name="MongoDB-anjuke" TypeName="MongoDBConnector" ConnectString="mongodb://127.0.0.1" AutoConnect="True" />
+      <Children DBName="" Name="文件管理" TypeName="FileManager" ConnectString="" AutoConnect="True">
+        <Children Name="打开新文件" Size="0" Description="" />
+      </Children>
+    </DBConnections>
+    <Children Name="安居客核心流程" Type="SmartETLTool" MaxThreadCount="100" GenerateMode="并行模式" CreateTime="2016/5/1 16:29:03" Description="核心流程" ScriptPath="安居客.py">
+      <Children Position="0" MergeType="Append" IsExecute="False" ETLSelector="安居客城市" Column="" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children MergeWith="" Format="http://{0}.fang.anjuke.com/?from=navigation" Column="city" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="/html[1]/body[1]/div[2]/div[2]/div[1]/div[1]/div[2]/span[1]/em[1]" IsManyData="False" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="count" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children XPath="//*[@class=&quot;key-list&quot;]/div" IsManyData="False" GetText="False" GetCount="True" IsInsertNull="False" Column="Content" NewColumn="pcount" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="pcount" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Revert="False" Column="pcount" Priority="0" Enabled="True" Type="NullFT" Group="Filter" />
+      <Children ScriptWorkMode="不进行转换" Script="value!='上海' and str(count).find('1525')&gt;=0" Column="Text" NewColumn="filter" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Script="False" Count="1" Revert="False" Column="filter" Priority="0" Enabled="True" Type="RegexFT" Group="Filter" />
+      <Children ScriptWorkMode="不进行转换" Script="int(int(value)/int(pcount)+1)" Column="count" NewColumn="page" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children MinValue="1" MaxValue="[page]" Interval="1" RepeatCount="1" Column="npage" Enabled="True" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="npage" Format="{0}-{1}" Column="city" NewColumn="thread" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Column="pcount" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children MergeWith="npage" Format="http://{0}.fang.anjuke.com/loupan/s?p={1}" Column="city" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IDColumn="[thread]" Position="0" MountColumn="50" DisplayProgress="True" Column="npage" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children CrawlerSelector="安居客小区列表" Column="url" NewColumn="city" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="点评数量" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="商圈" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="id" Column="url" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com/loupan/xiangce-{0}.html" Column="id" NewColumn="picturl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MergeWith="特点2 特点3 特点4" Format="{0} {1} {2} {3}" Column="特点1" NewColumn="特点" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Column="特点1" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children IsExecute="False" AddTask="False" ETLSelector="安居客相册" Column="picturl" Enabled="True" Type="EtlEX" Group="Transformer" />
+      <Children Column="特点2" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="特点3" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="特点4" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com/loupan/canshu-{0}.html?from=loupan_tab" Column="id" NewColumn="detailurl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IsMultiYield="False" ETLSelector="安居客楼盘详情" Column="detailurl" Enabled="True" Type="EtlTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="楼盘名称" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="True" SplitNull="True" Index="1" SplitChar="" Column="楼盘名称" Name="" NewColumn="售房状态" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="True" SplitNull="True" Index="0" SplitChar="" Column="楼盘名称" NewColumn="楼盘名称" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com/loupan/dianping-{0}.html?from=loupan_tab" Column="id" NewColumn="dpurl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IsExecute="False" AddTask="False" NewColumn="city id" ETLSelector="安居客评价" Column="dpurl" Enabled="True" Type="EtlEX" Group="Transformer" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com/loupan/huxing-{0}.html?from=loupan_tab" Column="id" NewColumn="hxurl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IsExecute="False" AddTask="False" ETLSelector="安居客户型列表" Column="hxurl" Enabled="True" Type="EtlEX" Group="Transformer" />
+      <Children Column="hxurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="dpurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="detailurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com/loupan/{0}.html?from=loupan_index_crumb" Column="id" NewColumn="syurl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children CrawlerSelector="网页采集器-通用" Column="syurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Former="priceData =" End="var timer = null;" HaveStartEnd="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="StrExtractTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="\r|\n|;|\s\s" NewColumn="价格趋势" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children IsMultiYield="False" ETLSelector="详细参数" Column="物业管理费" Enabled="True" Type="EtlTF" Group="Transformer" />
+      <Children Column="picturl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="syurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ExecuteType="OnlyInsert" TableName="main" Column="最新导购" Enabled="True" Type="DbEX" Group="Executor" Connector="MongoDB-anjuke" />
+    </Children>
+    <Children Name="安居客城市" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="http://www.anjuke.com/sy-city.html" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//dl" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children XPath="//a" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="False" Column="HTML" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children FromBack="False" IsMultiYield="False" Index="1" Script="&quot;" NewColumn="url" Column="OHTML" Enabled="True" OneOutput="True" Type="RegexSplitTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="/ ." Column="url" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Revert="False" Column="Text" Priority="0" Enabled="True" Type="RepeatFT" Group="Filter" />
+      <Children Column="url" NewColumn="city" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="city" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children Script="上海" Count="1" Revert="False" Column="Text" Priority="0" Enabled="True" Type="RegexFT" Group="Filter" />
+    </Children>
+    <Children Name="网页采集器-通用" Type="SmartCrawler" URL="http://bj.fang.anjuke.com/loupan/canshu-251751.html?from=loupan_tab" RootXPath="" IsMultiData="One" URLFilter="https://www.dianping.com/shopall/2/0" ContentFilter="" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <HttpSet URL="http://bj.fang.anjuke.com/loupan/canshu-251751.html?from=loupan_tab" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Host: sh.lianjia.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Referer: http://sh.lianjia.com/xiaoqu/pudongxinqu/rs&#xA;Cookie:ctid=14;expires=Tue;03-Jun-2016 08:29:40 GMT=;Max-Age=10800;path=/;domain=lianjia.com;03-Jun-2016 07:43:06 GMT=;aQQ_ajkguid=297C634D-41AD-801C-8806-SX0504154306;04-May-2017 07:43:06 GMT=;sessid=928D4768-17CC-A31C-CE20-SX0504154306;select_city=310000;05-May-2016 07:39:37 GMT=;05-May-2016 05:12:01 GMT=;logger_session=04fc647541648916f02c196be90416c6;04-May-2016 08:12:01 GMT=;lianjia_uuid=09d7c5c6c0648d5ed0a23a1cec2554a4;02-May-26 05:12:03 GMT=;lianjia_ssid=b1df96aa-9105-4268-a62d-5135d882d340;04-May-16 05:42:03 GMT=;02-May-2016 07:58:55 GMT=;25-Apr-2016 10:17:43 GMT=;24-Apr-2016 09:49:06 GMT=;23-Apr-16 10:19:06 GMT=;20-Apr-2016 07:16:23 GMT=;20-Apr-2016 07:04:03 GMT=;19-Apr-2016 10:04:04 GMT=;Hm_lvt_efa595b768cc9dc7d7f9823368e795f1=1448962258;miyue_hide=%20index%20%20index%20;lianjia_token=1.00d071de9c67232cada8481ddb370dc5bf;CNZZDATA1253492439=1517051447-1456825654-http%253A%252F%252Fbj.lianjia.com%252F%7C1457523199;CNZZDATA1254525948=1648576429-1456823381-http%253A%252F%252Fbj.lianjia.com%252F%7C1457522174;CNZZDATA1255633284=1453068874-1456824283-http%253A%252F%252Fbj.lianjia.com%252F%7C1457518273;CNZZDATA1255604082=954323645-1456824402-http%253A%252F%252Fbj.lianjia.com%252F%7C1457521865;_qzja=1.783490784.1456826188682.1457520368276.1457523536152.1457523543323.1457523562064.0.0.0.16.4;_jzqx=1.1446617231.1458633590.27.jzqsr=bj%2Efang%2Elianjia%2Ecom|jzqct=/loupan/pg5bp300ep360/.jzqsr=bj%2Elianjia%2Ecom|jzqct=/ershoufang/;_jzqy=1.1446173025.1460218600.39.jzqsr=baidu.jzqsr=baidu;_jzqa=1.1379173988059079000.1446170008.1460218600.1460424315.110;_smt_uid=566a2605.445893cd;_gat=1;ubt_load_interval_b=1461048933231;ubt_load_interval_c=1461048933231;CNZZDATA1257993097=2080063891-1461030713-%7C1461044225;ubta=2299869246.2487901422.1459386193064.1461048932591.1461048933351.58;ubtb=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtc=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtd=17;_ga=GA1.2.2126031770.1446170005&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+    </Children>
+    <Children Name="安居客小区列表" Type="SmartCrawler" URL="http://bj.fang.anjuke.com/?from=loupan_index_crumb" RootXPath="//*[@class=&quot;key-list&quot;]/div" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <HttpSet URL="http://bj.fang.anjuke.com/?from=loupan_index_crumb" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:ctid=14;expires=Mon;03-Jun-2016 08:29:41 GMT=;Max-Age=31536000;path=/;domain=anjuke.com;tuangou_list_ids=1%3A1;03-Jun-2016 07:39:37 GMT=;aQQ_ajkguid=72E2B778-FBF9-F206-9043-SX0403182635;04-May-2017 07:39:37 GMT=;sessid=B52B5B0C-D66B-DDD2-6677-SX0403182635;03-Jun-2016 05:12:01 GMT=;31-May-2016 07:58:56 GMT=;24-May-2016 10:17:43 GMT=;24-Apr-2017 10:17:43 GMT=;23-May-2016 09:49:06 GMT=;19-May-2016 06:25:00 GMT=;08-May-2016 06:55:50 GMT=;08-May-2016 03:52:16 GMT=;08-May-2016 03:31:18 GMT=;08-Apr-2017 03:31:18 GMT=;08-May-2016 01:46:32 GMT=;08-Apr-2017 01:46:32 GMT=;07-May-2016 14:51:43 GMT=;07-Apr-2017 14:51:43 GMT=;05-May-2016 04:56:34 GMT=;05-May-2016 03:52:47 GMT=;05-Apr-2017 03:52:47 GMT=;05-May-2016 03:26:15 GMT=;05-May-2016 02:38:59 GMT=;05-May-2016 01:38:55 GMT=;05-Apr-2017 01:38:55 GMT=;05-May-2016 01:18:55 GMT=;05-Apr-2017 01:18:55 GMT=;04-May-2016 14:58:04 GMT=;04-May-2016 13:36:35 GMT=;04-Apr-2017 13:36:35 GMT=;04-May-2016 13:29:37 GMT=;04-Apr-2017 13:29:37 GMT=;04-May-2016 13:19:41 GMT=;04-Apr-2017 13:19:41 GMT=;03-May-2016 13:13:39 GMT=;03-Apr-2017 13:13:39 GMT=;03-May-2016 10:55:26 GMT=;03-May-2016 10:38:49 GMT=;03-May-2016 10:26:35 GMT=;03-Apr-2017 10:26:35 GMT=;=&#xA;" />
+      <Children Name="楼盘名称" XPath="/div[1]/div[1]/h3[1]/a[1]" IsHtml="False" />
+      <Children Name="点评数量" XPath="/div[1]/div[1]/a[1]" IsHtml="False" />
+      <Children Name="商圈" XPath="/div[1]/p[1]/a[1]" IsHtml="False" />
+      <Children Name="特点1" XPath="/div[1]/div[2]/span[1]" IsHtml="False" />
+      <Children Name="特点2" XPath="/div[1]/div[2]/span[2]" IsHtml="False" />
+      <Children Name="特点3" XPath="/div[1]/div[2]/span[3]" IsHtml="False" />
+      <Children Name="特点4" XPath="/div[1]/div[2]/span[4]" IsHtml="False" />
+      <Children Name="url" XPath="/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="售房状态" XPath="/div[1]/div[1]/i[1]" IsHtml="False" />
+    </Children>
+    <Children Name="安居客相册" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="http://bj.fang.anjuke.com/loupan/xiangce-400776.html?from=loupan_tab###" Column="picturl" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" GEName="" Column="picturl" NewColumn="city id" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="/html[1]/body[1]/div[2]/div[1]" IsManyData="False" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="piclist" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children Former="imageAlbumData =" End="/**/" HaveStartEnd="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="StrExtractTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="\s|;" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="全部图片|画报" NewColumn="" Column="piclist" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="piclist" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children ReplaceText="'big'" IsMultiYield="False" Index="0" Script="big" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceText="'small'" IsMultiYield="False" Index="0" Script="small" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children Column="picturl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ExecuteType="OnlyInsert" TableName="xiangce" Column="piclist" Enabled="True" Type="DbEX" Group="Executor" Connector="MongoDB-anjuke" />
+      <Children IsExecute="False" AddTask="False" ETLSelector="相册存储方案" Insert="" Column="Content" Enabled="True" Type="EtlEX" Group="Transformer" />
+    </Children>
+    <Children Name="相册存储方案" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Column="从数据表生成" Enabled="False" Position="0" MergeType="Append" Type="TableGE" Group="Generator" />
+      <Children ReplaceText="]" IsMultiYield="False" Index="0" Script=",\]" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Column="Content" NewColumn="" Enabled="True" OneOutput="False" Type="JsonTF" Group="Transformer" />
+      <Children ScriptWorkMode="文档列表" Script="dic={r[0]:r[1]['big'] for r in zip([p for p in piclist.split(' ') if p.strip()!=''],Content)}&#xD;&#xA;result=[]&#xD;&#xA;for item in dic:&#xD;&#xA;	for value in dic[item]:&#xD;&#xA;		result.append({'type':item,'pic':value});&#xD;&#xA;result&#xD;&#xA;	" Column="Content" NewColumn="city id" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="\w{15,}" NewColumn="pid" Column="pic" Enabled="True" OneOutput="True" Type="RegexTF" Group="Transformer" />
+      <Children MergeWith="id type pid" Format="E:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg" Column="city" NewColumn="save" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children SavePath="[save]" Column="pic" Enabled="True" Type="SaveFileEX" Group="Executor" />
+    </Children>
+    <Children Name="安居客楼盘详情" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="http://bj.fang.anjuke.com/loupan/canshu-251751.html?from=loupan_tab" Column="detailurl" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="网页采集器-通用" Column="detailurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;container&quot;]/div[1]/div[1]/div//li" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="True" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children XPath="li[1]/div[1]" IsManyData="False" GetText="False" GetCount="False" IsInsertNull="False" Column="OHTML" NewColumn="key" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children XPath="/li[1]/div[2]" IsManyData="False" GetText="False" GetCount="False" IsInsertNull="False" Column="OHTML" NewColumn="value" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children Column="Text" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="value" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="\[\w+\]" NewColumn="" Column="value" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceText=" " IsMultiYield="False" Index="0" Script="\r|\n" NewColumn="" Column="value" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="value" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="key" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="/" NewColumn="" Column="key" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ValueColumn="value" Column="key" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="DictTF" Group="Transformer" />
+    </Children>
+    <Children Name="安居客评价" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="http://bj.fang.anjuke.com/loupan/dianping-251751.html?from=loupan_tab" Column="dpurl" Name="" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="安居客用户评价" Column="dpurl" NewColumn="city id" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children ExecuteType="OnlyInsert" TableName="dianping" Column="city" Enabled="True" Type="DbEX" Group="Executor" Connector="MongoDB-anjuke" />
+    </Children>
+    <Children Name="安居客用户评价" Type="SmartCrawler" URL="http://bj.fang.anjuke.com/loupan/dianping-251751.html?from=loupan_tab" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <HttpSet URL="http://bj.fang.anjuke.com/loupan/dianping-251751.html?from=loupan_tab" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:ctid=14;expires=Mon;03-Jun-2016 08:29:42 GMT=;Max-Age=86400;path=/;domain=anjuke.com;lp_lt_ut=3ab3beef31093e4fe4f5435cdb971a6f;05-May-2016 08:29:42 GMT=;03-Jun-2016 07:39:38 GMT=;05-May-2016 07:39:38 GMT=;03-Jun-2016 05:12:01 GMT=;05-May-2016 05:12:01 GMT=;31-May-2016 07:58:56 GMT=;02-May-2016 07:58:56 GMT=;24-May-2016 10:17:45 GMT=;25-Apr-2016 10:17:45 GMT=;23-May-2016 09:49:08 GMT=;24-Apr-2016 09:49:08 GMT=;08-May-2016 06:55:50 GMT=;09-Apr-2016 06:55:50 GMT=;08-May-2016 03:52:18 GMT=;09-Apr-2016 03:52:18 GMT=;08-May-2016 03:31:22 GMT=;09-Apr-2016 03:31:22 GMT=;08-May-2016 01:46:34 GMT=;aQQ_ajkguid=78179C57-EC38-AC29-7356-SX0403194514;08-Apr-2017 01:46:34 GMT=;sessid=65599E1B-881D-FDB1-A428-SX0403194514;09-Apr-2016 01:46:35 GMT=;07-May-2016 14:52:49 GMT=;07-Apr-2017 14:52:49 GMT=;08-Apr-2016 14:52:49 GMT=;05-May-2016 04:56:35 GMT=;06-Apr-2016 04:56:35 GMT=;05-May-2016 03:52:49 GMT=;06-Apr-2016 03:52:49 GMT=;05-May-2016 03:26:16 GMT=;06-Apr-2016 03:26:16 GMT=;05-May-2016 02:39:00 GMT=;06-Apr-2016 02:39:01 GMT=;04-May-2016 13:44:02 GMT=;04-Apr-2017 13:44:02 GMT=;05-Apr-2016 13:44:02 GMT=;03-May-2016 11:45:14 GMT=;04-Apr-2016 11:45:14 GMT=;03-Apr-2017 11:45:14 GMT=;=&#xA;" />
+      <Children Name="用户名" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[3]/ul[1]/li[1]/div[1]/div[2]/div[1]/a[1]/span[1]" IsHtml="False" />
+      <Children Name="内容" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[3]/ul[1]/li[2]/div[1]/div[2]/h4[1]" IsHtml="False" />
+      <Children Name="时间" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[3]/ul[1]/li[2]/div[1]/div[2]/div[2]/span[1]" IsHtml="False" />
+      <Children Name="评论数" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[3]/ul[1]/li[1]/div[1]/div[2]/div[2]/div[1]/a[1]/em[1]" IsHtml="False" />
+      <Children Name="点赞数" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[3]/ul[1]/li[2]/div[1]/div[2]/div[2]/div[1]/a[2]/em[1]" IsHtml="False" />
+      <Children Name="差评数" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[3]/ul[1]/li[1]/div[1]/div[2]/div[2]/div[1]/a[3]/em[1]" IsHtml="False" />
+    </Children>
+    <Children Name="安居客户型列表" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="http://bj.fang.anjuke.com/loupan/huxing-251751.html?from=loupan_tab" Column="hxurl" Name="" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="安居客户型表" Column="hxurl" NewColumn="city" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="面积" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="：" NewColumn="" Column="名称" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children CrawlerSelector="安居客户型详情" Column="户型ID" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="户型描述:" NewColumn="" Column="描述" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="小区ID" Column="户型ID" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="1" Script="\d+" NewColumn="hxID" Column="户型ID" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children ExecuteType="OnlyInsert" TableName="huxing" Column="名称" Enabled="True" Type="DbEX" Group="Executor" Connector="MongoDB-anjuke" />
+      <Children IsExecute="False" AddTask="False" ETLSelector="户型图存储" Column="户型ID" Enabled="True" Type="EtlEX" Group="Transformer" />
+    </Children>
+    <Children Name="安居客户型表" Type="SmartCrawler" URL="http://bj.fang.anjuke.com/loupan/huxing-251751.html?from=loupan_tab" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <HttpSet URL="http://bj.fang.anjuke.com/loupan/huxing-251751.html?from=loupan_tab" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:ctid=14;expires=Tue;03-Jun-2016 08:29:41 GMT=;Max-Age=31536000;path=/;domain=anjuke.com;03-Jun-2016 07:39:39 GMT=;03-Jun-2016 05:12:02 GMT=;31-May-2016 07:58:56 GMT=;24-May-2016 10:17:45 GMT=;23-May-2016 09:49:08 GMT=;08-May-2016 06:55:55 GMT=;08-May-2016 03:52:19 GMT=;08-May-2016 03:31:22 GMT=;08-May-2016 01:46:36 GMT=;07-May-2016 14:52:50 GMT=;aQQ_ajkguid=2CF5E7F4-CDDF-36F6-E7E0-SX0404215520;07-Apr-2017 14:52:50 GMT=;sessid=91809336-DC4E-0767-109F-SX0404215520;05-May-2016 04:56:36 GMT=;05-May-2016 03:52:50 GMT=;05-May-2016 03:26:16 GMT=;05-May-2016 02:39:02 GMT=;05-May-2016 01:41:28 GMT=;05-Apr-2017 01:41:28 GMT=;04-May-2016 15:00:19 GMT=;04-Apr-2017 15:00:19 GMT=;04-May-2016 13:55:20 GMT=;04-Apr-2017 13:55:20 GMT=;=&#xA;" />
+      <Children Name="状态" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/a[1]/div[1]/div[1]/i[1]" IsHtml="False" />
+      <Children Name="名称" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/a[1]/div[1]/div[1]/span[1]" IsHtml="False" />
+      <Children Name="面积" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[3]/a[1]/div[1]/div[2]/span[2]" IsHtml="False" />
+      <Children Name="户型ID" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+    <Children Name="安居客户型详情" Type="SmartCrawler" URL="http://bj.fang.anjuke.com/huxing/251751-109269.html" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <HttpSet URL="http://bj.fang.anjuke.com/huxing/251751-109269.html" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:ctid=14;expires=Mon;03-Jun-2016 08:29:42 GMT=;Max-Age=31536000;path=/;domain=anjuke.com;03-Jun-2016 07:39:40 GMT=;03-Jun-2016 05:12:01 GMT=;31-May-2016 07:58:57 GMT=;24-May-2016 10:17:45 GMT=;23-May-2016 09:49:08 GMT=;08-May-2016 06:55:52 GMT=;08-May-2016 03:52:19 GMT=;08-May-2016 03:31:22 GMT=;08-May-2016 01:46:36 GMT=;07-May-2016 14:52:50 GMT=;aQQ_ajkguid=C2A29821-DF1F-A653-0136-SX0403195549;07-Apr-2017 14:52:50 GMT=;sessid=8A02FBB8-33FF-B25A-4FB5-SX0403195549;05-May-2016 04:56:36 GMT=;05-May-2016 03:52:50 GMT=;05-May-2016 03:26:17 GMT=;05-May-2016 02:39:02 GMT=;05-May-2016 01:41:28 GMT=;05-Apr-2017 01:41:28 GMT=;04-May-2016 15:00:19 GMT=;04-May-2016 13:52:53 GMT=;04-Apr-2017 13:52:53 GMT=;03-May-2016 11:55:49 GMT=;03-Apr-2017 11:55:49 GMT=;=&#xA;" />
+      <Children Name="首付" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[2]/span" IsHtml="False" />
+      <Children Name="参考月供" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[3]/span" IsHtml="False" />
+      <Children Name="参考面积" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[4]/span" IsHtml="False" />
+      <Children Name="朝向" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[5]/span" IsHtml="False" />
+      <Children Name="层高" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[6]/span" IsHtml="False" />
+      <Children Name="总价" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[1]/span" IsHtml="False" />
+      <Children Name="户型特色" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/p[7]/span" IsHtml="False" />
+      <Children Name="描述" XPath="//*[@id=&quot;content&quot;]/div[1]/div[3]/div[2]/div[2]" IsHtml="False" />
+    </Children>
+    <Children Name="户型图存储" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="http://bj.fang.anjuke.com/huxing/400776-153783.html" Column="户型ID" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children CrawlerSelector="安居客户型图列表" Column="户型ID" NewColumn="city hxID 小区ID" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Column="名称" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ExecuteType="OnlyInsert" TableName="huxingtulist" Column="大图地址" Enabled="True" Type="DbEX" Group="Executor" Connector="MongoDB-anjuke" />
+      <Children IsExecute="False" AddTask="False" NewColumn="" ETLSelector="户型图存储方案" Column="大图地址" Enabled="True" Type="EtlEX" Group="Transformer" />
+    </Children>
+    <Children Name="安居客户型图列表" Type="SmartCrawler" URL="http://bj.fang.anjuke.com/huxing/400776-153783.html" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <HttpSet URL="http://bj.fang.anjuke.com/huxing/400776-153783.html" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:ctid=14;expires=Tue;03-Jun-2016 08:29:43 GMT=;Max-Age=31536000;path=/;domain=anjuke.com;03-Jun-2016 07:39:40 GMT=;03-Jun-2016 05:12:02 GMT=;31-May-2016 07:58:57 GMT=;24-May-2016 10:17:46 GMT=;23-May-2016 09:49:08 GMT=;08-May-2016 06:55:53 GMT=;08-May-2016 03:52:19 GMT=;08-May-2016 03:31:22 GMT=;08-May-2016 01:46:38 GMT=;07-May-2016 14:52:51 GMT=;aQQ_ajkguid=4E4A7494-8C47-44D5-6D9D-SX0404221921;07-Apr-2017 14:52:51 GMT=;sessid=E1A8ADBE-DAA5-44B0-4BB4-SX0404221921;05-May-2016 04:56:37 GMT=;05-May-2016 03:52:50 GMT=;05-May-2016 03:26:17 GMT=;05-May-2016 02:39:02 GMT=;04-May-2016 14:19:21 GMT=;04-Apr-2017 14:19:21 GMT=;=&#xA;" />
+      <Children Name="大图地址" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/div[3]/div[1]/div[2]/div[1]/ul[1]/li[1]/img[1]/@data-url[1]" IsHtml="False" />
+      <Children Name="名称" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/div[3]/div[1]/div[2]/div[1]/ul[1]/li[5]/img[1]/@alt[1]" IsHtml="False" />
+    </Children>
+    <Children Name="户型图存储方案" Type="SmartETLTool" MaxThreadCount="40" GenerateMode="并行模式" CreateTime="2016/5/1 16:29:03" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Column="从数据表生成" Enabled="False" Position="0" MergeType="Append" Type="TableGE" Group="Generator" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com{0}" Column="大图地址" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Former="loadImage(&quot;" End="&quot;, function(img)" HaveStartEnd="False" Column="Content" NewColumn="pic" Enabled="True" OneOutput="True" IsMultiYield="False" Type="StrExtractTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="2" Script="\d{5,}" NewColumn="picid" Column="大图地址" Enabled="True" OneOutput="True" Type="RegexTF" Group="Transformer" />
+      <Children MergeWith="hxID 小区ID picid" Format="E:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg" Column="city" NewColumn="save" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children SavePath="[save]" Column="pic" Enabled="True" Type="SaveFileEX" Group="Executor" />
+    </Children>
+    <Children Name="获取参数更新" Type="SmartETLTool" MaxThreadCount="100" GenerateMode="并行模式" CreateTime="2016/5/4 16:25:19" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Mount="-1" Column="" Enabled="True" Position="0" MergeType="Append" Type="DbGE" Group="Generator" Connector="MongoDB-anjuke" Table="main" />
+      <Children IsMultiYield="False" ETLSelector="详细参数" Column="商圈" Enabled="True" Type="EtlTF" Group="Transformer" />
+      <Children Column="pos_lng" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="pos_lat" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="pos_name" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ExecuteType="InsertOrUpdate" TableName="main" Column="id" Enabled="True" Type="DbEX" Group="Executor" Connector="MongoDB-anjuke" />
+    </Children>
+    <Children Name="详细参数" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/4 16:25:19" Description="任务描述" ScriptPath="D:\TopCoder\Hawk-Projects\安居客\">
+      <Children Content="nanjing" Column="city" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children Content="248302" Column="id" Enabled="True" Position="0" MergeType="Merge" Type="TextGE" Group="Generator" />
+      <Children MergeWith="city" Format="http://{1}.fang.anjuke.com/loupan/{0}.html?from=loupan_tab" Column="id" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Former="groupsojData =" End="//from来源" HaveStartEnd="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="StrExtractTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="value.strip()[:-1]" Column="Content" NewColumn="详细json" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="id" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="city" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+    </Children>
+  </Doc>
+</root>
