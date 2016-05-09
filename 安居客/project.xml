@@ -28,6 +28,11 @@
         <Children Name="打开新文件" Size="0" Description="" />
         <Children Name="打开新文件" Size="0" Description="" />
         <Children Name="打开新文件" Size="0" Description="" />
+        <Children Name="打开新文件" Size="0" Description="" />
+        <Children Name="打开新文件" Size="0" Description="" />
+        <Children Name="打开新文件" Size="0" Description="" />
+        <Children Name="打开新文件" Size="0" Description="" />
+        <Children Name="打开新文件" Size="0" Description="" />
       </Children>
     </DBConnections>
     <Children Name="生成所有小区" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="0001/1/1 0:00:00" Description="" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">

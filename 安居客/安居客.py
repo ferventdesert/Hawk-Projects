@@ -12,6 +12,13 @@ def find(ar,filter):
 		if filter(r):
 			return r;
 	return None;
+
+def execute(ar,filter,action):
+	for r in ar:
+		if filter(r):
+			action(r);
+
+	
 unabled=[户型图存储方案,户型图存储,安居客户型列表,安居客评价,安居客楼盘详情,相册存储方案,安居客相册];
 for e in unabled:
 	e.etls[0].Enabled=False
@@ -21,11 +28,18 @@ for e in unabled:
 #下面是可能需要修改的配置:
 ###################################################
 
+重试次数='3'
+
+def work(x):
+	x.MaxTryCount=重试次数;
+execute(安居客核心流程.etls,lambda x:x.TypeName=='从爬虫转换',work)
 
 ##要跳过的页数，注意是翻页的数量
 页数范围控制.Skip=0
 ##要获取的页数，可以设置的非常大，这样就一直会到末尾
 页数范围控制.Take=20000000   
+
+
 
 debug=True
 

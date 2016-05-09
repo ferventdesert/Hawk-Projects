@@ -1,0 +1,29 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\新浪新闻\project.xml">
+    <DBConnections />
+    <Children Name="主流程" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/9 21:11:46" Description="任务描述" ScriptPath="">
+      <Children StartURL="http://news.sina.com.cn/society/" DelayTime="20" Column="url" Enabled="True" Position="0" MergeType="Append" Type="BfsGE" Group="Generator" />
+      <Children MaxTryCount="1" CrawlerSelector="news抓取" Prefix="http://news.sina.com.cn/" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Revert="False" Column="正文" Enabled="True" Type="NullFT" Group="Filter" />
+      <Children IsMultiYield="False" Index="0" Script="\w{10,}" NewColumn="ID" Column="url" Enabled="True" OneOutput="True" Type="RegexTF" Group="Transformer" />
+      <Children Column="ID" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="新闻抓取" Type="SmartCrawler" URL="http://news.sina.com.cn/s/wh/2016-05-09/doc-ifxryhhi8514160.shtml" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/9 21:11:46" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="http://news.sina.com.cn/s/wh/2016-05-09/doc-ifxryhhi8514160.shtml" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="正文" XPath="/html[1]/body[1]/div[2]/div[1]/div[6]/div[1]/div[1]" IsHtml="False" />
+      <Children Name="标题" XPath="/html[1]/head[1]/title[1]" IsHtml="False" />
+      <Children Name="日期" XPath="/html[1]/body[1]/div[2]/div[1]/div[4]/span[1]" IsHtml="False" />
+    </Children>
+    <Children Name="news抓取" Type="SmartCrawler" URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/9 21:44:10" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="正文" XPath="//div[@id=&quot;artibody&quot;]" IsHtml="False" />
+      <Children Name="标题" XPath="/html[1]/head[1]/title[1]" IsHtml="False" />
+      <Children Name="日期" XPath="/html[1]/body[1]/div[2]/div[1]/div[4]/span[1]" IsHtml="False" />
+      <Children Name="面包屑" XPath="/html[1]/body[1]/div[2]/div[1]/div[2]/div[1]/a[1]" IsHtml="False" />
+    </Children>
+    <Children Name="网页采集器" Type="SmartCrawler" URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/9 21:44:10" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="标题" XPath="/html[1]/head[1]/title[1]" IsHtml="False" />
+    </Children>
+  </Doc>
+</root>
