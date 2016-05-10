@@ -1,0 +1,64 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="C:\Users\zhaoyiming-laptop\Desktop\关系计算\b.xml">
+    <DBConnections />
+    <Children Name="booklist_spider" Type="SmartCrawler" URL="https://www.amazon.cn/s/ref=lp_658403051_pg_2?rh=n%3A658390051%2Cn%3A!658391051%2Cn%3A658403051&amp;page=2&amp;ie=UTF8&amp;qid=1462260218" RootXPath="/html[1]/body[1]/div[1]/div[1]/div[3]/div[2]/div[1]/div[4]/div[3]/div[3]/ul[1]/li" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/7 0:22:11" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="https://www.amazon.cn/s/ref=lp_658403051_pg_2?rh=n%3A658390051%2Cn%3A!658391051%2Cn%3A658403051&amp;page=2&amp;ie=UTF8&amp;qid=1462260218" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:session-id=480-7094094-6774037;path=/;domain=.www.amazon.cn;expires=Mon;10-May-2004 01:40:05 GMT=;session-id-time=2092980562l;session-token=-;ubid-acbcn=-;at-main=-;x-acbcn=-;UserPref=-;Domain=.amazon.cn;Expires=Mon;05-May-2036 01:40:05 GMT=;Path=/;09-May-2004 11:34:16 GMT=;04-May-2036 11:34:16 GMT=;09-May-2004 10:55:41 GMT=;04-May-2036 10:55:41 GMT=;08-May-2004 14:24:35 GMT=;03-May-2036 14:24:35 GMT=;08-May-2004 08:18:29 GMT=;03-May-2036 08:18:29 GMT=;08-May-2004 07:41:58 GMT=;03-May-2036 07:41:58 GMT=;06-May-2004 16:35:07 GMT=;01-May-2036 16:35:08 GMT=;06-May-2004 16:32:05 GMT=;01-May-2036 16:32:05 GMT=;06-May-2004 16:17:42 GMT=;01-May-2036 16:17:42 GMT=;03-May-2004 07:33:40 GMT=;28-Apr-2036 07:33:40 GMT=;03-May-2004 07:29:22 GMT=;28-Apr-2036 07:29:22 GMT=;=&#xA;" />
+      <Children Name="book_name" XPath="/div[1]/div[1]/div[1]/div[2]/div[2]/a[1]/h2[1]" IsHtml="False" />
+      <Children Name="book_date" XPath="/div[1]/div[1]/div[1]/div[2]/div[2]/span[3]" IsHtml="False" />
+      <Children Name="book_auth" XPath="/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/span[2]" IsHtml="False" />
+      <Children Name="book_auth2" XPath="/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/span[3]" IsHtml="False" />
+      <Children Name="book_state" XPath="/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/a[1]/h3[1]" IsHtml="False" />
+      <Children Name="book_price" XPath="/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[2]/a[1]/span[1]" IsHtml="False" />
+      <Children Name="book_star" XPath="/div[1]/div[1]/div[1]/div[2]/div[3]/div[2]/div[1]/span[1]/span[1]/a[1]/i[1]/span[1]" IsHtml="False" />
+      <Children Name="book_star_num" XPath="/div[1]/div[1]/div[1]/div[2]/div[3]/div[2]/div[1]/a[1]" IsHtml="False" />
+      <Children Name="book_link" XPath="/div[1]/div[1]/div[1]/div[2]/div[2]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+    <Children Name="book_spider" Type="SmartCrawler" URL="https://www.amazon.cn/%E5%B0%B1%E5%96%9C%E6%AC%A2%E4%BD%A0%E7%9C%8B%E4%B8%8D%E6%83%AF%E6%88%91%E5%8F%88%E5%B9%B2%E4%B8%8D%E6%8E%89%E6%88%91%E7%9A%84%E6%A0%B7%E5%AD%90-%E7%99%BD%E8%8C%B6/dp/B00VUSEHLE/ref=sr_1_21?s=books&amp;amp;ie=UTF8&amp;amp;qid=1462552509&amp;amp;sr=1-21" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/7 0:22:15" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="https://www.amazon.cn/%E5%B0%B1%E5%96%9C%E6%AC%A2%E4%BD%A0%E7%9C%8B%E4%B8%8D%E6%83%AF%E6%88%91%E5%8F%88%E5%B9%B2%E4%B8%8D%E6%8E%89%E6%88%91%E7%9A%84%E6%A0%B7%E5%AD%90-%E7%99%BD%E8%8C%B6/dp/B00VUSEHLE/ref=sr_1_21?s=books&amp;amp;ie=UTF8&amp;amp;qid=1462552509&amp;amp;sr=1-21" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:session-id=476-9744401-1683664;path=/;domain=.amazon.cn;expires=Mon;10-May-2004 01:40:10 GMT=;session-id-time=2082729601l;session-token=-;ubid-acbcn=-;at-main=-;x-acbcn=-;UserPref=-;31-Dec-2035 16:00:01 GMT=;09-May-2004 11:34:17 GMT=;x-wl-uid=1TDbFrOd0TddBgARtG4bLPcfHGoi97gIrVjV+aLtADQOMRU+62Ni0IZ+bC19TOaepEoTiw8kd/0s=;09-May-2004 10:55:43 GMT=;08-May-2004 14:24:32 GMT=;08-May-2004 08:18:30 GMT=;08-May-2004 07:41:59 GMT=;06-May-2004 16:38:28 GMT=;06-May-2004 16:38:24 GMT=;06-May-2004 16:35:07 GMT=;06-May-2004 16:32:05 GMT=;06-May-2004 16:17:53 GMT=;03-May-2004 08:16:13 GMT=;03-May-2004 08:16:11 GMT=;=&#xA;" />
+      <Children Name="book_descrption" XPath="/html[1]/body[1]/div[2]/div[3]/div[5]/div[17]/noscript[1]/div[1]" IsHtml="False" />
+      <Children Name="book_comment_url" XPath="/html[1]/body[1]/div[2]/div[3]/div[22]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+    <Children Name="booklist_etl" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/7 0:22:18" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children MinValue="2" MaxValue="75" Interval="1" RepeatCount="1" Column="id" Enabled="True" Position="0" MergeType="Append" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="" Format="https://www.amazon.cn/s/ref=lp_658403051_pg_2?rh=n%3A658390051%2Cn%3A!658391051%2Cn%3A658403051&amp;page={0}&amp;ie=UTF8&amp;qid=1462260218" Column="id" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="booklist_spider" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="book_name" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="book_state" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="book_price" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="book_star" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Column="book_link" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="book_etl" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/7 0:28:54" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Position="0" MergeType="Append" ETLSelector="booklist_etl" Insert="booklist" Column="" Name="" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children MaxTryCount="1" DelayTime="" CrawlerSelector="book_spider" Column="book_link" NewColumn="content" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+    </Children>
+    <Children Name="commit_spider" Type="SmartCrawler" URL="https://www.amazon.cn/product-reviews/B00VUSEHLE/ref=cm_cr_arp_d_paging_btm_2?ie=UTF8&amp;showViewpoints=1&amp;sortBy=helpful&amp;pageNumber=2" RootXPath="/html[1]/body[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[2]/div[3]/div" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/8 15:45:43" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="https://www.amazon.cn/product-reviews/B00VUSEHLE/ref=cm_cr_arp_d_paging_btm_2?ie=UTF8&amp;showViewpoints=1&amp;sortBy=helpful&amp;pageNumber=2" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:session-id=475-8953937-3174737;path=/;domain=.www.amazon.cn;expires=Sat;10-May-2004 01:40:15 GMT=;session-id-time=2082787201l;session-token=-;ubid-acbcn=-;at-main=-;x-acbcn=-;UserPref=-;Domain=.amazon.cn;Expires=Tue;01-Jan-2036 08:00:01 GMT=;Path=/;08-May-2004 14:24:41 GMT=;08-May-2004 08:18:32 GMT=;08-May-2004 07:42:21 GMT=;=&#xA;" />
+      <Children Name="commit_star" XPath="/div[1]/a[1]/i[1]/span[1]" IsHtml="False" />
+      <Children Name="commit_title" XPath="/div[1]/a[2]" IsHtml="False" />
+      <Children Name="commit_nick" XPath="/div[2]/span[1]/a[1]" IsHtml="False" />
+      <Children Name="commit_time" XPath="/div[2]/span[4]" IsHtml="False" />
+      <Children Name="commit_content" XPath="/div[4]/span[1]" IsHtml="False" />
+      <Children Name="commit_useful" XPath="/div[5]/div[1]/span[3]/span[1]/span[1]/span[1]" IsHtml="False" />
+    </Children>
+    <Children Name="commit_etl" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/8 15:45:43" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Content="https://www.amazon.cn/product-reviews/B00VUSEHLE/ref=cm_cr_arp_d_paging_btm_2?ie=UTF8&amp;showViewpoints=1&amp;sortBy=helpful" Column="book_comment_url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children MinValue="1" MaxValue="2" Interval="1" RepeatCount="1" Column="id" Name="" Enabled="True" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="book_comment_url" Format="{1}&amp;pageNumber={0}" Column="id" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="commit_spider" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="commit_star" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Revert="False" Column="commit_star" Enabled="True" Type="NullFT" Group="Filter" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar=" 于" Column="commit_time" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="commit_useful" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Table="commit" Column="commit_star" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="all_etl" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/8 17:04:41" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Position="0" MergeType="Append" ETLSelector="book_etl" Insert="book" Column="" Enabled="True" Type="EtlGE" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="book_spider" Column="book_link" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children MergeWith="" Format="{0}&amp;showViewpoints=1" Column="book_link" NewColumn="comment_url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children AddTask="True" NewColumn="book_name" ETLSelector="commit_etl" Column="comment_url" Enabled="True" Type="EtlEX" Group="Transformer" />
+      <Children Column="book_comment_url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Table="all" Column="book_link" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+  </Doc>
+</root>
