@@ -1,7 +1,7 @@
 <root>
   <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\新浪新闻\project.xml">
     <DBConnections />
-    <Children Name="主流程" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/9 21:11:46" Description="任务描述" ScriptPath="">
+    <Children Name="新浪新闻" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/9 21:11:46" Description="任务描述" ScriptPath="">
       <Children StartURL="http://sports.sina.com.cn/" DelayTime="20" Column="url" Enabled="True" Position="0" MergeType="Append" Type="BfsGE" Group="Generator" />
       <Children MaxTryCount="1" CrawlerSelector="news抓取" Prefix="20\d{2}\-\d{1,2}\-\d{1,2}" IsRegex="True" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
       <Children IsMultiYield="False" Index="0" Script="\w{13,}" NewColumn="ID" Column="url" Enabled="True" OneOutput="True" Type="RegexTF" Group="Transformer" />
@@ -9,7 +9,28 @@
       <Children Revert="False" Column="正文" Enabled="True" Type="NullFT" Group="Filter" />
       <Children Table="测试" Column="ID" Enabled="True" Type="TableEX" Group="Executor" />
     </Children>
-    <Children Name="news抓取" Type="SmartCrawler" URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/9 21:44:10" Description="任务描述" ScriptPath="">
+    <Children Name="搜狐新闻" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/10 12:21:41" Description="任务描述" ScriptPath="">
+      <Children MinValue="857" MaxValue="957" Interval="1" RepeatCount="1" Column="id" Enabled="True" Position="0" MergeType="Append" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="" Format="http://news.sohu.com/1/0903/61/subject212846158_{0}.shtml" Column="id" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器-通用" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Revert="False" Column="Content" Enabled="True" Type="NullFT" Group="Filter" />
+      <Children XPath="/html[1]/body[1]/center[1]/table[3]/tr[1]/td[1]/table[2]/tr[1]/td[1]/a" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="&quot;" Column="OHTML" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="url" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="搜狐新闻正文" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Table="搜狐新闻" Column="来源" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="网页采集器-通用" Type="SmartCrawler" URL="http://news.sohu.com/1/0903/61/subject212846158.shtml" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/10 12:21:41" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://news.sohu.com/1/0903/61/subject212846158.shtml" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+    </Children>
+    <Children Name="搜狐新闻正文" Type="SmartCrawler" URL="http://news.sohu.com/20160509/n448450214.shtml" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/10 12:21:41" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://news.sohu.com/20160509/n448450214.shtml" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="来源" XPath="/html[1]/body[1]/div[5]/div[1]/div[2]/div[2]/div[1]/div[2]/span[1]/span[1]/span[1]" IsHtml="False" />
+      <Children Name="正文" XPath="/html[1]/body[1]/div[5]/div[1]/div[2]/div[4]/div[1]" IsHtml="False" />
+      <Children Name="日期" XPath="/html[1]/body[1]/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]" IsHtml="False" />
+    </Children>
+    <Children Name="新浪新闻正文" Type="SmartCrawler" URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/10 13:27:03" Description="任务描述" ScriptPath="">
       <HttpSet URL="http://edu.sina.com.cn/zxx/2016-05-09/doc-ifxryhhi8519051.shtml" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
       <Children Name="正文" XPath="//div[@id=&quot;artibody&quot;]" IsHtml="False" />
       <Children Name="标题" XPath="/html[1]/head[1]/title[1]" IsHtml="False" />

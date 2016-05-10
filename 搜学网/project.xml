@@ -1,0 +1,29 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\搜学网\project.xml">
+    <DBConnections />
+    <Children Name="搜学网抓取" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/10 13:31:51" Description="任务描述" ScriptPath="">
+      <Children Content="31" Column="city" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children MinValue="1" MaxValue="171" Interval="1" RepeatCount="1" Column="pd" Enabled="True" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="pd" Format="http://xuexiao.51sxue.com/slist/?t=&amp;areaCodeS={0}&amp;page={1}" Column="city" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IDColumn="[pd]" Position="0" MountColumn="10" DisplayProgress="True" Column="url" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="搜学网" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Revert="False" Column="名称" Enabled="True" Type="NullFT" Group="Filter" />
+      <Children IsMultiYield="False" Index="1" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="ID" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Region="上海" Column="地址" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="BaiduLocation" Group="Transformer" />
+      <Children Table="上海学校" Column="地区" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="搜学网" Type="SmartCrawler" URL="http://xuexiao.51sxue.com/slist/?t=&amp;areaCodeS=31&amp;page=1" RootXPath="/html[1]/body[1]/div[4]/div[1]/div[2]/div[6]/div" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/10 13:31:51" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://xuexiao.51sxue.com/slist/?t=&amp;areaCodeS=31&amp;page=1" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Cookie:__cfduid=db6472989e5f9b328aff49d9c782703ac1461311710;expires=Sat;10-May-17 05:31:01 GMT=;path=/;domain=.51sxue.com;HttpOnly=;22-Apr-17 07:55:10 GMT=;=&#xA;" />
+      <Children Name="名称" XPath="/div[1]/div[1]/a[1]/@title[1]" IsHtml="False" />
+      <Children Name="地区" XPath="/div[1]/div[2]/li[2]/b[1]" IsHtml="False" />
+      <Children Name="级别" XPath="/div[1]/div[2]/li[3]/b[1]" IsHtml="False" />
+      <Children Name="性质" XPath="/div[1]/div[2]/li[4]/ol[1]/b[1]" IsHtml="False" />
+      <Children Name="类别" XPath="/div[1]/div[2]/li[4]/ol[2]/b[1]" IsHtml="False" />
+      <Children Name="点评数量" XPath="/div[1]/div[3]/div[2]/b[1]" IsHtml="False" />
+      <Children Name="点评" XPath="/div[2]" IsHtml="False" />
+      <Children Name="地址" XPath="/ul[1]/li[1]/b[1]" IsHtml="False" />
+      <Children Name="电话" XPath="/ul[1]/li[2]/b[1]" IsHtml="False" />
+      <Children Name="ID" XPath="/div[1]/div[1]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+  </Doc>
+</root>

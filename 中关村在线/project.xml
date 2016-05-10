@@ -1,0 +1,59 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\中关村在线\project.xml">
+    <DBConnections />
+    <Children Name="zol产品" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/10 13:29:25" Description="主流程" ScriptPath="">
+      <Children Content="notebook_index" Column="type" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children MergeWith="" Format="http://detail.zol.com.cn/{0}/subcate16_list_1.html" Column="type" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器-通用" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;J_BrandAll&quot;]/a" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="&quot;" Column="OHTML" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Script="sub" Count="1" Revert="False" Column="OHTML" Enabled="True" Type="RegexFT" Group="Filter" />
+      <Children MergeWith="" Format="http://detail.zol.com.cn{0}" Column="OHTML" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器-通用" IsRegex="False" Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="\.html" NewColumn="" Column="OHTML" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children XPath="/html[1]/body[1]/div[4]/div[3]/div[2]/div[1]/div[1]/b[1]" IsManyData="False" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="count" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="int(int(value)/42)" Column="count" NewColumn="page" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Column="Text" NewColumn="品牌" Enabled="True" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children MinValue="1" MaxValue="[page]" Interval="1" RepeatCount="1" Column="np" Enabled="True" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="np" Format="{0}_0_1_2_0_{1}.html" Column="OHTML" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IDColumn="[品牌]" Position="0" MountColumn="30" DisplayProgress="True" Column="count" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="zol产品列表" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Revert="False" Column="特点" Enabled="True" Type="NullFT" Group="Filter" />
+      <Children ReplaceText="param" IsMultiYield="False" Index="0" Script="review" NewColumn="param" Column="评论" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children MergeWith="" Format="http://detail.zol.com.cn{0}" Column="param" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IsMultiYield="False" ETLSelector="zol产品参数" Column="param" Enabled="True" Type="EtlTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="value.replace(特点,'')" Column="名称" NewColumn="" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Table="输出" Column="名称" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="网页采集器-通用" Type="SmartCrawler" URL="http://bj.lianjia.com/xiaoqu/dongcheng/" RootXPath="" IsMultiData="One" URLFilter="https://www.dianping.com/shopall/2/0" ContentFilter="" CreateTime="2016/5/10 13:29:25" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://bj.lianjia.com/xiaoqu/dongcheng/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Host: sh.lianjia.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Referer: http://sh.lianjia.com/xiaoqu/pudongxinqu/rs&#xA;Cookie:select_city=310000;expires=Tue;11-May-2016 05:27:49 GMT=;Max-Age=10800;path=/;domain=lianjia.com;logger_session=04fc647541648916f02c196be90416c6;10-May-2016 08:27:49 GMT=;lianjia_uuid=09d7c5c6c0648d5ed0a23a1cec2554a4;08-May-26 05:27:49 GMT=;lianjia_ssid=6acb7e1e-885a-4527-b61d-e6b45ba7c3ae;10-May-16 05:57:49 GMT=;20-Apr-2016 07:16:23 GMT=;20-Apr-2016 07:04:03 GMT=;19-Apr-2016 10:04:04 GMT=;Hm_lvt_efa595b768cc9dc7d7f9823368e795f1=1448962258;miyue_hide=%20index%20%20index%20;lianjia_token=1.00d071de9c67232cada8481ddb370dc5bf;CNZZDATA1253492439=1517051447-1456825654-http%253A%252F%252Fbj.lianjia.com%252F%7C1457523199;CNZZDATA1254525948=1648576429-1456823381-http%253A%252F%252Fbj.lianjia.com%252F%7C1457522174;CNZZDATA1255633284=1453068874-1456824283-http%253A%252F%252Fbj.lianjia.com%252F%7C1457518273;CNZZDATA1255604082=954323645-1456824402-http%253A%252F%252Fbj.lianjia.com%252F%7C1457521865;_qzja=1.783490784.1456826188682.1457520368276.1457523536152.1457523543323.1457523562064.0.0.0.16.4;_jzqx=1.1446617231.1458633590.27.jzqsr=bj%2Efang%2Elianjia%2Ecom|jzqct=/loupan/pg5bp300ep360/.jzqsr=bj%2Elianjia%2Ecom|jzqct=/ershoufang/;_jzqy=1.1446173025.1460218600.39.jzqsr=baidu.jzqsr=baidu;_jzqa=1.1379173988059079000.1446170008.1460218600.1460424315.110;_smt_uid=566a2605.445893cd;_gat=1;ubt_load_interval_b=1461048933231;ubt_load_interval_c=1461048933231;CNZZDATA1257993097=2080063891-1461030713-%7C1461044225;ubta=2299869246.2487901422.1459386193064.1461048932591.1461048933351.58;ubtb=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtc=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtd=17;_ga=GA1.2.2126031770.1446170005&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+    </Children>
+    <Children Name="zol产品列表" Type="SmartCrawler" URL="http://detail.zol.com.cn/cell_phone_index/subcate57_98_list_1_0_1_2_0_1.html" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/10 13:29:25" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://detail.zol.com.cn/cell_phone_index/subcate57_98_list_1_0_1_2_0_1.html" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="特点" XPath="/html[1]/body[1]/div[5]/div[1]/div[4]/ul[1]/li[2]/h3[1]/a[1]/span[1]" IsHtml="False" />
+      <Children Name="url" XPath="/html[1]/body[1]/div[5]/div[1]/div[4]/ul[1]/li[1]/h3[1]/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="名称" XPath="/html[1]/body[1]/div[5]/div[1]/div[4]/ul[1]/li[2]/h3[1]/a[1]" IsHtml="False" />
+      <Children Name="价格" XPath="/html[1]/body[1]/div[5]/div[1]/div[4]/ul[1]/li[3]/div[1]/span[2]/b[2]" IsHtml="False" />
+      <Children Name="评论" XPath="/html[1]/body[1]/div[5]/div[1]/div[4]/ul[1]/li[1]/div[2]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+    <Children Name="zol产品参数" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/10 13:29:25" Description="任务描述" ScriptPath="">
+      <Children Content="http://detail.zol.com.cn/1101/1100338/param.shtml" Column="param" Name="" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器-通用" IsRegex="False" Column="param" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//*[@id=&quot;newTb&quot;]//li" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="True" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="1 if value=='' or len(value)&gt;10 else 0" Column="Text" NewColumn="filter" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Script="1" Count="1" Revert="False" Column="filter" Enabled="True" Type="RegexFT" Group="Filter" />
+      <Children Column="filter" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="p=value.find(' ')&#xD;&#xA;value[p+1:] if p&gt;0 else ''" Column="Text" NewColumn="value" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="True" SplitNull="True" Index="0" SplitChar="" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="\s纠错" NewColumn="" Column="value" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceBlank="False" ReplaceInnerBlank="True" Column="value" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="TrimTF" Group="Transformer" />
+      <Children ValueColumn="value" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="DictTF" Group="Transformer" />
+    </Children>
+  </Doc>
+</root>
