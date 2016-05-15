@@ -30,18 +30,28 @@ for e in unabled:
 
 重试次数='3'
 
-def work(x):
-	x.MaxTryCount=重试次数;
-execute(安居客核心流程.etls,lambda x:x.TypeName=='从爬虫转换',work)
+
 
 ##要跳过的页数，注意是翻页的数量
 页数范围控制.Skip=0
 ##要获取的页数，可以设置的非常大，这样就一直会到末尾
 页数范围控制.Take=20000000   
 
+debug=False
+
+not_repeat=True
+
+def work2(x):
+	x.Enabled=not_repeat;
+
+def work(x):
+	x.MaxTryCount=重试次数;
+	
+execute(安居客核心流程.etls,lambda x:x.TypeName=='从爬虫转换',work)
+execute(安居客核心流程.etls,lambda x:x.Name=='防重复',work2)
+execute(安居客核心流程.etls,lambda x:x.TypeName=='从爬虫转换',work)
 
 
-debug=True
 
 get(安居客核心流程.etls,-2).Enabled=not debug;
 
@@ -56,8 +66,8 @@ get(安居客相册.etls,-1).Enabled=False
 get(户型图存储.etls,-1).Enabled=False	
 	
 #要采集的城市，使用正则表达式，如果包含全部城市，则写为''
-get(安居客城市.etls,-1).Script='东营'
+get(安居客城市.etls,-1).Script='大理|德州|东营'
 #户型图的存储路径
-get(户型图存储方案.etls,-2).Format='D:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
+get(户型图存储方案.etls,-2).Format='E:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
 #相册的存储路径
-get(相册存储方案.etls,-2).Format='D:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg'
+get(相册存储方案.etls,-2).Format='E:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg'
