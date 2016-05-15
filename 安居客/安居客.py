@@ -43,24 +43,21 @@ execute(安居客核心流程.etls,lambda x:x.TypeName=='从爬虫转换',work)
 
 debug=True
 
-if debug:
-	get(安居客核心流程.etls,-2).Enabled=False
-	get(安居客核心流程.etls,-1).Enabled=True
-
+get(安居客核心流程.etls,-2).Enabled=not debug;
 
 
 #是否要将完整的Json信息保存到数据库中
 get(安居客核心流程.etls,-3).Enabled=False
 
 #是否要保存相册？不论是否保存，都会将相册的路径存入数据库中
-get(安居客相册.etls,-1).Enabled=True
-
+get(安居客相册.etls,-1).Enabled=False
+ 
 #是否要保存户型图？不论是否保存，都会将户型图的路径存入数据库中
-get(户型图存储.etls,-1).Enabled=True	
+get(户型图存储.etls,-1).Enabled=False	
 	
 #要采集的城市，使用正则表达式，如果包含全部城市，则写为''
-get(安居客城市.etls,-1).Script='常德|郴州承德|长治|池州|滁州|朝阳|潮州|楚雄|巢湖|昌都|长葛|崇左'
+get(安居客城市.etls,-1).Script='东营'
 #户型图的存储路径
-get(户型图存储方案.etls,-2).Format='E:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
+get(户型图存储方案.etls,-2).Format='D:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
 #相册的存储路径
-get(相册存储方案.etls,-2).Format='E:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg'
+get(相册存储方案.etls,-2).Format='D:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg'
