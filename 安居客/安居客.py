@@ -42,7 +42,7 @@ debug=False
 #是否要进行增量抓取？
 #注意：系统会在数据库里查询是否已有数据，因此可能会造成在调试时，没有任何数据显示（所有的数据都在数据库里了）
 #如果无所谓重复，或为了调试观察，则
-not_repeat=True
+not_repeat=False
 
 def work2(x):
 	x.Enabled=not_repeat;
@@ -69,8 +69,8 @@ get(安居客相册.etls,-1).Enabled=True
 get(户型图存储.etls,-1).Enabled=True	
 	
 #要采集的城市，使用正则表达式，如果包含全部城市，则写为''
-get(安居客城市.etls,-1).Script='郑州'
+get(安居客城市.etls,-1).Script='昆山'
 #户型图的存储路径
-get(户型图存储方案.etls,-2).Format='E:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
+get(户型图存储方案.etls,-2).Format='D:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
 #相册的存储路径
-get(相册存储方案.etls,-2).Format='E:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg'
+get(相册存储方案.etls,-2).Format='D:\安居客图片\{0}\相册\{1}_{2}_{3}.jpg'
