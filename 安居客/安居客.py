@@ -39,6 +39,9 @@ for e in unabled:
 
 debug=False
 
+#是否要进行增量抓取？
+#注意：系统会在数据库里查询是否已有数据，因此可能会造成在调试时，没有任何数据显示（所有的数据都在数据库里了）
+#如果无所谓重复，或为了调试观察，则
 not_repeat=True
 
 def work2(x):
@@ -60,13 +63,13 @@ get(安居客核心流程.etls,-2).Enabled=not debug;
 get(安居客核心流程.etls,-3).Enabled=False
 
 #是否要保存相册？不论是否保存，都会将相册的路径存入数据库中
-get(安居客相册.etls,-1).Enabled=False
+get(安居客相册.etls,-1).Enabled=True
  
 #是否要保存户型图？不论是否保存，都会将户型图的路径存入数据库中
-get(户型图存储.etls,-1).Enabled=False	
+get(户型图存储.etls,-1).Enabled=True	
 	
 #要采集的城市，使用正则表达式，如果包含全部城市，则写为''
-get(安居客城市.etls,-1).Script='大理|德州|东营'
+get(安居客城市.etls,-1).Script='郑州'
 #户型图的存储路径
 get(户型图存储方案.etls,-2).Format='E:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
 #相册的存储路径
