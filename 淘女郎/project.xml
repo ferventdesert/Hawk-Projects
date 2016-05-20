@@ -1,0 +1,82 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\淘女郎\project.xml">
+    <DBConnections />
+    <Children Name="淘女郎列表" Type="SmartCrawler" URL="https://mm.taobao.com/json/request_top_list.htm?page=1" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/19 15:12:24" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="False" Postdata="" Encoding="GB2312" Method="GET" Parameters="Cookie:JSESSIONID=265E3E17D618099B10DCFCAD7B8459ED;Path=/;HttpOnly=;uc1=cookie14=UoWxMka1JgHoGQ%3D%3D;Domain=.taobao.com;v=0;cookie2=1e505bbe9426996375862dfa86ac344f;t=1af0ab88b9b7d108721faf7cb378748f;Expires=Wed;17-Aug-2016 07:29:20 GMT=;17-Aug-2016 06:57:26 GMT=;_tb_token_=5ee36b393368;17-Aug-2016 03:53:07 GMT=;=&#xA;" />
+      <Children Name="缩略图" XPath="/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]/@src[1]" IsHtml="False" />
+      <Children Name="url" XPath="/div[1]/div[1]/div[1]/div[1]/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="名字" XPath="/div[1]/div[1]/div[1]/p[1]/a[1]" IsHtml="False" />
+      <Children Name="年龄" XPath="/div[2]/div[1]/div[1]/p[1]/em[1]/strong[1]" IsHtml="False" />
+      <Children Name="城市" XPath="/div[1]/div[1]/div[1]/p[1]/span[1]" IsHtml="False" />
+      <Children Name="职业" XPath="/div[2]/div[1]/div[1]/p[2]/em[1]" IsHtml="False" />
+      <Children Name="粉丝" XPath="/div[1]/div[1]/div[1]/p[2]/em[2]/strong[1]" IsHtml="False" />
+      <Children Name="好评率" XPath="/div[2]/div[2]/ul[1]/li[2]/strong[1]" IsHtml="False" />
+      <Children Name="导购数量" XPath="/div[1]/div[2]/ul[1]/li[3]/strong[1]" IsHtml="False" />
+      <Children Name="签约数" XPath="/div[2]/div[2]/ul[1]/li[4]/strong[1]" IsHtml="False" />
+      <Children Name="最近" XPath="/div[1]/div[2]/p[1]" IsHtml="False" />
+      <Children Name="喜欢数" XPath="/div[2]/div[2]/div[2]/div[1]/var[1]" IsHtml="False" />
+    </Children>
+    <Children Name="主流程" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" CreateTime="2016/5/19 15:12:24" Description="任务描述" ScriptPath="主流程.py" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children MinValue="1" MaxValue="4795" Interval="1" RepeatCount="1" Column="id" Enabled="True" Position="0" MergeType="Append" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="" Format="https://mm.taobao.com/json/request_top_list.htm?page={0}" Column="id" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children IDColumn="[id]" MountColumn="10" DisplayProgress="True" Column="id" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="淘女郎列表" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children ReplaceText=" " IsMultiYield="False" Index="0" Script="\r|\n" NewColumn="" Column="最近" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="id" Column="url" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children MergeWith="" Format="http://mm.taobao.com/self/info/model_info_show.htm?user_id={0}" Column="id" NewColumn="detail" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="详细信息" IsRegex="False" Column="detail" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="学校" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="生日" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children IsClone="True" Table="淘女郎" Column="url" Enabled="True" Type="TableEX" Group="Executor" />
+      <Children Enabled="True" AddTask="True" NewColumn="名字 id" ETLSelector="相册" Column="名字" Type="EtlEX" Group="Transformer" />
+    </Children>
+    <Children Name="详细信息" Type="SmartCrawler" URL="http://mm.taobao.com/self/info/model_info_show.htm?user_id=687471686 " RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="广东纺织职业技术学院" CreateTime="2016/5/19 15:12:24" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="https://mm.taobao.com/self/info/model_info_show.htm?user_id=687471686" Allowautoredirect="True" Postdata="" Encoding="GB2312" Method="GET" Parameters="Host: mm.taobao.com&#xA;Accept: */*&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Content_Type: application/x-www-form-urlencoded; charset=UTF-8&#xA;Referer: https://mm.taobao.com/self/model_info.htm?user_id=687471686&amp;is_coment=false&#xA;Cookie:JSESSIONID=CFA9B5C6FAFBD73296723E7567C92CED;Path=/;HttpOnly=;uc1=cookie14=UoWxMkaz5F0YLQ%3D%3D;Domain=.taobao.com;v=0;cookie2=15305ffc85ed426199c3b8507aa29d00;t=c634e721e0062894a23a1459899b63a4;Expires=Wed;17-Aug-2016 09:45:23 GMT=;17-Aug-2016 09:24:47 GMT=;17-Aug-2016 09:19:09 GMT=;17-Aug-2016 08:58:20 GMT=;17-Aug-2016 08:46:15 GMT=;17-Aug-2016 08:27:31 GMT=;swfstore=92831;thw=cn;cna=BKSnDlkvNnMCAXxBgHqw5in8;miid=7187923303387347835;uc3=sg2=UIJ3k6nq%2BkTgKSXjQGv7om18ye2stEaKsRPFcBHCcMM%3D&amp;nk2=ARHpKqczYerXMOjc&amp;id2=UU8Lz2J5JKwl&amp;vt3=F8dASmrCBBbHj81WeU4%3D&amp;lg2=VT5L2FSpMGV7TQ%3D%3D;uss=VWZ9czABGRfYTuSaC3KKsFHPePcVISEeiisDPH3lXQXcUdv%2FxIssfnSCdw%3D%3D;lgc=buptzym_2009;tracknick=buptzym_2009;_cc_=W5iHLLyFfA%3D%3D;tg=0;mt=ci=6_1&amp;cyk=2_0;_tb_token_=Xpw1Fxi5jQ1rE14;l=Au3tuQ3FeImxQNi8ER1OCQHSfZdnSiEc;x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0;CNZZDATA30064598=cnzz_eid%3D1802677311-1463626991-%26ntime%3D1463638494;CNZZDATA30063600=cnzz_eid%3D1751039808-1463627446-%26ntime%3D1463640596&#xA;Connection: keep-alive&#xA;X-Requested-With: XMLHttpRequest&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+      <Login URL="http://qurl.f.360.cn/wdinfo.php" Allowautoredirect="False" Postdata="&#x1E;&#xA;&#x1;&#x2;!?&#x0;&#x1;窸諘&#xA;隍捸&#x2;嫱{簤F?&#x0;&#x0;&#x5;?B?&#x7;奷+&#x14;&#x19;?&#xB;剰&#x18;糧將&#x18;[D傺幛&#x19;8蘺喃#?u捴噁囆&#x1C;~??劸&#x17;ks戔A媙??Ao|&#x1D;??霁4&#x5;貞諘穏r楔蟘&#x13;k$?jg6抽蒪&#x7;g燗?e迡觻b&#x14;&#x8;?&#x13;冢?淲[?杯橾灳*縥&#x1B;公)媆&#x8;J玜纄1I欭塜5F&#x1D;枒&#x19;蕜&#x19;尋a{?Y键次??T勣揊踰&#xC;DWP2?葺斃&#x1F;&#x1;輄沢raE釅?珧懘3?G?deZcF?-?c4O0;P儺b挋?€崁&#xB;&#xD;騈&#x1E;M睔&#x19;&#x18;弻KzY闾?&#x5;儠匾茩祠{?義稪&#x1B;梩敼&#xB;hu撕^勞&#x11;&#x2;霍躗?峺zr??~謚&#x19;[&#x4;&#x17;旗?劚?縻o&#x1F;G熳&quot;4伊纨[籍Y蓈肧.??鴫窒齢塖f枖G慎揽笷w彽滜&#x14;&#xA;5:諂&quot;?Rl+&#x17;奘&#x4;&#xE;肹=?鉲??J繍&#x1E;桪_裁韟nn?I1K$f馸" Encoding="Unknown" Method="POST" Parameters="POST /wdinfo.php HTTP/1.1&#xD;&#xA;Content-Type: application/octet-stream&#xD;&#xA;User-Agent: Post&#xD;&#xA;Host: qurl.f.360.cn&#xD;&#xA;Content-Length: 470&#xD;&#xA;Pragma: no-cache&#xD;&#xA;" />
+      <Children Name="学校" XPath="/div[1]/div[1]/ul[1]/li[6]/span[1]" IsHtml="False" />
+      <Children Name="风格" XPath="/div[1]/div[1]/ul[1]/li[7]/span[1]" IsHtml="False" />
+      <Children Name="生日" XPath="/div[1]/div[1]/ul[1]/li[2]/span[1]" IsHtml="False" />
+      <Children Name="身高" XPath="/div[1]/div[1]/ul[1]/li[8]/p[1]" IsHtml="False" />
+      <Children Name="体重" XPath="/div[1]/div[1]/ul[1]/li[9]/p[1]" IsHtml="False" />
+      <Children Name="三围" XPath="/div[1]/div[1]/ul[1]/li[10]/p[1]" IsHtml="False" />
+      <Children Name="XX" XPath="/div[1]/div[1]/ul[1]/li[11]/p[1]" IsHtml="False" />
+      <Children Name="鞋码" XPath="/div[1]/div[1]/ul[1]/li[12]/p[1]" IsHtml="False" />
+    </Children>
+    <Children Name="相册列表" Type="SmartCrawler" URL="mm.taobao.com/self/album/open_album_list.htm?_charset=utf-8&amp;user_id%20=687471686" RootXPath="/div[1]/div" IsMultiData="List" URLFilter="" ContentFilter="2016年春夏韩国" CreateTime="2016/5/19 16:14:02" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="https://mm.taobao.com/self/album/open_album_list.htm?_charset=utf-8&amp;user_id%20=687471686" Allowautoredirect="True" Postdata="" Encoding="GB2312" Method="GET" Parameters="Host: mm.taobao.com&#xA;Accept: */*&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Content_Type: application/x-www-form-urlencoded; charset=UTF-8&#xA;Referer: https://mm.taobao.com/self/model_album.htm?spm=719.7800760.a312r.18.ChgfbD&amp;user_id=687471686&#xA;Cookie:JSESSIONID=16A1997A42D2DAD139FBF3BD8F11B4D3;Path=/;HttpOnly=;uc1=cookie14=UoWxMkaz5ieFgw%3D%3D;Domain=.taobao.com;v=0;cookie2=15305ffc85ed426199c3b8507aa29d00;t=c634e721e0062894a23a1459899b63a4;Expires=Wed;17-Aug-2016 09:45:23 GMT=;17-Aug-2016 09:24:47 GMT=;17-Aug-2016 09:19:09 GMT=;17-Aug-2016 08:58:20 GMT=;17-Aug-2016 08:46:16 GMT=;17-Aug-2016 08:27:31 GMT=;swfstore=178693;thw=cn;cna=BKSnDlkvNnMCAXxBgHqw5in8;miid=7187923303387347835;uss=VWZ9czABGRfYTuSaC3KKsFHPePcVISEeiisDPH3lXQXcUdv%2FxIssfnSCdw%3D%3D;_cc_=W5iHLLyFfA%3D%3D;tg=0;_tb_token_=Xpw1Fxi5jQ1rE14;x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0;uc3=sg2=UIJ3k6nq%2BkTgKSXjQGv7om18ye2stEaKsRPFcBHCcMM%3D&amp;nk2=&amp;id2=&amp;lg2=;tracknick=;mt=ci=0_0&amp;cyk=2_0;CNZZDATA30064598=cnzz_eid%3D1802677311-1463626991-%26ntime%3D1463638494;CNZZDATA30063600=cnzz_eid%3D1751039808-1463627446-%26ntime%3D1463640596;CNZZDATA30063598=cnzz_eid%3D805142984-1463638621-https%253A%252F%252Fmm.taobao.com%252F%26ntime%3D1463638621;l=AmhowXZtlc70i30TXDazbu6AuEh6isyW&#xA;Connection: keep-alive&#xA;X-Requested-With: XMLHttpRequest&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+      <Login URL="http://qurl.f.360.cn/wdinfo.php" Allowautoredirect="False" Postdata="&#x1E;&#xA;&#x1;&#x2;!?&#x0;&#x1;袣攞?v鑕??l镀?&#x0;&#x0;&#x5;?=&#x12;?輮&#x5;ケ?&#xF;墀;籣閕?&#x1B;?躟.耴?99&#x1;&#x6;&#x1F;旖rE&#x1B;&#x1;???炗&#x13;CR€&amp;QAz邱&#x1C;&#x15;&#x15;C?&#x19;嫤牸g&#x17;_&gt;J5R&gt;2f彤挘$B\従买倓qjV霩嬰鄶崌p?掎肔戓崠?繺弰x[胛峙4€|獋騷*字j/s&#x1B;觮G皛6L弢€楦c&#x12;&#x11;@j&#x14;絹?kXoT?莁?WFO乤v&#xB;掘???軻蒒)?搕b适#7~&#x17;$&#x11;詙}&#xD;&#xA;?疳9?賺?巰巀&#x8;嘁R展&quot; s&#x1F;Ex笸&#x8;竍x&#x17;Hk嘅&#x12;紅Ⅷ*旀?&#x6;&#xC;V?饛登茻淚滶編岅鑼&#x15;夗&#x10;&#xD;?&#xF;??'_w甏E棌?躾8?&#x1C;x&quot;_9枇?&gt;徏36Ia蠲L&#x18;艧呕?~隴0&#x12;sk迁&#x2;2髥殔&#x1C;祮礦&#x18;挊&#x11;?&#x1B;U&#x1C;.U(8{?;;&#xD;?儋鄥=?X諉炧辚匰w&#x16;鐯z綾{(_餟峦Y蘵?匠飈*F珌z=?v汇?頭V寭鏬焿&#x6;??" Encoding="Unknown" Method="POST" Parameters="POST /wdinfo.php HTTP/1.1&#xD;&#xA;Content-Type: application/octet-stream&#xD;&#xA;User-Agent: Post&#xD;&#xA;Host: qurl.f.360.cn&#xD;&#xA;Content-Length: 494&#xD;&#xA;Pragma: no-cache&#xD;&#xA;" />
+      <Children Name="名称" XPath="/div[1]/h4[1]/a[1]" IsHtml="False" />
+      <Children Name="数量" XPath="/div[1]/span[1]" IsHtml="False" />
+      <Children Name="日期" XPath="/div[1]/p[2]" IsHtml="False" />
+      <Children Name="ID" XPath="/div[1]/p[1]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+    <Children Name="相册" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" CreateTime="2016/5/19 16:14:02" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Content="687471686" Column="id" Name="测试" Enabled="False" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children Content="田媛媛" Column="名字" Name="测试" Enabled="False" Position="0" MergeType="Merge" Type="TextGE" Group="Generator" />
+      <Children MergeWith="" Format="mm.taobao.com/self/album/open_album_list.htm?_charset=utf-8&amp;user_id%20={0}" Column="id" NewColumn="url" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="相册列表" IsRegex="False" Column="url" NewColumn="id 名字" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="数量" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Script="int(int(value)/15)+1" Column="数量" NewColumn="page" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children IsMultiYield="False" Index="1" Script="(-?\d+)(\.\d+)?" NewColumn="pid" Column="ID" Enabled="True" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children IsClone="True" Table="相册列表" Column="数量" Enabled="True" Type="TableEX" Group="Executor" />
+      <Children MinValue="1" MaxValue="[page]" Interval="1" RepeatCount="1" Column="p" Enabled="True" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children MergeWith="pid p" Format="https://mm.taobao.com/album/json/get_album_photo_list.htm?user_id={0}&amp;album_id={1}&amp;callback=jsonp405&amp;page={1}" Column="id" NewColumn="picurl" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器" IsRegex="False" Column="picurl" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="jsonp405\(" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ReplaceText="" IsMultiYield="False" Index="0" Script="\)\s*$" NewColumn="" Column="Content" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children ScriptWorkMode="不进行转换" Column="Content" NewColumn="" Enabled="True" OneOutput="False" Type="JsonTF" Group="Transformer" />
+      <Children ScriptWorkMode="文档列表" Script="value['picList']" Column="Content" NewColumn="名字 名称" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children Skip="0" Take="1000" Revert="False" Column="userId" Enabled="True" IsDebugFilter="True" Type="NumRangeFT" Group="Filter" />
+      <Children NewValue="D:\淘女郎" Column="userId" Name="图片位置" NewColumn="save" Enabled="True" OneOutput="True" IsMultiYield="False" Type="AddNewTF" Group="Transformer" />
+      <Children ReplaceText="620" IsMultiYield="False" Index="0" Script="290" NewColumn="picUrl" Column="picUrl" Name="大图" Enabled="True" OneOutput="True" Type="ReReplaceTF" Group="Transformer" />
+      <Children MergeWith="名字 名称 picId" Format="{0}\{1}\{2}\{3}.jpg" Column="save" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Revert="False" Column="picUrl" Enabled="True" IsDebugFilter="True" Type="NullFT" Group="Filter" />
+      <Children ScriptWorkMode="不进行转换" Script="'http:'+value" Column="picUrl" NewColumn="" Enabled="True" OneOutput="False" Type="PythonTF" Group="Transformer" />
+      <Children SavePath="[save]" CrawlerSelector="" IsAsync="False" Column="picUrl" Enabled="True" Type="SaveFileEX" Group="Executor" />
+      <Children IsClone="False" Table="图片列表" Column="url" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="网页采集器" Type="SmartCrawler" URL="" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/19 16:14:02" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="False" Postdata="" Encoding="GB2312" Method="GET" Parameters="Cookie:JSESSIONID=5401680D8038B3B0286B1F41E3B3F748;Path=/;HttpOnly=;uc1=cookie14=UoWxMkaz4K4fDw%3D%3D;Domain=.taobao.com;v=0;cookie2=114137682c884246fca07219a70b10a2;t=101eaaf9c64d4d69826e84f036bfa2a1;Expires=Wed;17-Aug-2016 07:56:27 GMT=;=&#xA;" />
+    </Children>
+  </Doc>
+</root>
