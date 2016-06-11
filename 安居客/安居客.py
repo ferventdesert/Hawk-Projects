@@ -1,4 +1,4 @@
-# coding=utf-8
+﻿# coding=utf-8
 #下面的代码是接口函数，无关
 def get(ar,index):
 	l=len(ar);
@@ -66,10 +66,10 @@ get(安居客核心流程.etls,-3).Enabled=False
 get(安居客相册.etls,-1).Enabled=True
  
 #是否要保存户型图？不论是否保存，都会将户型图的路径存入数据库中
-get(户型图存储.etls,-1).Enabled=True	
+get(户型图存储.etls,-1).Enabled=True
 	
 #要采集的城市，使用正则表达式，如果包含全部城市，则写为''
-get(安居客城市.etls,-1).Script='太原'
+get(安居客城市.etls,-1).Script='锦州|景德镇|吉安|济宁|金华|揭阳|晋中|九江|焦作|晋城|荆州|佳木斯|酒泉|鸡西|济源|金昌|嘉峪关'
 #户型图的存储路径
 get(户型图存储方案.etls,-4).Format='D:\安居客图片\{0}\户型图\{1}_{2}_{3}.jpg'
 #相册的存储路径

@@ -1,0 +1,24 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\xicidaili\project.xml">
+    <DBConnections />
+    <Children Name="list" Type="SmartCrawler" URL="https://talkpython.fm/episodes/all" RootXPath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/21 12:26:22" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="ID" XPath="/td[1]" IsHtml="False" />
+      <Children Name="date" XPath="/td[2]" IsHtml="False" />
+      <Children Name="title" XPath="/td[3]/a[1]" IsHtml="False" />
+      <Children Name="author" XPath="/td[4]" IsHtml="False" />
+      <Children Name="href" XPath="/td[3]/a[1]/@href[1]" IsHtml="False" />
+    </Children>
+    <Children Name="main" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" SampleMount="20" CreateTime="2016/5/21 12:26:22" Description="任务描述" ScriptPath="">
+      <Children Content="https://talkpython.fm/episodes/all" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children MaxTryCount="1" CrawlerSelector="list" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children MergeWith="" Format="https://talkpython.fm{0}" Column="href" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children MaxTryCount="1" CrawlerSelector="detailpage" IsRegex="False" Column="href" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children MergeWith="" Format="https://downloads.talkpython.fm/static{0}" Column="download" NewColumn="" Enabled="False" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+    </Children>
+    <Children Name="detailpage" Type="SmartCrawler" URL="https://talkpython.fm/episodes/show/59/sagemath-open-source-is-ready-to-compete-in-the-classroom" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/5/21 12:26:22" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="" />
+      <Children Name="download" XPath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/audio[1]/@src[1]" IsHtml="False" />
+    </Children>
+  </Doc>
+</root>
