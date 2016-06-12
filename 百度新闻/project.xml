@@ -1,0 +1,26 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\百度新闻\project.xml">
+    <DBConnections />
+    <Children Name="数据清洗" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" SampleMount="20" CreateTime="2016/6/12 22:57:32" Description="任务描述" ScriptPath="">
+      <Children Content="http://news.baidu.com/" Column="url" Enabled="True" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器" IsRegex="False" Column="url" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//@href" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Script="\d{4,}" Count="1" Revert="False" Column="OHTML" Enabled="True" IsDebugFilter="True" Type="RegexFT" Group="Filter" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Revert="False" Column="Text" Enabled="True" IsDebugFilter="True" Type="NullFT" Group="Filter" />
+      <Children Script="\.html?" Count="1" Revert="False" Column="OHTML" Enabled="True" IsDebugFilter="True" Type="RegexFT" Group="Filter" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="&quot;" Column="OHTML" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children IDColumn="[Text]" MountColumn="1" DisplayProgress="False" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children Revert="False" Column="OHTML" Enabled="True" IsDebugFilter="True" Type="RepeatFT" Group="Filter" />
+      <Children MaxTryCount="1" CrawlerSelector="网页采集器" IsRegex="False" Column="OHTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children IsManyData="False" GetText="True" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="正文" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children XPath="/html[1]/head[1]/title[1]" IsManyData="False" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="标题" Enabled="True" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
+      <Children Column="Content" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children ConvertType="Decode" Column="正文" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
+      <Children IsClone="False" Table="百度新闻" Column="正文" Enabled="True" Type="TableEX" Group="Executor" />
+    </Children>
+    <Children Name="网页采集器" Type="SmartCrawler" URL="http://news.haiwainet.cn/n/2016/0612/c3541083-30000229.html" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" CreateTime="2016/6/12 22:57:32" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Host: news.baidu.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36&#xA;Referer: https://www.baidu.com/link?url=VTVa0XNCMYrDJn_OIMCCiMd0-EWQ5OA0Kr65OKF2U9y&amp;wd=&amp;eqid=e1c5d9f5000a47f900000004575d76bd&#xA;Cookie:BD_CK_SAM=1;path=/;BDSVRTM=20;H_PS_PSSID=1453_20318_18240_17949_20076_18559_17001_15702_11634_18243;domain=www.baidu.com;__bsi=1990160688617891607_00_14_N_N_25_0301_C013_N_N_N_0;expires=Sun;12-Jun-16 15:03:06 GMT=;BDUSS=nR2b20tNllmNTlTYlo0d0xVZFY5emEybXJNWlBuQ0k0anNONEFEZXZGYmcwWEJYQVFBQUFBJCQAAAAAAAAAAAEAAACPJtkIYnVwdHp5bQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBESVfgRElXV;BAIDUID=3E5DF797941D6044834B31793FF28374:FG=1;PSTM=1464569108;BIDUPSID=F8DC2A108999A2392B629BDC154E2BE0;LOCALGX=%u676D%u5DDE%7C%32%38%31%30%7C%u676D%u5DDE%7C%32%38%31%30;Hm_lvt_e9e114d958ea263de46e080563e254c4=1465743033;Hm_lpvt_e9e114d958ea263de46e080563e254c4=1465743033&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+    </Children>
+  </Doc>
+</root>
