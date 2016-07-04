@@ -1,0 +1,42 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="\\VBOXSVR\dev\Hawk-Projects\图片抓取\游侠客.xml">
+    <DBConnections />
+    <Children Name="相册列表" Type="SmartCrawler" URL="http://www.youxiake.net/gallery?f=latest" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" Crawler="" CreateTime="2016/6/29 20:08:05" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:yxk_saltkey=cTifzflU;expires=Fri, 29-Jul-2016 11:38:04 GMT;path=/;domain=.youxiake.net;httponly,yxk_last_visit=1467196684;PHPSESSID=mc03irmht956tpvvu8afo6d3l3;=&#xA;" />
+      <Children Name="相册" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="标题" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/a[1]" IsHtml="False" />
+      <Children Name="名称" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/a[1]" IsHtml="False" />
+      <Children Name="查看" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[2]/b[1]/a[1]" IsHtml="False" />
+      <Children Name="喜爱" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/b[2]/a[1]" IsHtml="False" />
+      <Children Name="推荐" XPath="/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[2]/b[3]/a[1]" IsHtml="False" />
+    </Children>
+    <Children Name="主流程" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" SampleMount="20" CreateTime="2016/6/29 20:08:05" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Enabled="True" MinValue="1" MaxValue="1503" Interval="1" Column="id" Position="0" MergeType="Append" Type="RangeGE" Group="Generator" />
+      <Children Enabled="True" MergeWith="" Format="http://www.youxiake.net/gallery?f=latest&amp;p={0}" Column="id" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" IsRegex="False" CrawlerSelector="相册列表" Column="url" NewColumn="" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Enabled="True" MergeWith="" Format="http://www.youxiake.net/{0}" Column="相册" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="相册" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children AddTask="True" NewColumn="相册" ETLSelector="相册抓取" Column="相册" Enabled="True" Type="EtlEX" Group="Executor" />
+    </Children>
+    <Children Name="图片列表" Type="SmartCrawler" URL="http://www.youxiake.net/album/518572" RootXPath="/html[1]/body[1]/div[3]/div[3]/div" IsMultiData="List" URLFilter="" ContentFilter="" Crawler="" CreateTime="2016/6/29 20:08:05" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:yxk_last_visit=1467196961;expires=Fri, 29-Jul-2016 11:42:41 GMT;path=/;domain=.youxiake.net;yxk_saltkey=pf7S9s58;httponly,yxk_last_visit=1467196961;PHPSESSID=6c49h205tslkvs608gn26gj774;=&#xA;" />
+      <Children Name="大图" XPath="/div[2]/div[1]/img[1]/@data-src[1]" IsHtml="False" />
+      <Children Name="Exif" XPath="/div[2]/div[2]/div[1]" IsHtml="False" />
+      <Children Name="rid" XPath="/div[3]/div[1]/a[1]/@id[1]" IsHtml="False" />
+    </Children>
+    <Children Name="相册抓取" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" SampleMount="20" CreateTime="2016/6/29 20:08:05" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Enabled="False" Content="518572" Column="相册" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children Enabled="True" MergeWith="" Format="http://www.youxiake.net/album/{0}" Column="相册" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" IsRegex="False" CrawlerSelector="图片列表" Column="url" NewColumn="相册" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="\d+" NewColumn="" Column="rid" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" MergeWith="rid" Format="D:\游侠客\{0}\{1}.jpg" Column="相册" NewColumn="save" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" Column="id" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="True" Column="save" NewColumn="跳过" OneOutput="True" IsMultiYield="False" Type="FileExistFT" Group="Transformer" />
+      <Children Enabled="True" Script="False" Count="1" Revert="False" Column="跳过" IsDebugFilter="True" Type="RegexFT" Group="Filter" />
+      <Children Enabled="True" SavePath="[save]" IsAsync="False" Column="大图" Type="SaveFileEX" Group="Executor" />
+      <Children Enabled="True" Column="跳过" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="True" Column="save" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="False" ExecuteType="OnlyInsert" Column="大图" Type="DbEX" Group="Executor" />
+    </Children>
+  </Doc>
+</root>
