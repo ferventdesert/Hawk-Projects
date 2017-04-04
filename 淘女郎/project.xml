@@ -1,6 +1,8 @@
 <root>
   <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\淘女郎\project.xml">
-    <DBConnections />
+    <DBConnections>
+      <Children DBName="" Name="SQLServer数据库" TypeName="SQLServerConnector" ConnectString="" AutoConnect="False" />
+    </DBConnections>
     <Children Name="淘女郎列表" Type="SmartCrawler" URL="https://mm.taobao.com/json/request_top_list.htm?page=1" RootXPath="" IsMultiData="List" URLFilter="" ContentFilter="" CreateTime="2016/5/19 15:12:24" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
       <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="False" Postdata="" Encoding="GB2312" Method="GET" Parameters="Cookie:JSESSIONID=265E3E17D618099B10DCFCAD7B8459ED;Path=/;HttpOnly=;uc1=cookie14=UoWxMka1JgHoGQ%3D%3D;Domain=.taobao.com;v=0;cookie2=1e505bbe9426996375862dfa86ac344f;t=1af0ab88b9b7d108721faf7cb378748f;Expires=Wed;17-Aug-2016 07:29:20 GMT=;17-Aug-2016 06:57:26 GMT=;_tb_token_=5ee36b393368;17-Aug-2016 03:53:07 GMT=;=&#xA;" />
       <Children Name="缩略图" XPath="/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]/@src[1]" IsHtml="False" />

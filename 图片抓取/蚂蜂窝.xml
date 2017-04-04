@@ -1,0 +1,62 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="\\VBOXSVR\dev\Hawk-Projects\图片抓取\蚂蜂窝.xml">
+    <DBConnections>
+      <Children DBName="ant" Name="MongoDB" TypeName="MongoDBConnector" ConnectString="mongodb://10.101.167.107" AutoConnect="True" />
+    </DBConnections>
+    <Children Name="瀑布流列表" Type="SmartCrawler" URL="http://www.mafengwo.cn/mdd/ajax_photolist.php?act=getMddPhotoList&amp;mddid=10130&amp;page=4" RootXPath="" IsMultiData="List" URLFilter="http://www.mafengwo.cn/photo/mdd/10130.html" ContentFilter="七天七夜的旅程" Crawler="" CreateTime="2016/6/29 18:30:39" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="UTF8" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:oad_n=a%3A3%3A%7Bs%3A3%3A%22oid%22%3Bi%3A1029%3Bs%3A2%3A%22dm%22%3Bs%3A15%3A%22www.mafengwo.cn%22%3Bs%3A2%3A%22ft%22%3Bs%3A19%3A%222016-06-29+17%3A03%3A00%22%3B%7D;expires=Wed, 06-Jul-2016 09:02:09 GMT;path=/;domain=.mafengwo.cn;mfw_uuid=57738ec3-5289-7498-78a2-2a709b667b82;PHPSESSID=2kgmpmco0l8pma69k042cdqea3;HttpOnly,mfw_uuid=57738e91-47a4-d4d8-0012-93e6801288ef;=&#xA;" />
+      <Children Name="url" XPath="/ul[1]/li[1]/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="喜欢" XPath="/ul[1]/li[1]/span[1]" IsHtml="False" />
+      <Children Name="作者" XPath="/ul[2]/li[1]/div[1]/p[1]/a[1]" IsHtml="False" />
+      <Children Name="标题" XPath="/ul[1]/li[1]/div[1]/p[2]/a[1]" IsHtml="False" />
+    </Children>
+    <Children Name="马蜂窝相册" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" SampleMount="20" CreateTime="2016/6/29 18:30:39" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Enabled="True" Content="http://www.mafengwo.cn/localdeals/" Column="url" Position="0" MergeType="Append" Type="TextGE" Group="Generator" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" IsRegex="False" SetPrefex="" CrawlerSelector="网页采集器" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children XPath="//dd//a" IsManyData="True" GetText="False" GetCount="False" IsInsertNull="False" Column="Content" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
+      <Children Column="HTML" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="True" SplitNull="True" Index="0" SplitChar="" Column="Text" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="&quot;" Column="OHTML" NewColumn="" Enabled="True" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children Enabled="False" Script="三亚" Count="1" Revert="False" Column="Text" IsDebugFilter="True" Type="RegexFT" Group="Filter" />
+      <Children Enabled="True" IsMultiYield="False" Index="2" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="OHTML" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" Revert="False" Column="Text" IsDebugFilter="True" Type="NullFT" Group="Filter" />
+      <Children Revert="False" Column="Text" Enabled="True" IsDebugFilter="True" Type="RepeatFT" Group="Filter" />
+      <Children Enabled="True" IDColumn="[Text]" MountColumn="1000" DisplayProgress="True" Column="Text" NewColumn="" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children Enabled="True" MergeWith="" Format="http://www.mafengwo.cn/photo/mdd/{0}.html" Column="OHTML" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" Revert="False" Column="Text" IsDebugFilter="True" Type="NullFT" Group="Filter" />
+      <Children Enabled="True" Column="Text" NewColumn="城市" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children Enabled="True" Column="OHTML" NewColumn="id" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children Enabled="True" MinValue="1" MaxValue="80" Interval="1" Column="page" Position="0" MergeType="Cross" Type="RangeGE" Group="Generator" />
+      <Children Enabled="True" MergeWith="page" Format="http://www.mafengwo.cn/mdd/ajax_photolist.php?act=getMddPhotoList&amp;mddid={0}&amp;page={1}" Column="id" NewColumn="purl" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" IsRegex="False" SetPrefex="" CrawlerSelector="瀑布流列表" Column="purl" NewColumn="id 城市" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Enabled="True" MergeWith="" Format="http://www.mafengwo.cn/{0}" Column="url" NewColumn="" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" IsRegex="False" SetPrefex="" CrawlerSelector="网页采集器" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Enabled="True" Former="_j_stageimg&quot; src=&quot;" End="data-imgi" HaveStartEnd="False" Column="Content" NewColumn="" OneOutput="True" IsMultiYield="False" Type="StrExtractTF" Group="Transformer" />
+      <Children Enabled="True" Column="Content" NewColumn="大图" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="1" Script="(-?\d+)(\.\d+)?" NewColumn="uid" Column="url" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" MergeWith="城市" Format="Z:\picture\蚂蜂窝\{1}\{0}.jpg" Column="uid" NewColumn="保存" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" Column="保存" NewColumn="是否跳过" OneOutput="True" IsMultiYield="False" Type="FileExistFT" Group="Transformer" />
+      <Children Enabled="True" Script="False" Count="1" Revert="False" Column="是否跳过" IsDebugFilter="False" Type="RegexFT" Group="Filter" />
+      <Children Enabled="True" SavePath="[保存]" IsAsync="False" Column="大图" Type="SaveFileEX" Group="Executor" />
+      <Children Enabled="True" Column="保存" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="True" Column="是否跳过" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="True" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="True" ExecuteType="OnlyInsert" TableName="mafengwo" Column="uid" Type="DbEX" Group="Executor" Connector="MongoDB" />
+    </Children>
+    <Children Name="网页采集器" Type="SmartCrawler" URL="" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" Crawler="" CreateTime="2016/6/29 18:30:39" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:oad_n=a%3A3%3A%7Bs%3A3%3A%22oid%22%3Bi%3A1029%3Bs%3A2%3A%22dm%22%3Bs%3A15%3A%22www.mafengwo.cn%22%3Bs%3A2%3A%22ft%22%3Bs%3A19%3A%222016-06-29+19%3A03%3A42%22%3B%7D;expires=Wed, 06-Jul-2016 09:55:09 GMT;path=/;domain=.mafengwo.cn;mfw_uuid=5773a3d3-41d6-2243-aedc-d0b9557532d8;PHPSESSID=36p6td97hrb0emhlcaqm3lpak0;HttpOnly,mfw_uuid=57739afd-3c9c-d6ec-555d-9e7dc0d8942a;=&#xA;" />
+    </Children>
+    <Children Name="照片详情" Type="SmartCrawler" URL="http://www.mafengwo.cn/photo/mdd/10065_25459190.html" RootXPath="" IsMultiData="One" URLFilter="" ContentFilter="" Crawler="" CreateTime="2016/6/29 19:12:08" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:oad_n=a%3A3%3A%7Bs%3A3%3A%22oid%22%3Bi%3A1029%3Bs%3A2%3A%22dm%22%3Bs%3A15%3A%22www.mafengwo.cn%22%3Bs%3A2%3A%22ft%22%3Bs%3A19%3A%222016-06-29+19%3A08%3A32%22%3B%7D;expires=Wed, 06-Jul-2016 11:05:06 GMT;path=/;domain=.mafengwo.cn;mfw_uuid=5773ac2f-e646-1173-2b62-e7d5059ae5bb;PHPSESSID=g6k0e8gllr58su5tjbpha509o1;HttpOnly,mfw_uuid=5773ab62-d523-4d22-ce17-6c3524c9af54;=&#xA;" />
+      <Children Name="大图" XPath="/html[1]/body[1]/div[2]/div[3]/div[1]/div[1]/img[1]/@src[1]" IsHtml="False" />
+      <Children Name="位置" XPath="/html[1]/body[1]/div[2]/div[3]/div[2]/ul[1]/li[2]/p[1]/a[1]" IsHtml="False" />
+    </Children>
+    <Children Name="瀑布流列表2" Type="SmartCrawler" URL="http://www.mafengwo.cn/mdd/ajax_photolist.php?act=getMddPhotoList&amp;mddid=10130&amp;page=4" RootXPath="/html/body/ul" IsMultiData="List" URLFilter="http://www.mafengwo.cn/photo/mdd/10130.html" ContentFilter="七天七夜的旅程" Crawler="" CreateTime="2016/7/4 11:39:49" Description="任务描述" ScriptPath="">
+      <HttpSet URL="http://www.cnblogs.com/" Allowautoredirect="True" Postdata="" Encoding="UTF8" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:oad_n=a%3A3%3A%7Bs%3A3%3A%22oid%22%3Bi%3A1029%3Bs%3A2%3A%22dm%22%3Bs%3A15%3A%22www.mafengwo.cn%22%3Bs%3A2%3A%22ft%22%3Bs%3A19%3A%222016-06-29+17%3A03%3A00%22%3B%7D;expires=Wed, 06-Jul-2016 09:02:09 GMT;path=/;domain=.mafengwo.cn;mfw_uuid=57738ec3-5289-7498-78a2-2a709b667b82;PHPSESSID=2kgmpmco0l8pma69k042cdqea3;HttpOnly,mfw_uuid=57738e91-47a4-d4d8-0012-93e6801288ef;=&#xA;" />
+      <Children Name="url" XPath="/li[1]/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="喜欢" XPath="/li[1]/span[1]" IsHtml="False" />
+      <Children Name="作者" XPath="/li[1]/div[1]/p[1]/a[1]" IsHtml="False" />
+      <Children Name="标题" XPath="/li[1]/div[1]/p[2]/a[1]" IsHtml="False" />
+    </Children>
+  </Doc>
+</root>

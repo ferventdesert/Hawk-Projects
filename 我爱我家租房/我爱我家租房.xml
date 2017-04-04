@@ -1,0 +1,65 @@
+<root>
+  <Doc Name="" Description="" Version="0" SavePath="C:\Users\zhaoyiming\Desktop\我爱我家租房.xml">
+    <DBConnections>
+      <Children DBName="" Name="文件管理" TypeName="FileManager" ConnectString="" AutoConnect="True" />
+      <Children DBName="hawk" Name="MongoDB连接器" TypeName="MongoDBConnector" ConnectString="" AutoConnect="False" />
+    </DBConnections>
+    <Children Name="我爱我家租房" Type="SmartCrawler" URL="http://bj.5i5j.com/rent/" RootXPath="/html[1]/body[1]/section[3]/div[1]/div[1]/div[1]/ul[1]/li" IsMultiData="List" IsSuperMode="False" ShareCookie="" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:BIGipServer=3647539722.20480.0000;path=/;expires=Sun, 26-Feb-2017 02:40:09 GMT;domain=.5i5j.com,PHPSESSID=egb49a061g07jj8p4sa9ov5tp6;=&#xA;" />
+      <Children Name="img_src" XPath="/a[1]/div[1]/img[1]/@src[1]" IsHtml="False" />
+      <Children Name="list-pic_pic-num" XPath="/a[1]/div[1]/span[1]" IsHtml="False" />
+      <Children Name="uid" XPath="/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="介绍" XPath="/div[1]/h2[1]/a[1]" IsHtml="False" />
+      <Children Name="小区" XPath="/div[1]/ul[1]/li[1]/a[1]/h3[1]" IsHtml="False" />
+      <Children Name="小区id" XPath="/div[1]/ul[1]/li[1]/a[1]/@href[1]" IsHtml="False" />
+      <Children Name="朝向" XPath="/div[1]/ul[1]/li[1]/a[2]" IsHtml="False" />
+      <Children Name="租房" XPath="/div[1]/ul[1]/li[1]/a[3]" IsHtml="False" />
+      <Children Name="格局" XPath="/div[1]/ul[1]/li[2]/span[1]" IsHtml="False" />
+      <Children Name="面积" XPath="/div[1]/ul[1]/li[2]/span[2]" IsHtml="False" />
+      <Children Name="方向" XPath="/div[1]/ul[1]/li[2]/span[3]" IsHtml="False" />
+      <Children Name="位置" XPath="/div[1]/ul[1]/li[2]/span[4]" IsHtml="False" />
+      <Children Name="方式" XPath="/div[1]/div[1]/p[1]" IsHtml="False" />
+    </Children>
+    <Children Name="租房" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" SampleMount="20" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Enabled="True" MinValue="1" MaxValue="194" Interval="1" Column="id" MergeType="Append" Type="RangeGE" Group="Generator" />
+      <Children Enabled="True" MergeWith="" Format="http://bj.5i5j.com/rent/n{0}" Column="id" NewColumn="" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" GroupMount="20" DisplayProgress="True" Column="id" NewColumn="" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="网页采集器" Column="id" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="list-pic_pic-num" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="：" Column="方式" NewColumn="" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="面积" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="小区id" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="uid" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Column="img_src" NewColumn="" Enabled="True" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Group="Executor" Enabled="True" Table="我爱我家租房" Column="朝向" Type="TableEX" />
+    </Children>
+    <Children Name="相遇网页采集器" Type="SmartCrawler" URL="http://xiangyu.5i5j.com/houseForPc/getHouseList?pageNum=1300&amp;rentType=&amp;inDistrict=&amp;businessCircleId=&amp;minPrice=&amp;maxPrice=&amp;houseType=&amp;orderByType=0&amp;subwayStations=&amp;subwayLines=&amp;searchStr=&amp;flag=0&amp;commissionDiscountFlag=0" RootXPath="/ul[1]/li" IsMultiData="List" IsSuperMode="False" ShareCookie="" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <HttpSet URL="" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:domain=.5i5j.com,PHPSESSID=tln4k5u7cs7v5d2pct9gsqnu81;expires=Sun, 26-Feb-2017 02:57:29 GMT;path=/;BIGipServer=3664316938.20480.0000;JSESSIONID=32A60B13E9E721D76BAD6C0CFFE90C6E;Path=/;HttpOnly=;=&#xA;" />
+      <Children Name="img_src" XPath="/img[1]/@src[1]" IsHtml="False" />
+      <Children Name="小区" XPath="/div[1]/h2[1]" IsHtml="False" />
+      <Children Name="区县" XPath="/div[1]/span[1]" IsHtml="False" />
+      <Children Name="位置" XPath="/div[1]/span[2]" IsHtml="False" />
+      <Children Name="格局" XPath="/div[1]/p[1]" IsHtml="False" />
+      <Children Name="朝向" XPath="/div[1]/p[2]" IsHtml="False" />
+      <Children Name="特点" XPath="/div[1]/h3[1]/span[1]" IsHtml="False" />
+      <Children Name="id" XPath="/@onclick[1]" IsHtml="False" />
+      <Children Name="价格" XPath="//*[@id=&quot;cost&quot;]" IsHtml="False" />
+    </Children>
+    <Children Name="相寓" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" SampleMount="20" Description="任务描述" ScriptPath="" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]">
+      <Children Enabled="True" MinValue="1" MaxValue="1302" Interval="1" Column="id" MergeType="Append" Type="RangeGE" Group="Generator" />
+      <Children Enabled="True" MergeWith="" Format="http://xiangyu.5i5j.com/houseForPc/getHouseList?pageNum={0}&amp;rentType=&amp;inDistrict=&amp;businessCircleId=&amp;minPrice=&amp;maxPrice=&amp;houseType=&amp;orderByType=0&amp;subwayStations=&amp;subwayLines=&amp;searchStr=&amp;flag=0&amp;commissionDiscountFlag=0" Column="id" NewColumn="" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
+      <Children Enabled="True" MountColumn="30" GroupMount="1" DisplayProgress="True" Column="id" NewColumn="" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
+      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="相遇网页采集器" Column="id" NewColumn="" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="20\d{6}" NewColumn="日起" Column="img_src" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="houseid" Column="id" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="1" Script="(-?\d+)(\.\d+)?" NewColumn="roomid" Column="id" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="2" Script="(-?\d+)(\.\d+)?" NewColumn="renttype" Column="id" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" Column="id" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="价格" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="面积" Column="格局" OneOutput="True" Type="NumberTF" Group="Transformer" />
+      <Children Enabled="True" FromBack="False" ShouldSplitChars="False" SplitPause="False" SplitNull="True" Index="1" SplitChar="|" Column="格局" NewColumn="" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
+      <Children Enabled="True" Column="img_src" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
+      <Children Group="Executor" Enabled="True" Table="相遇租房" Column="小区" Type="TableEX" />
+    </Children>
+  </Doc>
+</root>
