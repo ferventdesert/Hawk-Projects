@@ -1,0 +1,9 @@
+<root>
+  <Doc Author="" Description="没有描述" ImgURL="http://www.qq3721.com/d/file/gexing/fzltupian/20111115/50eb4ad266abdf7cc719d1f99d3e3fcf.jpg" Name="" PublishTime="2018/10/25 23:01:09" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\我爱我家.xml" Version="0">
+    <DBConnections>
+      <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
+    </DBConnections>
+    <Parameters />
+    <RunningTasks />
+  </Doc>
+</root>

@@ -1,5 +1,6 @@
 Name: 教学工程
 Author: 沙漠之鹰
+ShortDescription: 包含了多个案例，用于Hawk的入门学习，复杂度由浅及深
 Description:  |
    ##  Hawk教学工程
    
@@ -10,7 +11,7 @@ Description:  |
    - 博客园详情: 抓取博客园文章
    - 子任务调用: 学习子任务，将分别调用博客园列表和博客园详情，抓取列表+文章内容
    - 好大夫在线： 一个复杂的抓取好大夫在线医院列表的案例
-   
+
    欢迎联系Hawk作者：
    
    > buptzym@qq.com
