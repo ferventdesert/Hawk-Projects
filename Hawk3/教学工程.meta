@@ -1,0 +1,17 @@
+Name: 教学工程
+Author: 沙漠之鹰
+Description:  |
+   ##  Hawk教学工程
+   
+   里面包含了多个案例，用于Hawk的入门学习，复杂度由浅及深
+   
+   - 区间数生成与交叉: 学习基本的Hawk流程，生成器用法
+   - 博客园列表:    抓取博客园的列表页面，入门
+   - 博客园详情: 抓取博客园文章
+   - 子任务调用: 学习子任务，将分别调用博客园列表和博客园详情，抓取列表+文章内容
+   - 好大夫在线： 一个复杂的抓取好大夫在线医院列表的案例
+   
+   欢迎联系Hawk作者：
+   
+   > buptzym@qq.com
+ImgURL: https://upload-images.jianshu.io/upload_images/9608527-b4180f98fec913e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 

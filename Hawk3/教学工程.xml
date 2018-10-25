@@ -1,0 +1,151 @@
+<root>
+  <Doc Author="" Description="" ImgURL="http://www.qq3721.com/d/file/gexing/fzltupian/20111115/50eb4ad266abdf7cc719d1f99d3e3fcf.jpg" Name="教学工程" ParameterName="" PublishTime="2018/10/24 19:26:06" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\教学工程.xml" Version="0">
+    <DataCollections />
+    <DBConnections>
+      <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
+      <Children AutoConnect="True" ConnectString="mongodb://127.0.0.1" DBName="hawk" Name="MongoDB连接器" TypeName="MongoDBConnector" />
+      <Children AutoConnect="False" ConnectString="" DBName="hawk-sqlite" Name="SQLite数据库" TypeName="SQLiteDatabase" />
+    </DBConnections>
+    <Parameters />
+    <RunningTasks />
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="医院列表" RootFormat="XPath" RootXPath="/html[1]/body[1]/center[1]/div[4]/div[1]/div[2]/div[1]/div[2]/div[2]/div//li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://www.haodf.com/yiyuan/beijing/list.htm">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:g=HDF.39.5ad3528e2ead2;expires=Sat, 10-Apr-2038 13:24:30 GMT;Max-Age=630720000;path=/;domain=haodf.com,__jsluid=97a4d45badd503d5ac9fc5db5b64d0c1;max-age=31536000;HttpOnly=;=&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="a" XPath="/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="span" XPath="/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="href" XPath="/a[1]/@href[1]" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="One" IsSuperMode="False" Name="博客园详情页" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://www.cnblogs.com/buptzym/p/8059121.html">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="正文" XPath="/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]" />
+      <Children CrawlType="InnerText" Format="CssSelecor" IsEnabled="True" Name="标题" XPath=".postTitle" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="3博客园详情页" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="text" Content="http://www.cnblogs.com/buptzym/p/8059121.html" Enabled="True" Group="Generator" MergeType="Append" Type="TextGE" />
+      <Children Column="text" CrawlerSelector="博客园详情页" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="text" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="pid" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="pid" Enabled="True" Format="D:\hawk\{0}.txt" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="保存路径" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="保存路径" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="True" ReplaceBlank="False" ReplaceInnerBlank="True" Type="TrimTF" />
+      <Children Column="正文" Enabled="True" EncodingType="UTF8" FileName="[保存路径]" Group="Executor" Type="WriteFileTextTF" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="1区间数生成和交叉" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="10" MergeType="Append" MinValue="1" Type="RangeGE" />
+      <Children Column="id2" Enabled="True" Group="Generator" Interval="1" MaxValue="[id]" MergeType="Cross" MinValue="1" Type="RangeGE" />
+      <Children Column="id2" Enabled="True" Format="{0}_{1}" Group="Transformer" IsMultiYield="False" MergeWith="id" NewColumn="id3" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="id3" Enabled="True" Group="Executor" Table="参数交叉结果" Type="TableEX" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="ParallelMode" MaxThreadCount="20" Name="5好大夫在线" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="text" Content="http://www.haodf.com/" Enabled="True" Group="Generator" MergeType="Append" Type="TextGE" />
+      <Children Column="text" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="html" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="//*[@id=&quot;top&quot;]/div[2]/div[2]/dl/dd[1]/div[1]/ul/li[1]/div/ul/li" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="OHTML" Enabled="True" FromBack="False" Group="Transformer" Index="2" IsManyData="One" IsMultiYield="False" NewColumn="url" OneOutput="True" Script="[/.]" Type="RegexSplitTF" />
+      <Children Column="url" Enabled="True" Format="http://www.haodf.com/yiyuan/{0}/list.htm" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="医院列表" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="city" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="city" OneOutput="False" Type="RenameTF" />
+      <Children Column="OHTML" DisplayProgress="True" Enabled="True" Group="Transformer" GroupMount="1" IsMultiYield="True" NewColumn="" OneOutput="True" Type="ToListTF" />
+      <Children Column="a" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="detail_url" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="href" Enabled="True" ETLRange="1:300" ETLSelector="5_医院详情" Group="Transformer" IsCycle="False" IsManyData="List" MappingSet="href:text" NewColumn="" Type="EtlTF" />
+      <Children Column="url" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="在线服务患者" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="电话" Enabled="True" Group="Executor" Table="医院列表" Type="TableEX" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="4子任务调用" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="column" Enabled="True" ETLRange="" ETLSelector="2博客园列表" Group="Generator" MappingSet="" MergeType="Append" Type="EtlGE" />
+      <Children Column="保存路径" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="属性7" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="text" Enabled="True" Group="Executor" Table="博客园列表和详情" Type="TableEX" />
+      <Children AddTask="False" Column="url" Enabled="True" ETLRange="1:6" ETLSelector="3博客园详情页" Group="Executor" MappingSet="url:text" Type="EtlEX" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="5医院详情" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="text" Content="/hospital/DE4raCNSz6OmG3OUNZWCWNv0.htm" Enabled="True" Group="Generator" MergeType="Append" Type="TextGE" />
+      <Children Column="text" Enabled="True" Format="http://www.haodf.com{0}" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="http://www.haodf.com/hospital/DE4raCNSz6OmG3OUNZWCWNv0.htm" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="医院详情" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="text" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" ReplaceText="" Script="\.htm" Type="ReReplaceTF" />
+      <Children Column="text" Enabled="True" Format="http://info.haodf.com{0}/jieshao.htm" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="detail_url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="detail_url" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="NoTransform" IsMultiYield="False" NewColumn="" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="/html[1]/body[1]/div[4]/table[2]/tr[1]/td[1]/table[1]/tr[1]/td[1]/table[1]/tr[3]/td[2]/table[1]/tr[1]" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="详细介绍" OneOutput="False" Type="RenameTF" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="One" IsSuperMode="False" Name="医院详情" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://www.haodf.com/hospital/DE4raCNSz6OmG3OUNZWCWNv0.htm">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:__jsluid=0ca7c2d7c4c264d6915db47a87d22af3;max-age=31536000;path=/;HttpOnly=;=&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="累计访问量" XPath="/html[1]/body[1]/div[5]/div[1]/div[1]/div[2]/p[2]/span[2]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="在线服务患者" XPath="/html[1]/body[1]/div[5]/div[1]/div[1]/div[2]/p[3]/span[2]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="患者满意度" XPath="/html[1]/body[1]/div[5]/div[1]/div[1]/div[2]/p[5]/span[2]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="name" XPath="/html[1]/body[1]/ul[1]/li[1]/a[1]/span[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="地址" XPath="/html[1]/body[1]/div[5]/div[1]/div[1]/div[1]/div[2]/p[2]/span[2]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="外地路线" XPath="/html[1]/body[1]/div[5]/div[1]/div[1]/div[1]/div[2]/p[3]/span[2]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="电话" XPath="/html[1]/body[1]/div[5]/div[1]/div[1]/div[1]/div[2]/p[4]/span[2]/#text[1]" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="链家简单案例" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="100" MergeType="Cross" MinValue="1" Type="RangeGE" />
+      <Children Column="id" Enabled="True" Format="https://bj.lianjia.com/ershoufang/pg{0}/" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="链家" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="clear_img__data-is_focus" Enabled="True" Group="Executor" Table="链家二手房" Type="TableEX" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="2博客园列表" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="10" MergeType="Append" MinValue="1" Type="RangeGE" />
+      <Children Column="id" Enabled="True" Format="www.cnblogs.com" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="www.cnblogs.com" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="博客园列表" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="article_view_gray" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="article_comment_gray" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="属性4" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="属性9" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" ReplaceText="" Script="发布于" Type="ReReplaceTF" />
+      <Children Column="article_view_gray" Enabled="True" Group="Executor" Table="博客园列表" Type="TableEX" />
+      <Children Column="diggit_diggnum" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="dianzan" OneOutput="False" Type="RenameTF" />
+      <Children Column="pfs_src" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="链家" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[4]/div[1]/ul[1]/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="https://bj.lianjia.com/ershoufang/rs/">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:lianjia_ssid=aeb52f75-3591-4115-8dbe-3d9450820417;expires=Wed, 03-May-28 08:16:12 GMT;Max-Age=315360000;domain=.lianjia.com;path=/;all-lj=3d8def84426f51ac8062bdea518a8717;Path=/,lianjia_ssid=aeb52f75-3591-4115-8dbe-3d9450820417;select_city=110000;=&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="title_" XPath="/div[1]/div[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="clear_img__href" XPath="/a[1]/@href[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="img__lj-lazy_alt" XPath="/a[1]/img[1]/@alt[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="img__lj-lazy_data-original" XPath="/a[1]/img[1]/@data-original[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="clear_img__data-log_index" XPath="/a[1]/@data-log_index[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性14" XPath="/div[1]/div[3]/div[1]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="a" XPath="/div[1]/div[2]/div[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性10" XPath="/div[1]/div[2]/div[1]/#text[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性9" XPath="/div[1]/div[2]/div[1]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性13" XPath="/div[1]/div[3]/div[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性8" XPath="/div[1]/div[2]/div[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性11" XPath="/div[1]/div[2]/div[1]/#text[4]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="clear_img__data-is_focus" XPath="/a[1]/@data-is_focus[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="clear_img__data-housecode" XPath="/a[1]/@data-housecode[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性15" XPath="/div[1]/div[3]/div[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性18" XPath="/div[1]/div[4]/div[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="tag_subway" XPath="/div[1]/div[4]/div[2]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="总价" XPath="/div[1]/div[4]/div[3]/div[1]/span[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="listButtonContainer_btn-follow_followBtn_data-hid" XPath="/div[1]/div[5]/div[1]/@data-hid[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性22" XPath="/div[1]/div[4]/div[3]/div[2]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性16" XPath="/div[1]/div[4]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="priceInfo_unitPrice_data-price" XPath="/div[1]/div[4]/div[3]/div[2]/@data-price[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性17" XPath="/div[1]/div[4]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性12" XPath="/div[1]/div[2]/div[1]/#text[5]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="span" XPath="/div[1]/div[4]/div[3]/div[1]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="priceInfo_unitPrice_data-hid" XPath="/div[1]/div[4]/div[3]/div[2]/@data-hid[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="tag_haskey" XPath="/div[1]/div[4]/div[2]/span[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="priceInfo_unitPrice_data-rid" XPath="/div[1]/div[4]/div[3]/div[2]/@data-rid[1]" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="网页采集器" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://info.haodf.com/hospital/DE4raCNSz6OmG3OUNZWCWNv0/jieshao.htm">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:g=HDF.104.5ad350eaae8c0;expires=Sat, 10-Apr-2038 13:17:30 GMT;Max-Age=630720000;path=/;domain=haodf.com;__jsluid=455a4f1cced5ea7e44a1e3b8c4e027d4;max-age=31536000;HttpOnly=;=&#xA;" Postdata="" URL="" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="博客园列表" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[1]/div[4]/div[6]/div" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="www.cnblogs.com">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="diggit_diggnum" XPath="/div[1]/div[1]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="digg_diggit_onclick" XPath="/div[1]/div[1]/@onclick[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="digg_digg_tip_id" XPath="/div[1]/div[3]/@id[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="titlelnk" XPath="/div[2]/h3[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性4" XPath="/div[2]/p[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="a_href" XPath="/div[2]/p[1]/a[1]/@href[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="pfs_src" XPath="/div[2]/p[1]/a[1]/img[1]/@src[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="post_item_foot_lightblue" XPath="/div[2]/div[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性7" XPath="/div[2]/p[1]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="article_comment_gray" XPath="/div[2]/div[1]/span[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性9" XPath="/div[2]/div[1]/#text[2]" />
+      <Children CrawlType="InnerHtml" Format="XPath" IsEnabled="True" Name="url" XPath="/div[2]/h3[1]/a[1]/@href[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="article_view_gray" XPath="/div[2]/div[1]/span[2]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性0" XPath="/div[2]/h3[1]/a[1]/@href[1]" />
+    </Children>
+  </Doc>
+</root>
