@@ -6,13 +6,7 @@
       <Children AutoConnect="True" ConnectString="data source=D:\TopCoder\Hawk-Projects\链家\lianjia.db" DBName="D:\TopCoder\Hawk-Projects\链家\lianjia.db" Name="SQLite数据库" TypeName="SQLiteDatabase" />
       <Children AutoConnect="False" ConnectString="" DBName="hawk" Name="MongoDB连接器" TypeName="MongoDBConnector" />
     </DBConnections>
-    <Parameters>
-      <Children Name="北京" ParameterString="city: bj&#xD;&#xA;crawler: 北京链家列表" />
-      <Children Name="上海" ParameterString="city: sh&#xD;&#xA;crawler: 杭州链家列表" />
-      <Children Name="深圳" ParameterString="city: sz&#xD;&#xA;crawler: 杭州链家列表" />
-      <Children Name="重庆" ParameterString="city: cq&#xD;&#xA;crawler: 杭州链家列表" />
-      <Children Name="杭州" ParameterString="city: hz&#xD;&#xA;crawler: 杭州链家列表" />
-    </Parameters>
+    <Parameters />
     <RunningTasks />
     <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="栏目抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool">
       <Children Column="scene" Content="1460" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_5" Type="TextGE" />
