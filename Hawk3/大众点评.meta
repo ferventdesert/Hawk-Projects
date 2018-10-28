@@ -1,11 +1,13 @@
 Name: 大众点评
 Author: 沙漠之鹰
-ShortDescription: 获取全国的我爱我家房产数据，包括租房，买房，已成交等数据
+ShortDescription: 获取全国大众点评数据，包括美食，健身，娱乐等各类莫
 Description:  |
-   ##  大众点评全国美食
+   ##  大众点评全网数据
    
+   主任务为“获取所有门店”。
+
+   大众点评有防爬机制，避免速度过快导致封禁！ 尤其是详情页，其抓取限制更加严苛，造成的一切后果，开发者不背锅！
 
    欢迎联系Hawk作者：
-   
    > buptzym@qq.com
 ImgURL: https://upload-images.jianshu.io/upload_images/9608527-ca6d0f9c40cfcca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240

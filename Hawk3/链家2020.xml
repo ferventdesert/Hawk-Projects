@@ -1,6 +1,5 @@
 <root>
-  <Doc Author="沙漠之鹰" Description="#  链家全国地产&#xA;&#xA;获取全国的链家房产数据，包括租房，买房，已成交等数据&#xA;可通过系统全局配置，设置城市类型，如北京，上海，杭州等。&#xA;欢迎联系Hawk作者：&#xA;&#xA;&gt; buptzym@qq.com&#xA;" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-1d27979f9b2b7507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="链家全国地产" ParameterName="北京" PublishTime="2018/10/28 8:19:15" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\链家2020.xml" ShortDescription="获取全国的链家房产数据，包括租房，买房，已成交等数据" Version="0">
-    <DataCollections />
+  <Doc Author="沙漠之鹰" Description="##  链家全国地产&#xA;&#xA;获取全国的链家房产数据，包括租房，买房，已成交等数据&#xA;可通过系统全局配置，设置城市类型，如北京，上海，杭州等。&#xA;欢迎联系Hawk作者：&#xA;&#xA;&gt; buptzym@qq.com&#xA;" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-1d27979f9b2b7507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="链家全国地产" ParameterName="北京" PublishTime="2018/10/28 10:56:35" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\链家2020.xml" ShortDescription="获取全国的链家房产数据，包括租房，买房，已成交等数据" Version="0">
     <DBConnections>
       <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
       <Children AutoConnect="True" ConnectString="data source=D:\TopCoder\Hawk-Projects\链家\lianjia.db" DBName="D:\TopCoder\Hawk-Projects\链家\lianjia.db" Name="SQLite数据库" TypeName="SQLiteDatabase" />
@@ -75,26 +74,26 @@
     <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="租房采集器" RootFormat="XPath" RootXPath="//ul[@id='house-lst']/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="https://hz.lianjia.com/zufang/xihu/pg2/">
       <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:lianjia_ssid=5f16847b-d832-4322-b4ff-6b1d3b8f2606;expires=Wed, 04-Oct-28 04:54:51 GMT;Max-Age=315360000;domain=.lianjia.com;path=/;select_city=110000;all-lj=ba32fa4540e52c45d4c94b9a16e82078;Path=/,lianjia_ssid=5f16847b-d832-4322-b4ff-6b1d3b8f2606;=&#xA;" Postdata="" URL="" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="区域" XPath="/div[2]/div[1]/div[2]/div[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_decoration-ex_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[2]/@class[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="价格" XPath="/div[2]/div[2]/div[1]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="图片" XPath="/div[1]/a[1]/img[1]/@data-img[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_heating-ex_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[6]/@class[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="标题" XPath="/div[2]/h2[1]/a[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="更新" XPath="/div[2]/div[2]/div[2]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区" XPath="/div[2]/div[1]/div[1]/a[1]/span[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性12" XPath="/div[2]/div[1]/div[2]/div[1]/#text[2]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="看房数" XPath="/div[2]/div[3]/div[1]/div[1]/span[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_decoration-ex_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[2]/@class[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_decoration-ex_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[4]/@class[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="面积" XPath="/div[2]/div[1]/div[1]/span[2]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_decoration_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[5]/@class[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="朝向" XPath="/div[2]/div[1]/div[1]/span[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_heating-ex_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[6]/@class[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_decoration_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[3]/@class[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="更新" XPath="/div[2]/div[2]/div[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="面积" XPath="/div[2]/div[1]/div[1]/span[2]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="ID" XPath="/@data-housecode[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区" XPath="/div[2]/div[1]/div[1]/a[1]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="供暖" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[6]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性12" XPath="/div[2]/div[1]/div[2]/div[1]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="朝向" XPath="/div[2]/div[1]/div[1]/span[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="看房数" XPath="/div[2]/div[3]/div[1]/div[1]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="地铁" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[2]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特色" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[4]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="楼层" XPath="/div[2]/div[1]/div[2]/div[1]/#text[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="布局" XPath="/div[2]/div[1]/div[1]/span[1]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="view-label_left_decoration_class" XPath="/div[2]/div[1]/div[3]/div[1]/div[1]/span[5]/@class[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="标题" XPath="/div[2]/h2[1]/a[1]" />
     </Children>
     <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="链家成交采集器" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[5]/div[1]/ul[1]/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="https://hz.lianjia.com/chengjiao/jiubao/pg1/ ">
       <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:select_city=330100;expires=Wed, 09-Aug-28 01:27:43 GMT;Max-Age=315360000;path=/;domain=.lianjia.com;lianjia_ssid=e8a7ad19-052b-436c-86e1-064e78fc50ea;all-lj=8e5e63e6fe0f3d027511a4242126e9cc;Path=/,lianjia_ssid=e8a7ad19-052b-436c-86e1-064e78fc50ea;=&#xA;" Postdata="" URL="" />
@@ -125,18 +124,18 @@
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="subway" XPath="/div[1]/div[5]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区名" XPath="/div[1]/div[2]/div[1]/a[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="tag_taxfree" XPath="/div[1]/div[5]/span[2]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="关注" XPath="/div[1]/div[4]/#text[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="url" XPath="/a[1]/@href[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="关注" XPath="/div[1]/div[4]/#text[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性9" XPath="/div[1]/div[3]/div[1]/#text[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性8" XPath="/div[1]/div[2]/div[1]/#text[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="房源ID" XPath="/div[1]/div[6]/div[2]/@data-hid[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="总价" XPath="/div[1]/div[6]/div[1]/span[1]" />
-      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="id" XPath="/a[1]/@data-housecode[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区ID" XPath="/div[1]/div[6]/div[2]/@data-rid[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性8" XPath="/div[1]/div[2]/div[1]/#text[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="精装" XPath="/div[1]/div[2]/div[1]/#text[4]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="房源ID" XPath="/div[1]/div[6]/div[2]/@data-hid[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="单价" XPath="/div[1]/div[6]/div[2]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="单价" XPath="/div[1]/div[4]/div[2]/div[2]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="总价" XPath="/div[1]/div[6]/div[1]/span[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="面积" XPath="/div[1]/div[2]/div[1]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="id" XPath="/a[1]/@data-housecode[1]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="带看" XPath="/div[1]/div[4]/#text[2]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="电梯" XPath="/div[1]/div[2]/div[1]/#text[5]" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区ID" XPath="/div[2]/div[4]/div[2]/div[2]/@data-price[1]" />
@@ -196,6 +195,15 @@
       <Children Column="OHTML" CrawlerSelector="小区采集器" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="city 区县 区域" ObjectID="从爬虫转换_OHTML_3" OneOutput="False" Type="CrawlerTF" />
       <Children Column="city" Enabled="True" Format="{0}_xiaoqu" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="table" ObjectID="合并多列_city_4" OneOutput="True" ReferFormat="" Type="MergeTF" />
       <Children Column="table" Enabled="True" Group="Executor" ObjectID="写入数据表_table_5" Table="[table]" Type="TableEX" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="城市列表" SampleMount="200" ScriptPath="" Type="SmartETLTool">
+      <Children Column="text" Content="https://bj.lianjia.com/city/" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_1" Type="TextGE" />
+      <Children Column="text" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_text_2" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="" ObjectID="XPath转换器_Content_3" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="//ul/li" />
+      <Children Column="HTML" Count="1" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" ObjectID="正则筛选器_HTML_4" Revert="False" Script="lianjia\.com" Type="RegexFT" />
+      <Children Column="HTML" Count="1" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" ObjectID="正则筛选器_HTML_5" Revert="True" Script="\n" Type="RegexFT" />
+      <Children Column="HTML" Count="1" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" ObjectID="正则筛选器_HTML_6" Revert="False" Script="^&lt;a href" Type="RegexFT" />
+      <Children Column="HTML" Count="1" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" ObjectID="正则筛选器_HTML_7" Revert="True" Script="nofollow" Type="RegexFT" />
     </Children>
   </Doc>
 </root>

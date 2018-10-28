@@ -1,85 +1,98 @@
 <root>
-  <Doc Name="" Description="" Version="0" SavePath="D:\TopCoder\Hawk-Projects\大众点评\project.xml">
+  <Doc Author="" Description="" ImgURL="http://www.qq3721.com/d/file/gexing/fzltupian/20111115/50eb4ad266abdf7cc719d1f99d3e3fcf.jpg" Name="大众点评" ParameterName="" PublishTime="2018/10/28 16:33:43" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\大众点评.xml" ShortDescription="" Version="0">
+    <DataCollections />
     <DBConnections>
-      <Children DBName="datamining" Name="MongoDB" TypeName="MongoDBConnector" ConnectString="mongodb://127.0.0.1" AutoConnect="True" />
-      <Children DBName="" Name="文件管理" TypeName="FileManager" ConnectString="" AutoConnect="True" />
+      <Children AutoConnect="True" ConnectString="mongodb://127.0.0.1" DBName="datamining" Name="MongoDB" TypeName="MongoDBConnector" />
+      <Children AutoConnect="True" ConnectString="" DBName="" Name="文件管理" TypeName="FileManager" />
+      <Children AutoConnect="False" ConnectString="" DBName="hawk-sqlite" Name="SQLite数据库" TypeName="SQLiteDatabase" />
     </DBConnections>
-    <Children Name="门店列表" Type="SmartCrawler" URL="http://www.dianping.com/search/category/2/10/g311r14p2" RootXPath="" IsMultiData="List" IsSuperMode="False" ShareCookie="" Description="任务描述" ScriptPath="">
-      <HttpSet URL="http://www.dianping.com/search/category/2/10/g311r14p2" Allowautoredirect="False" Postdata="" Encoding="Unknown" Method="GET" Parameters="Host: www.dianping.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Cookie:s_ViewType=10;Domain=.dianping.com;Expires=Thu;Path=/;15-Apr-2018 06:20:29 GMT=;JSESSIONID=7B790EF85A4BA7A52302D1D54730FF18;aburl=1;15-Apr-2017 06:20:29 GMT=;cy=2;cye=beijing;28-Mar-2018 14:41:45 GMT=;28-Mar-2017 14:41:45 GMT=;24-Mar-2018 14:25:41 GMT=;24-Mar-2017 14:25:42 GMT=;24-Mar-2018 03:26:35 GMT=;24-Mar-2017 03:26:36 GMT=;24-Mar-2018 02:53:54 GMT=;24-Mar-2017 02:53:54 GMT=;24-Mar-2018 02:03:39 GMT=;24-Mar-2017 02:03:40 GMT=;23-Mar-2018 10:27:54 GMT=;23-Mar-2017 10:27:55 GMT=;23-Mar-2018 10:21:04 GMT=;23-Mar-2017 10:21:04 GMT=;23-Mar-2018 09:48:03 GMT=;23-Mar-2017 09:48:03 GMT=;23-Mar-2018 02:54:33 GMT=;23-Mar-2017 02:54:34 GMT=;23-Mar-2018 02:38:15 GMT=;23-Mar-2017 02:38:16 GMT=;23-Mar-2018 01:52:15 GMT=;23-Mar-2017 01:52:16 GMT=;23-Mar-2018 01:52:14 GMT=;23-Mar-2017 01:52:15 GMT=;23-Mar-2017 01:12:58 GMT=;23-Mar-2017 01:12:56 GMT=;23-Mar-2017 01:12:54 GMT=;_hc.v=&quot;\&quot;7ebbc90d-1288-4f90-bf2f-e6bcd3e653c1.1446514502\&quot;&quot;;__utma=1.1290031819.1455245681.1455245681.1455245681.1;__utmz=1.1455245681.1.1.utmcsr=dianping.com|utmccn=(referral)|utmcmd=referral|utmcct=/search/category/2/20/g119r15p2;PHOENIX_ID=0a650671-153a106beb0-984c419&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
-      <Children Name="标题" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[1]/a[1]/img[1]/@title[1]" IsHtml="False" />
-      <Children Name="ID" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[1]/a[1]/@href[1]" IsHtml="False" />
-      <Children Name="介绍" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[2]/div[1]/div[1]/a[1]/@title[1]" IsHtml="False" />
-      <Children Name="星级" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[2]/div[2]/span[1]/@title[1]" IsHtml="False" />
-      <Children Name="点评" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/div[2]/div[2]/a[1]/b[1]" IsHtml="False" />
-      <Children Name="均价" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/div[2]/div[2]/a[2]/b[1]" IsHtml="False" />
-      <Children Name="类型" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/div[2]/div[3]/a[1]/span[1]" IsHtml="False" />
-      <Children Name="区域" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/div[2]/div[3]/a[2]/span[1]" IsHtml="False" />
-      <Children Name="地址" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/div[2]/div[3]/span[1]" IsHtml="False" />
-      <Children Name="口味" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[2]/span[1]/span[1]/b[1]" IsHtml="False" />
-      <Children Name="环境" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[2]/div[2]/span[1]/span[2]/b[1]" IsHtml="False" />
-      <Children Name="服务" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[2]/span[1]/span[3]/b[1]" IsHtml="False" />
-      <Children Name="其他" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[3]/a[1]/@title[1]" IsHtml="False" />
-      <Children Name="总店" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[4]/a[3]/@data-sname[1]" IsHtml="False" />
-      <Children Name="总店id" XPath="/html[1]/body[1]/div[6]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[4]/a[3]/@data-shopid[1]" IsHtml="False" />
+    <Parameters />
+    <RunningTasks />
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="门店列表" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[2]/div[3]/div[1]/div[1]/div[2]/ul[1]/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://www.dianping.com/beijing/ch10/g311r14q461">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="Host: www.dianping.com&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;Referer: http://www.dianping.com/beijing/ch10/g311r14p2&#xA;Cookie:s_ViewType=10;Domain=.dianping.com;Expires=Wed, 28-Nov-2018 08:37:35 GMT;Path=/;cy=2;_lxsdk_cuid=165dca6f2bdc8-06418612ade86-4d045769-384000-165dca6f2bdc8;_lxsdk=165dca6f2bdc8-06418612ade86-4d045769-384000-165dca6f2bdc8;_hc.v=f2a3a3a2-469d-da9e-6fd0-8d4de9302e9c.1537005253;cye=beijing;_lxsdk_s=166b9d0142f-3fb-14c-2da%7C%7C131&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" Postdata="" URL="http://www.dianping.com/" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="标题" XPath="/div[1]/a[1]/img[1]/@title[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="图片" XPath="/div[1]/a[1]/img[1]/@data-src[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="shopid" XPath="/div[2]/div[1]/a[1]/@data-shopid[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="类别" XPath="/div[2]/div[1]/a[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="评级" XPath="/div[2]/div[2]/span[1]/@title[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="点评数" XPath="/div[2]/div[2]/a[1]/b[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="均价" XPath="/div[2]/div[2]/a[2]/b[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="区域" XPath="/div[2]/div[3]/a[2]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="地址" XPath="/div[2]/div[3]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特色1" XPath="/div[2]/div[4]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="口味" XPath="/div[2]/span[1]/span[1]/b[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="环境" XPath="/div[2]/span[1]/span[2]/b[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="服务" XPath="/div[2]/span[1]/span[3]/b[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="推荐" XPath="/div[2]/div[5]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="团购" XPath="/div[3]/a[1]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特权2" XPath="/div[3]/a[2]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特权" XPath="/div[3]/a[2]/@title[1]" />
     </Children>
-    <Children Name="获取所有门店" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="并行模式" SampleMount="10" Description="主流程" ScriptPath="">
-      <Children Enabled="True" Content="2" Column="city" MergeType="Append" Type="TextGE" Group="Generator" />
-      <Children MergeType="Cross" Group="Generator" ETLSelector="类别" ETLRange="" Column="" Enabled="True" Type="EtlGE" />
-      <Children Enabled="True" Column="HTML" NewColumn="type" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
-      <Children Enabled="True" Column="Text" NewColumn="门类" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
-      <Children MergeType="Cross" Group="Generator" ETLSelector="区域" ETLRange="" Column="type" Enabled="True" Type="EtlGE" />
-      <Children Enabled="True" Column="OHTML" NewColumn="region" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
-      <Children Enabled="True" MergeWith="region city" Format="http://www.dianping.com/search/category/{2}/10/{0}{1}" Column="type" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
-      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
-      <Children Enabled="True" XPath="//*[@class=&quot;page&quot;]/a[last()-1]" IsManyData="False" GetText="False" GetTextHtml="False" GetCount="False" Column="Content" NewColumn="page" OneOutput="True" IsMultiYield="False" Type="XPathTF" Group="Transformer" />
-      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="page" OneOutput="True" Type="NumberTF" Group="Transformer" />
-      <Children Enabled="True" IDColumn="[门类]" MountColumn="[page]" GroupMount="1" DisplayProgress="True" Column="page" NewColumn="" OneOutput="True" IsMultiYield="True" Type="ToListTF" Group="Transformer" />
-      <Children Enabled="True" Column="Content" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
-      <Children Group="Filter" Revert="False" Column="page" Enabled="True" IsDebugFilter="True" Type="NullFT" />
-      <Children Enabled="True" MinValue="1" MaxValue="[page]" Interval="1" Column="np" MergeType="Cross" Type="RangeGE" Group="Generator" />
-      <Children Enabled="True" MergeWith="region np city" Format="http://www.dianping.com/search/category/{3}/10/{0}{1}p{2}" Column="type" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
-      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="门店列表" Column="url" NewColumn="Text city 大类" OneOutput="False" IsMultiYield="True" Type="CrawlerTF" Group="Transformer" />
-      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="" Column="均价" OneOutput="True" Type="NumberTF" Group="Transformer" />
-      <Children Enabled="True" IsMultiYield="False" Index="0" Script="(-?\d+)(\.\d+)?" NewColumn="Text" Column="Text" OneOutput="True" Type="NumberTF" Group="Transformer" />
-      <Children Enabled="True" Column="Text" NewColumn="区县" OneOutput="False" IsMultiYield="False" Type="RenameTF" Group="Transformer" />
-      <Children Group="Executor" Enabled="False" ExecuteType="OnlyInsert" TableName="dianpingsh" Column="ID" Type="DbEX" Connector="MongoDB" />
-      <Children Enabled="True" MergeWith="" Format="http://www.dianping.com{0}" Column="ID" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
-      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="联系信息" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
-      <Children Group="Executor" Enabled="True" Table="杭州数据" Column="ID" Type="TableEX" />
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="获取所有门店" SampleMount="3" ScriptPath="" Type="SmartETLTool">
+      <Children Column="city" Content="3" Enabled="True" Group="Generator" MergeType="Append" Type="TextGE" />
+      <Children Column="" Enabled="True" ETLRange="1:300" ETLSelector="类别" Group="Generator" MappingSet="city:city" MergeType="Cross" Type="EtlGE" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="type" OneOutput="False" Type="RenameTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="门类" OneOutput="False" Type="RenameTF" />
+      <Children Column="type" Enabled="True" ETLRange="1:300" ETLSelector="区域" Group="Generator" MappingSet="city:city" MergeType="Cross" Type="EtlGE" />
+      <Children Column="type" Enabled="True" Format="http://www.dianping.com/search/category/{2}/10/{0}{1}" Group="Transformer" IsMultiYield="False" MergeWith="region city" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="region" OneOutput="False" Type="RenameTF" />
+      <Children Column="url" CrawlerSelector="网页采集器-通用" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="One" IsMultiYield="False" NewColumn="page" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="//*[@class=&quot;page&quot;]/a[last()-1]" />
+      <Children Column="page" DisplayProgress="True" Enabled="True" Group="Transformer" GroupMount="1" IsMultiYield="True" MountColumn="[page]" NewColumn="" OneOutput="True" Type="ToListTF" />
+      <Children Column="page" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="np" Enabled="True" Group="Generator" Interval="1" MaxValue="[page]" MergeType="Cross" MinValue="1" Type="RangeGE" />
+      <Children Column="page" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" Revert="False" Type="NullFT" />
+      <Children Column="type" Enabled="True" Format="http://www.dianping.com/search/category/{3}/10/{0}{1}p{2}" Group="Transformer" IsMultiYield="False" MergeWith="region np city" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="区县" OneOutput="False" Type="RenameTF" />
+      <Children Column="url" CrawlerSelector="门店列表" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="region city 大类 区县 门类" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="均价" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="ID" Enabled="False" Format="http://www.dianping.com{0}" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="联系信息" Enabled="False" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="ID" Enabled="True" Group="Executor" Table="[table]" Type="TableEX" />
+      <Children Column="city" Enabled="True" Format="dianping_[city]" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="table" ObjectID="合并多列_city_24" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="ID" Enabled="False" ExecuteType="OnlyInsert" Group="Executor" Table="[table]" TableNames="[table]" Type="DbEX" />
     </Children>
-    <Children Name="类别" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" SampleMount="20" Description="获取一个城市的所有类别" ScriptPath="">
-      <Children Enabled="True" Content="3" Column="city" MergeType="Append" Type="TextGE" Group="Generator" />
-      <Children Enabled="True" MergeWith="" Format="https://www.dianping.com/shopall/{0}/0" Column="city" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
-      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
-      <Children Enabled="True" XPath="//*[@id=&quot;top&quot;]/div[6]/div/div[1]/dl[8]/dd/ul/li" IsManyData="True" GetText="False" GetTextHtml="False" GetCount="False" Column="Content" NewColumn="" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
-      <Children Enabled="True" ConvertType="Decode" Column="Text" NewColumn="" OneOutput="True" IsMultiYield="False" Type="HtmlTF" Group="Transformer" />
-      <Children Enabled="True" FromBack="False" ShouldSplitChars="False" SplitPause="True" SplitNull="True" Index="0" SplitChar="" Column="Text" NewColumn="Text" OneOutput="True" IsMultiYield="False" Type="SplitTF" Group="Transformer" />
-      <Children Enabled="True" Column="OHTML" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
-      <Children Enabled="True" IsMultiYield="False" Index="1" Script="(-?\d+)(\.\d+)?" NewColumn="大类" Column="HTML" OneOutput="True" Type="NumberTF" Group="Transformer" />
-      <Children IsMultiYield="False" Index="0" Script="g\d+" NewColumn="" Column="HTML" Enabled="True" OneOutput="True" Type="RegexTF" Group="Transformer" />
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="类别" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="city" Content="3" Enabled="True" Group="Generator" MergeType="Append" Type="TextGE" />
+      <Children Column="city" Enabled="True" Format="https://www.dianping.com/shopall/{0}/0" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="网页采集器-通用" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="//*[@class=&quot;list&quot;]//li" />
+      <Children Column="Text" ConvertType="Decode" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="True" Type="HtmlTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" Index="0" IsMultiYield="False" NewColumn="Text" OneOutput="True" ShouldSplitChars="False" SplitChar="" SplitPause="True" Type="SplitTF" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="大类" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="g\d+" Type="RegexTF" />
     </Children>
-    <Children Name="网页采集器-通用" Type="SmartCrawler" URL="http://bj.lianjia.com/xiaoqu/dongcheng/" RootXPath="" IsMultiData="One" IsSuperMode="False" ShareCookie="" Description="任务描述" ScriptPath="">
-      <HttpSet URL="http://bj.lianjia.com/xiaoqu/dongcheng/" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="Host: sh.lianjia.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Referer: http://sh.lianjia.com/xiaoqu/pudongxinqu/rs&#xA;Cookie:s_ViewType=10;Domain=.dianping.com;Expires=Wed, 04-Apr-2018 00:51:00 GMT;Path=/,lianjia_ssid=b1df96aa-9105-4268-a62d-5135d882d340;JSESSIONID=26C83F937387A122E335906295F38234;_hc.v=&quot;\&quot;319621e9-bd9b-491c-9d54-da0f911aaa15.1491267161\&quot;&quot;;PHOENIX_ID=0a0102fe-15b3672f7d9-39b78f7;select_city=310000;expires=Tue;Max-Age=10800;path=/;domain=lianjia.com;02-May-2016 08:30:30 GMT=;logger_session=04fc647541648916f02c196be90416c6;01-May-2016 11:30:30 GMT=;lianjia_uuid=09d7c5c6c0648d5ed0a23a1cec2554a4;29-Apr-26 08:30:30 GMT=;lianjia_ssid=b1df96aa-9105-4268-a62d-5135d882d340;01-May-16 09:00:30 GMT=;25-Apr-2016 10:17:43 GMT=;24-Apr-2016 09:49:06 GMT=;23-Apr-16 10:19:06 GMT=;20-Apr-2016 07:16:23 GMT=;20-Apr-2016 07:04:03 GMT=;19-Apr-2016 10:04:04 GMT=;Hm_lvt_efa595b768cc9dc7d7f9823368e795f1=1448962258;miyue_hide=%20index%20%20index%20;lianjia_token=1.00d071de9c67232cada8481ddb370dc5bf;CNZZDATA1253492439=1517051447-1456825654-http%253A%252F%252Fbj.lianjia.com%252F%7C1457523199;CNZZDATA1254525948=1648576429-1456823381-http%253A%252F%252Fbj.lianjia.com%252F%7C1457522174;CNZZDATA1255633284=1453068874-1456824283-http%253A%252F%252Fbj.lianjia.com%252F%7C1457518273;CNZZDATA1255604082=954323645-1456824402-http%253A%252F%252Fbj.lianjia.com%252F%7C1457521865;_qzja=1.783490784.1456826188682.1457520368276.1457523536152.1457523543323.1457523562064.0.0.0.16.4;_jzqx=1.1446617231.1458633590.27.jzqsr=bj%2Efang%2Elianjia%2Ecom|jzqct=/loupan/pg5bp300ep360/.jzqsr=bj%2Elianjia%2Ecom|jzqct=/ershoufang/;_jzqy=1.1446173025.1460218600.39.jzqsr=baidu.jzqsr=baidu;_jzqa=1.1379173988059079000.1446170008.1460218600.1460424315.110;_smt_uid=566a2605.445893cd;_gat=1;ubt_load_interval_b=1461048933231;ubt_load_interval_c=1461048933231;CNZZDATA1257993097=2080063891-1461030713-%7C1461044225;ubta=2299869246.2487901422.1459386193064.1461048932591.1461048933351.58;ubtb=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtc=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtd=17;_ga=GA1.2.2126031770.1446170005&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" />
+    <Children Description="任务描述" IsMultiData="One" IsSuperMode="False" Name="网页采集器-通用" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://www.dianping.com/">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="Host: sh.lianjia.com&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36&#xA;Referer: http://sh.lianjia.com/xiaoqu/pudongxinqu/rs&#xA;Cookie:s_ViewType=10;Domain=.dianping.com;Expires=Wed, 04-Apr-2018 00:51:00 GMT;Path=/,lianjia_ssid=b1df96aa-9105-4268-a62d-5135d882d340;cy=2;select_city=310000;expires=Tue;Max-Age=10800;path=/;domain=lianjia.com;JSESSIONID=26C83F937387A122E335906295F38234;_hc.v=&quot;\&quot;319621e9-bd9b-491c-9d54-da0f911aaa15.1491267161\&quot;&quot;;PHOENIX_ID=0a0102fe-15b3672f7d9-39b78f7;02-May-2016 08:30:30 GMT=;logger_session=04fc647541648916f02c196be90416c6;01-May-2016 11:30:30 GMT=;lianjia_uuid=09d7c5c6c0648d5ed0a23a1cec2554a4;29-Apr-26 08:30:30 GMT=;lianjia_ssid=b1df96aa-9105-4268-a62d-5135d882d340;01-May-16 09:00:30 GMT=;25-Apr-2016 10:17:43 GMT=;24-Apr-2016 09:49:06 GMT=;23-Apr-16 10:19:06 GMT=;20-Apr-2016 07:16:23 GMT=;20-Apr-2016 07:04:03 GMT=;19-Apr-2016 10:04:04 GMT=;Hm_lvt_efa595b768cc9dc7d7f9823368e795f1=1448962258;miyue_hide=%20index%20%20index%20;lianjia_token=1.00d071de9c67232cada8481ddb370dc5bf;CNZZDATA1253492439=1517051447-1456825654-http%253A%252F%252Fbj.lianjia.com%252F%7C1457523199;CNZZDATA1254525948=1648576429-1456823381-http%253A%252F%252Fbj.lianjia.com%252F%7C1457522174;CNZZDATA1255633284=1453068874-1456824283-http%253A%252F%252Fbj.lianjia.com%252F%7C1457518273;CNZZDATA1255604082=954323645-1456824402-http%253A%252F%252Fbj.lianjia.com%252F%7C1457521865;_qzja=1.783490784.1456826188682.1457520368276.1457523536152.1457523543323.1457523562064.0.0.0.16.4;_jzqx=1.1446617231.1458633590.27.jzqsr=bj%2Efang%2Elianjia%2Ecom|jzqct=/loupan/pg5bp300ep360/.jzqsr=bj%2Elianjia%2Ecom|jzqct=/ershoufang/;_jzqy=1.1446173025.1460218600.39.jzqsr=baidu.jzqsr=baidu;_jzqa=1.1379173988059079000.1446170008.1460218600.1460424315.110;_smt_uid=566a2605.445893cd;_gat=1;ubt_load_interval_b=1461048933231;ubt_load_interval_c=1461048933231;CNZZDATA1257993097=2080063891-1461030713-%7C1461044225;ubta=2299869246.2487901422.1459386193064.1461048932591.1461048933351.58;ubtb=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtc=2299869246.2487901422.1461048933353.86D9EDF421C79B560FA70F98BE43CEB1;ubtd=17;_ga=GA1.2.2126031770.1446170005&#xA;Connection: keep-alive&#xA;Cache-Control: max-age=0&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" Postdata="" URL="http://bj.lianjia.com/xiaoqu/dongcheng/" />
     </Children>
-    <Children Name="区域" Type="SmartETLTool" MaxThreadCount="20" GenerateMode="串行模式" SampleMount="20" Description="获取一个城市中所有的区县" ScriptPath="">
-      <Children Enabled="True" Content="3" Column="city" MergeType="Append" Type="TextGE" Group="Generator" />
-      <Children Enabled="True" MergeWith="" Format="http://www.dianping.com/search/category/{0}/0/" Column="city" NewColumn="url" OneOutput="True" IsMultiYield="False" Type="MergeTF" Group="Transformer" />
-      <Children Enabled="True" MaxTryCount="1" ErrorDelay="3000" CrawlerSelector="网页采集器-通用" Column="url" NewColumn="" OneOutput="False" IsMultiYield="False" Type="CrawlerTF" Group="Transformer" />
-      <Children Enabled="True" XPath="//*[@id=&quot;region-nav&quot;]/a" IsManyData="True" GetText="False" GetTextHtml="False" GetCount="False" Column="Content" NewColumn="city" OneOutput="True" IsMultiYield="True" Type="XPathTF" Group="Transformer" />
-      <Children Enabled="True" Column="HTML" NewColumn="" OneOutput="False" IsMultiYield="False" Type="DeleteTF" Group="Transformer" />
-      <Children IsMultiYield="False" Index="0" Script="r\d+" NewColumn="" Column="OHTML" Enabled="True" OneOutput="True" Type="RegexTF" Group="Transformer" />
-      <Children Group="Filter" Revert="False" Column="OHTML" Enabled="True" IsDebugFilter="True" Type="NullFT" />
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="区域" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="city" Content="3" Enabled="True" Group="Generator" MergeType="Append" Type="TextGE" />
+      <Children Column="city" Enabled="True" Format="http://www.dianping.com/search/category/{0}/0/" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="网页采集器-通用" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="city" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="//*[@id=&quot;region-nav&quot;]/a" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" OneOutput="False" Type="DeleteTF" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" OneOutput="True" Script="r\d+" Type="RegexTF" />
+      <Children Column="OHTML" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" Revert="False" Type="NullFT" />
     </Children>
-    <Children Name="网页采集器" Type="SmartCrawler" URL="" RootXPath="" IsMultiData="List" IsSuperMode="False" ShareCookie="" Description="任务描述" ScriptPath="">
-      <HttpSet URL="" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36" />
+    <Children Description="任务描述" IsMultiData="One" IsSuperMode="False" Name="联系信息" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://www.dianping.com/shop/2336566">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:cy=2;Domain=.dianping.com;Expires=Wed, 04-Apr-2018 01:24:08 GMT;Path=/;JSESSIONID=AB175FCC1C509E445EA792BBA09F92D1;aburl=1;PHOENIX_ID=0a017aac-15b368fd9cf-97f9c5;=&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="电话" XPath="//*[@class=&quot;phone&quot;]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="创立时间" XPath="//*[@class=&quot;mod shop-info&quot;]//li[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="商户介绍" XPath="//*[@class=&quot;mod shop-info&quot;]//li[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="营业时间" XPath="//*[@class=&quot;mod shop-info&quot;]//li[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特色服务" XPath="//*[@class=&quot;mod shop-info&quot;]//li[4]" />
     </Children>
-    <Children Name="联系信息" Type="SmartCrawler" URL="http://www.dianping.com/shop/2336566" RootXPath="" IsMultiData="One" IsSuperMode="False" ShareCookie="" Description="任务描述" ScriptPath="">
-      <HttpSet URL="" Allowautoredirect="True" Postdata="" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:JSESSIONID=AB175FCC1C509E445EA792BBA09F92D1;Path=/;Domain=.dianping.com;Expires=Wed, 04-Apr-2018 01:24:08 GMT;aburl=1;PHOENIX_ID=0a017aac-15b368fd9cf-97f9c5;=&#xA;" />
-      <Children Name="电话" XPath="//*[@class=&quot;phone&quot;]" IsHtml="False" />
-      <Children Name="创立时间" XPath="//*[@class=&quot;mod shop-info&quot;]//li[1]" IsHtml="False" />
-      <Children Name="商户介绍" XPath="//*[@class=&quot;mod shop-info&quot;]//li[2]" IsHtml="False" />
-      <Children Name="营业时间" XPath="//*[@class=&quot;mod shop-info&quot;]//li[3]" IsHtml="False" />
-      <Children Name="特色服务" XPath="//*[@class=&quot;mod shop-info&quot;]//li[4]" IsHtml="False" />
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="城市列表" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="text" Content="http://www.dianping.com/citylist" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_1" Type="TextGE" />
+      <Children Column="text" CrawlerSelector="网页采集器-通用" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_text_2" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="" ObjectID="XPath转换器_Content_3" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="//*[@class=&quot;link onecity&quot;]" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="删除该列_HTML_4" OneOutput="False" Type="DeleteTF" />
+      <Children Column="OHTML" Enabled="True" FromBack="False" Group="Transformer" Index="1" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则分割_OHTML_5" OneOutput="True" Script="&quot;" Type="RegexSplitTF" />
+      <Children Column="OHTML" Enabled="True" FromBack="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则分割_OHTML_6" OneOutput="True" Script="/" Type="RegexSplitTF" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="name" OneOutput="False" Type="RenameTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="city" OneOutput="False" Type="RenameTF" />
     </Children>
   </Doc>
 </root>
