@@ -1,0 +1,38 @@
+<root>
+  <Doc Author="" Description="没有描述" ImgURL="http://www.qq3721.com/d/file/gexing/fzltupian/20111115/50eb4ad266abdf7cc719d1f99d3e3fcf.jpg" Name="" PublishTime="2018/10/28 17:18:15" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\搜狐新闻.xml" ShortDescription="" Version="0">
+    <DataCollections />
+    <DBConnections>
+      <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
+    </DBConnections>
+    <Parameters />
+    <RunningTasks />
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="True" Name="搜狐动态列表" RootFormat="XPath" RootXPath="/root[1]/body[1]/item[1]/expression[1]/arguments[1]/item[1]/elements[1]/item" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="v2.sohu.com/public-api/feed?scene=CATEGORY&amp;sceneId=1460&amp;page=4&amp;size=20&amp;callback=jQuery112405612461949347924_1540718759391&amp;_=1540718759439">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="Host: v2.sohu.com&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0&#xA;Accept: */*&#xA;Referer: http://www.sohu.com/c/8/1460&#xA;Cookie: gidinf=x099980109ee0e0d0eb84542300019b6ef6211f982ce; IPLOC=CN1100; SUV=180629074337HI6T; t=1540718759384&#xA;Connection: keep-alive&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" Postdata="" URL="http://v2.sohu.com/public-api/feed?scene=CATEGORY&amp;sceneId=1460&amp;page=4&amp;size=20&amp;callback=jQuery112405612461949347924_1540718759391&amp;_=1540718759439" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="id" XPath="/id[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="authorid" XPath="/authorid[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="authorname" XPath="/authorname[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="authorpic" XPath="/authorpic[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="focus" XPath="/focus[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="picurl" XPath="/picurl[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="title" XPath="/title[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="publictime" XPath="/publictime[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="cmsid" XPath="/cmsid[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="originalsource" XPath="/originalsource[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="passport" XPath="/passport[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="personalpage" XPath="/personalpage[1]" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="栏目抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="scene" Content="1460" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_5" Type="TextGE" />
+      <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="1000" MergeType="Cross" MinValue="1" ObjectID="生成区间数_id_1" Type="RangeGE" />
+      <Children Column="id" Enabled="True" Format="v2.sohu.com/public-api/feed?scene=CATEGORY&amp;sceneId=[scene]&amp;page={0}&amp;size=20" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="" ObjectID="合并多列_id_2" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="id" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_id_5" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="转换为Json_Content_5" OneOutput="False" ScriptWorkMode="NoTransform" Type="JsonTF" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="len" ObjectID="Python转换器_Content_6" OneOutput="False" Script="len(value)" ScriptWorkMode="NoTransform" Type="PythonTF" />
+      <Children Column="len" Enabled="True" FilterWorkMode="StopWhenFail" Group="Filter" IsDebugFilter="True" Max="99999" Min="20" ObjectID="数值范围过滤器_len_7" Revert="False" Type="RangeFT" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="网页采集器" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="www.cnblogs.com">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;" Postdata="" URL="" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="全部抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool" />
+  </Doc>
+</root>

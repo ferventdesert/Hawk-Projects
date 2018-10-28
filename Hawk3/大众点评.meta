@@ -4,10 +4,10 @@ ShortDescription: 获取全国大众点评数据，包括美食，健身，娱�
 Description:  |
    ##  大众点评全网数据
    
-   主任务为“获取所有门店”。
+   主任务为“获取所有门店”。 若想获取不同城市，修改其第一个模块“从文本生成”的city的id值，刷新即可。
 
    大众点评有防爬机制，避免速度过快导致封禁！ 尤其是详情页，其抓取限制更加严苛，造成的一切后果，开发者不背锅！
 
    欢迎联系Hawk作者：
    > buptzym@qq.com
-ImgURL: https://upload-images.jianshu.io/upload_images/9608527-ca6d0f9c40cfcca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+ImgURL: https://upload-images.jianshu.io/upload_images/9608527-3290b966ac3ee169.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240

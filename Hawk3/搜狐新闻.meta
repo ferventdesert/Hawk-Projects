@@ -1,0 +1,12 @@
+Name: 搜狐新闻
+Author: 沙漠之鹰
+ShortDescription: 搜狐新闻的简单实例
+Description:  |
+   ##  搜狐新闻
+   
+   本demo的目的不在于抓取全部新闻，而是演示子任务，和不知道总页数时，如何抓取全部数据的技巧。
+    
+   欢迎联系Hawk作者：
+   
+   > buptzym@qq.com
+ImgURL: https://upload-images.jianshu.io/upload_images/9608527-ec473616880cea3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
