@@ -1,9 +1,101 @@
 <root>
-  <Doc Author="" Description="没有描述" ImgURL="http://www.qq3721.com/d/file/gexing/fzltupian/20111115/50eb4ad266abdf7cc719d1f99d3e3fcf.jpg" Name="" PublishTime="2018/10/25 23:01:09" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\我爱我家.xml" Version="0">
+  <Doc Author="沙漠之鹰" Description="#  我爱我家全国地产&#xA;&#xA;获取全国的我爱我家房产数据，包括租房，买房，已成交等数据&#xA;可通过系统全局配置，设置城市类型，如北京，上海，杭州等。&#xA;欢迎联系Hawk作者：&#xA;&#xA;&gt; buptzym@qq.com&#xA;" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-ca6d0f9c40cfcca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="我爱我家" ParameterName="" PublishTime="2018/10/28 8:19:14" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\我爱我家.xml" ShortDescription="获取全国的我爱我家房产数据，包括租房，买房，已成交等数据" Version="0">
+    <DataCollections />
     <DBConnections>
       <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
+      <Children AutoConnect="False" ConnectString="" DBName="hawk" Name="MongoDB连接器" TypeName="MongoDBConnector" />
+      <Children AutoConnect="False" ConnectString="" DBName="hawk-sqlite" Name="SQLite数据库" TypeName="SQLiteDatabase" />
     </DBConnections>
     <Parameters />
     <RunningTasks />
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="在售" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[4]/div[1]/div[2]/ul[1]/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="bj.5i5j.com/ershoufang/">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="Host: bj.5i5j.com&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xA;Cookie:domain=bj;expires=Sun, 28-Oct-2018 01:29:22 GMT;Max-Age=3600;path=/;yfx_c_g_u_id_10000001=_ck18102523085016173787177597738;PHPSESSID=no1se8tnltglmkkjii4vag6gd6;_Jo0OQK=72176EC681931DFE5B0FF923781AA8D4B3CF843BC9E568E7219FE633A06CB3D423304203D6A5FF3F4AF0CB68DC1E5A5C5FB75EF920FA1416E137782F4AB215D7908C57212F12283777C840763663251ADEB840763663251ADEB0BF9C6B62BB502A1F4F9294D3434308FGJ1Z1Jg==;_gat=1;yfx_f_l_v_t_10000001=f_t_1540480130604__r_t_1540686524584__v_t_1540686524584__r_c_2;_ga=GA1.2.1313214671.1540480130;_gid=GA1.2.1849080496.1540643314;Hm_lvt_94ed3d23572054a86ed341d64b267ec6=1540480131,1540643315,1540686525;Hm_lpvt_94ed3d23572054a86ed341d64b267ec6=1540686538&#xA;Connection: keep-alive&#xA;Upgrade-Insecure-Requests: 1&#xA;Accept-Encoding: gzip, deflate, sdch, br&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" Postdata="" URL="https://bj.5i5j.com/ershoufang/" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="图片" XPath="/div[1]/a[1]/img[1]/@data-src[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="标题" XPath="/div[1]/a[1]/img[1]/@title[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="ID" XPath="/div[1]/a[1]/@href[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="布局" XPath="/div[2]/h3[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="面积" XPath="/div[2]/div[1]/p[1]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区" XPath="/div[2]/div[1]/p[2]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="地铁" XPath="/div[2]/div[1]/p[2]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="关注" XPath="/div[2]/div[1]/p[3]/#text[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="总价" XPath="/div[2]/div[1]/div[1]/p[1]/strong[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="单价" XPath="/div[2]/div[1]/div[1]/p[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特点1" XPath="/div[2]/div[2]/span[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特点2" XPath="/div[2]/div[2]/span[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特点3" XPath="/div[2]/div[2]/span[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特点4" XPath="/div[2]/div[2]/span[4]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="特点5" XPath="/div[2]/div[2]/span[5]" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="区县" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="城市" Content="bj" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_1" Type="TextGE" />
+      <Children Column="城市" Enabled="True" Format="https://{0}.5i5j.com" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="cityurl" ObjectID="合并多列_text_7" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="cityurl" Enabled="True" Format="{0}/ershoufang/" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="text" ObjectID="合并多列_cityurl_8" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="text" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_text_2" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="*" ObjectID="XPath转换器_text_3" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="/html[1]/body[1]/div[3]/div[2]/div[1]/ul[1]/li[1]/div[3]/div[1]/ul[1]/a" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="删除该列_Content_9" OneOutput="False" Type="DeleteTF" />
+      <Children Column="text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="删除该列_text_10" OneOutput="False" Type="DeleteTF" />
+      <Children Column="HTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="删除该列_HTML_4" OneOutput="False" Type="DeleteTF" />
+      <Children Column="OHTML" Enabled="True" FromBack="False" Group="Transformer" Index="1" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则分割_OHTML_5" OneOutput="True" Script="&quot;" Type="RegexSplitTF" />
+      <Children Column="Text" Count="1" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" ObjectID="正则筛选器_Text_6" Revert="True" Script="全部" Type="RegexFT" />
+      <Children Column="cityurl" Enabled="True" Format="{0}[OHTML]" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="OHTML" ObjectID="合并多列_cityurl_11" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="区县" OneOutput="False" Type="RenameTF" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="网页采集器" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="在售" Type="SmartCrawler" URL="www.cnblogs.com">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:domain=bj;expires=Sun, 28-Oct-2018 01:29:22 GMT;Max-Age=3600;path=/;yfx_c_g_u_id_10000001=_ck18102523085016173787177597738;PHPSESSID=no1se8tnltglmkkjii4vag6gd6;_Jo0OQK=72176EC681931DFE5B0FF923781AA8D4B3CF843BC9E568E7219FE633A06CB3D423304203D6A5FF3F4AF0CB68DC1E5A5C5FB75EF920FA1416E137782F4AB215D7908C57212F12283777C840763663251ADEB840763663251ADEB0BF9C6B62BB502A1F4F9294D3434308FGJ1Z1Jg==;_gat=1;yfx_f_l_v_t_10000001=f_t_1540480130604__r_t_1540686524584__v_t_1540686524584__r_c_2;_ga=GA1.2.1313214671.1540480130;_gid=GA1.2.1849080496.1540643314;Hm_lvt_94ed3d23572054a86ed341d64b267ec6=1540480131,1540643315,1540686525;Hm_lpvt_94ed3d23572054a86ed341d64b267ec6=1540686538&#xA;" Postdata="" URL="" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="在售房源" SampleMount="3" ScriptPath="" Type="SmartETLTool">
+      <Children Column="target" Content="ershoufang" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_OHTML_23" Type="TextGE" />
+      <Children Column="column" Enabled="True" ETLRange="" ETLSelector="区县" Group="Generator" MappingSet="" MergeType="Cross" ObjectID="子任务-生成_column_19" Type="EtlGE" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则替换_OHTML_24" OneOutput="True" ReplaceText="[target]" Script="ershoufang" Type="ReReplaceTF" />
+      <Children Column="OHTML" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_text_2" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="XPath转换器_text_3" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="/html[1]/body[1]/div[4]/div[1]/div[1]/span[1]/#text[1]" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="True" ItemPerPage="30" MinValue="1" NewColumn="" ObjectID="分页_Content_6" OneOutput="True" Type="SplitPageTF" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="p" OneOutput="False" Type="RenameTF" />
+      <Children Column="OHTML" Enabled="True" Format="{0}n[p]" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="" ObjectID="合并多列_text_7" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="text" OneOutput="False" Type="RenameTF" />
+      <Children Column="text" CrawlerSelector="在售" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="区县 城市 target" ObjectID="从爬虫转换_text_9" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="布局" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="删除该列_布局_10" OneOutput="False" Type="DeleteTF" />
+      <Children Column="ID" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_ID_11" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="单价" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_单价_12" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="关注" Enabled="True" Group="Transformer" Index="0 1 2 " IsMultiYield="False" NewColumn="关注 带看 发布" ObjectID="字符串分割_关注_13" OneOutput="False" ShouldSplitChars="False" SplitChar=" · " SplitPause="False" Type="SplitTF" />
+      <Children Column="关注" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_关注_14" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="带看" Enabled="True" Group="Transformer" Index="1" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_带看_15" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="发布" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则替换_发布_16" OneOutput="True" ReplaceText="" Script="发布" Type="ReReplaceTF" />
+      <Children Column="面积" Enabled="True" Group="Transformer" Index="0 1 2  3 4 " IsMultiYield="False" NewColumn="布局 面积 朝向 楼层 装修" ObjectID="字符串分割_关注_13" OneOutput="False" ShouldSplitChars="False" SplitChar=" · " SplitPause="False" Type="SplitTF" />
+      <Children Column="楼层" Enabled="True" Group="Transformer" Index="0 1" IsMultiYield="False" NewColumn="楼层 总楼层" ObjectID="字符串分割_楼层_18" OneOutput="False" ShouldSplitChars="False" SplitChar="/" SplitPause="False" Type="SplitTF" />
+      <Children Column="面积" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_面积_19" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="小区" Enabled="True" Group="Transformer" Index="0 1" IsMultiYield="False" NewColumn="区域 小区" ObjectID="字符串分割_小区_20" OneOutput="False" ShouldSplitChars="False" SplitChar="" SplitPause="True" Type="SplitTF" />
+      <Children Column="总楼层" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_总楼层_21" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+      <Children Column="城市" Enabled="True" Format="{0}_[target]_525j" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="table" ObjectID="合并多列_城市_21" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="table" Enabled="True" Group="Executor" ObjectID="写入数据表_table_22" Type="TableEX" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="租房" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+      <Children Column="target" Content="zufang" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_1" Type="TextGE" />
+      <Children Column="target" Enabled="True" ETLRange="1:300" ETLSelector="在售房源" Group="Generator" MappingSet="target:target" MergeType="Cross" ObjectID="子任务-生成_target_2" Type="EtlGE" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="小区" SampleMount="4" ScriptPath="" Type="SmartETLTool">
+      <Children Column="column" Enabled="True" ETLRange="" ETLSelector="区县" Group="Generator" MappingSet="" MergeType="Cross" ObjectID="子任务-生成_column_1" Type="EtlGE" />
+      <Children Column="OHTML" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则替换_OHTML_2" OneOutput="True" ReplaceText="xiaoqu" Script="ershoufang" Type="ReReplaceTF" />
+      <Children Column="OHTML" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="城市 区县" ObjectID="从爬虫转换_text_2" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="XPath转换器_text_3" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="/html[1]/body[1]/div[4]/div[1]/div[1]/span[1]/#text[1]" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="True" ItemPerPage="30" MinValue="1" NewColumn="" ObjectID="分页_Content_6" OneOutput="True" Type="SplitPageTF" />
+      <Children Column="Content" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="p" OneOutput="False" Type="RenameTF" />
+      <Children Column="OHTML" Enabled="True" Format="{0}n[p]" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="" ObjectID="合并多列_text_7" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="OHTML" CrawlerSelector="小区采集器" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="" ObjectID="从爬虫转换_OHTML_8" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="ID" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_ID_9" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="小区采集器" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[4]/div[1]/div[2]/ul[1]/li" ScriptPath="" ShareCookie="在售" Type="SmartCrawler" URL="https://bj.5i5j.com/xiaoqu/">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:domain=bj;expires=Sun, 28-Oct-2018 01:29:22 GMT;Max-Age=3600;path=/;yfx_c_g_u_id_10000001=_ck18102523085016173787177597738;PHPSESSID=no1se8tnltglmkkjii4vag6gd6;_Jo0OQK=72176EC681931DFE5B0FF923781AA8D4B3CF843BC9E568E7219FE633A06CB3D423304203D6A5FF3F4AF0CB68DC1E5A5C5FB75EF920FA1416E137782F4AB215D7908C57212F12283777C840763663251ADEB840763663251ADEB0BF9C6B62BB502A1F4F9294D3434308FGJ1Z1Jg==;_gat=1;yfx_f_l_v_t_10000001=f_t_1540480130604__r_t_1540686524584__v_t_1540686524584__r_c_2;_ga=GA1.2.1313214671.1540480130;_gid=GA1.2.1849080496.1540643314;Hm_lvt_94ed3d23572054a86ed341d64b267ec6=1540480131,1540643315,1540686525;Hm_lpvt_94ed3d23572054a86ed341d64b267ec6=1540686538&#xA;" Postdata="" URL="" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="图片" XPath="/div[1]/a[1]/img[1]/@data-src[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="名称" XPath="/div[1]/a[1]/img[1]/@title[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="ID" XPath="/div[1]/a[1]/@href[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="上月成交" XPath="/div[2]/div[1]/p[1]/span[1]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="在售" XPath="/div[2]/div[1]/p[1]/span[2]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="出租" XPath="/div[2]/div[1]/p[1]/span[3]/a[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="位置" XPath="/div[2]/div[1]/p[2]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="位置2" XPath="/div[2]/div[1]/p[3]/#text[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="均价" XPath="/div[2]/div[1]/div[1]/p[1]/strong[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="范围" XPath="/div[2]/div[1]/div[1]/p[2]" />
+    </Children>
   </Doc>
 </root>
