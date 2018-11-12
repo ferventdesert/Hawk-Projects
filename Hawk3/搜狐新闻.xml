@@ -8,7 +8,7 @@
     </DBConnections>
     <Parameters />
     <RunningTasks />
-    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="栏目抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+    <Children __KeppOrder="True" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="栏目抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool">
       <Children Column="scene" Content="1460" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从文本生成_text_5" Type="TextGE" />
       <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="1000" MergeType="Cross" MinValue="1" ObjectID="生成区间数_id_1" Type="RangeGE" />
       <Children Column="id" Enabled="True" Format="v2.sohu.com/public-api/feed?scene=CATEGORY&amp;sceneId=[scene]&amp;page={0}&amp;size=20" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="" ObjectID="合并多列_id_2" OneOutput="True" ReferFormat="" Type="MergeTF" />
@@ -23,7 +23,7 @@
     <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="网页采集器" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="www.cnblogs.com">
       <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;" Postdata="" URL="" />
     </Children>
-    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="全部抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool">
+    <Children __KeppOrder="True" Children="System.Collections.Generic.List`1[Hawk.Core.Utils.Plugins.FreeDocument]" DelayTime="0" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="5" Name="全部抓取" SampleMount="20" ScriptPath="" Type="SmartETLTool">
       <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="1467" MergeType="Cross" MinValue="1400" ObjectID="生成区间数_id_1" Type="RangeGE" />
       <Children Column="id" Enabled="True" ETLRange="1:300" ETLSelector="栏目抓取" Group="Transformer" IsCycle="False" IsManyData="List" MappingSet="id:scene" NewColumn="" ObjectID="子任务-转换_id_2" Type="EtlTF" />
       <Children Column="authorName" Enabled="True" Group="Executor" ObjectID="写入数据表_authorName_3" Table="数据表" Type="TableEX" />
