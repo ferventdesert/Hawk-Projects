@@ -1,5 +1,5 @@
 <root>
-  <Doc Author="沙漠之鹰" Description="##  链家全国地产&#xA;&#xA;获取全国的链家房产数据，包括租房，买房，已成交等数据&#xA;可通过系统全局配置，设置城市类型，如北京，上海，杭州等。&#xA;欢迎联系Hawk作者：&#xA;&#xA;&gt; buptzym@qq.com&#xA;&#xA;欢迎使用支付宝给作者打赏，你的鼓励是作者更新Hawk并增加教程的最大动力：&#xA;&#xA;![沙漠之鹰的支付宝转账二维码](http://static.zybuluo.com/buptzym/sje1pw3n9t8lsok1307p3srm/image_1b07ojl9l1ied2b31f011qui1hrv9.png)&#xA;" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-1d27979f9b2b7507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="链家全国地产" ParameterName="北京" PublishTime="2018/11/18 16:35:03" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\链家2020.xml" ShortDescription="获取全国的链家房产数据，包括租房，买房，已成交等数据" Version="0">
+  <Doc Author="沙漠之鹰" Description="##  链家全国地产&#xA;&#xA;获取全国的链家房产数据，包括租房，买房，已成交等数据&#xA;可通过系统全局配置，设置城市类型，如北京，上海，杭州等。&#xA;欢迎联系Hawk作者：&#xA;&#xA;&gt; buptzym@qq.com&#xA;&#xA;欢迎使用支付宝给作者打赏，你的鼓励是作者更新Hawk并增加教程的最大动力：&#xA;&#xA;![Hawk打赏小](https://upload-images.jianshu.io/upload_images/9608527-c5cac76b8af81a45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)&#xA;" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-1d27979f9b2b7507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="链家全国地产" ParameterName="北京" PublishTime="2018/12/2 10:23:28" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\链家2020.xml" ShortDescription="获取全国的链家房产数据，包括租房，买房，已成交等数据" Version="0">
     <DataCollections />
     <DBConnections>
       <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
@@ -13,9 +13,7 @@
       <Children Name="重庆" ParameterString="city: cq&#xD;&#xA;crawler: 杭州链家列表" />
       <Children Name="杭州" ParameterString="city: hz&#xD;&#xA;crawler: 杭州链家列表" />
     </Parameters>
-    <RunningTasks>
-      <Children GenerateMode="SerialMode" Level="0" MapperIndex1="0" MapperIndex2="0" Name="链家在售_转换" OutputIndex="0" Publisher="链家在售" />
-    </RunningTasks>
+    <RunningTasks />
     <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="杭州链家列表" Remark="" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[4]/div[1]/ul[1]/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="https://hz.lianjia.com/ershoufang/rs/">
       <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:lianjia_ssid=a722db52-cf3b-4dd8-b8bf-0fa753d84899;expires=Tue, 01-Aug-28 09:52:29 GMT;Max-Age=315360000;domain=.lianjia.com;path=/;select_city=330100;all-lj=26155dc0ee17bc7dec4aa8e464d36efd;Path=/,lianjia_ssid=a722db52-cf3b-4dd8-b8bf-0fa753d84899;=&#xA;" Postdata="" URL="" />
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="标注" XPath="/a[1]/@data-is_focus[1]" />
@@ -33,7 +31,7 @@
       <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="小区名" XPath="/div[1]/div[2]/div[1]/a[1]" />
     </Children>
     <Children __KeppOrder="True" DelayTime="1500" Description="任务描述" GenerateMode="SerialMode" MaxThreadCount="20" Name="链家补数据" Remark="" SampleMount="20" ScriptPath="" Type="SmartETLTool">
-      <Children Column="从数据表生成" Enabled="True" Group="Generator" MergeType="Cross" TableSelector="链家成交_错误信息_23_25_43" Type="TableGE" />
+      <Children Column="从数据表生成" Enabled="True" Group="Generator" MergeType="Cross" ObjectID="从数据表生成_从数据表生成_0" TableSelector="链家成交_错误信息_23_25_43" Type="TableGE" />
       <Children Column="区县" Enabled="False" Group="Transformer" IsMultiYield="False" NewColumn="__SysETL" NewValue="北京链家" ObjectID="添加新列_区县_2" OneOutput="True" Type="AddNewTF" />
       <Children Column="OHTML" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则替换_OHTML_5" OneOutput="True" ReplaceText="" Script="https://bj.lianjia.com" Type="ReReplaceTF" />
       <Children Column="__SysERROR" Enabled="True" Group="Transformer" InnerExecute="False" IsMultiYield="True" NewColumn="" ObjectID="重试补数据___SysERROR_3" OneOutput="True" Type="SupplierTF" />
@@ -59,7 +57,7 @@
       <Children Column="ershoufang" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_text_2" OneOutput="False" Type="CrawlerTF" />
       <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="List" IsMultiYield="True" NewColumn="cityurl ershoufang city target" ObjectID="XPath转换器_Content_3" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="/html[1]/body[1]/div[3]/div[1]/div[1]/dl[2]/dd[1]/div[1]/div[1]/a" />
       <Children Column="OHTML" Enabled="True" Group="Transformer" Index="1" IsMultiYield="False" NewColumn="" ObjectID="字符串分割_OHTML_4" OneOutput="False" ShouldSplitChars="False" SplitChar="&quot;" SplitPause="False" Type="SplitTF" />
-      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="区县" OneOutput="False" Type="RenameTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="区县" ObjectID="列名修改器_Text_7" OneOutput="False" Type="RenameTF" />
       <Children Column="OHTML" Enabled="True" Format="[cityurl]{0}" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="" ObjectID="合并多列_OHTML_5" OneOutput="True" ReferFormat="" Type="MergeTF" />
       <Children Column="HTML" DisplayProgress="True" Enabled="True" Group="Transformer" GroupMount="1" IsMultiYield="True" NewColumn="" ObjectID="启动并行_HTML_21" OneOutput="True" Type="ToListTF" />
       <Children Column="OHTML" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_OHTML_6" OneOutput="False" Type="CrawlerTF" />
@@ -72,7 +70,7 @@
       <Children Column="Content" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_Content_12" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
       <Children Column="p" Enabled="True" Group="Generator" Interval="1" MaxValue="[Content]" MergeType="Cross" MinValue="1" ObjectID="生成区间数_Content_5" Type="RangeGE" />
       <Children Column="OHTML" Enabled="True" Format="{0}pg[p]" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="" ObjectID="合并多列_OHTML_20" OneOutput="True" ReferFormat="" Type="MergeTF" />
-      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="区域" OneOutput="False" Type="RenameTF" />
+      <Children Column="Text" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="区域" ObjectID="列名修改器_Text_20" OneOutput="False" Type="RenameTF" />
     </Children>
     <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="租房采集器" Remark="" RootFormat="XPath" RootXPath="//ul[@id='house-lst']/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="https://hz.lianjia.com/zufang/xihu/pg2/">
       <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:lianjia_ssid=5f16847b-d832-4322-b4ff-6b1d3b8f2606;expires=Wed, 04-Oct-28 04:54:51 GMT;Max-Age=315360000;domain=.lianjia.com;path=/;select_city=110000;all-lj=ba32fa4540e52c45d4c94b9a16e82078;Path=/,lianjia_ssid=5f16847b-d832-4322-b4ff-6b1d3b8f2606;=&#xA;" Postdata="" URL="" />
@@ -171,7 +169,7 @@
       <Children Column="介绍" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="删除该列_介绍_19" OneOutput="False" Type="DeleteTF" />
       <Children Column="面积" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="提取数字_面积_21" OneOutput="True" Script="(-?\d+)(\.\d+)?" Type="NumberTF" />
       <Children Column="tablename" Enabled="True" Group="Executor" ObjectID="写入数据表_tablename_23" Table="[tablename]" Type="TableEX" />
-      <Children Column="朝向" Enabled="False" ExecuteType="OnlyInsert" Group="Executor" ObjectID="写入数据库_朝向_18" Table="[tablename]" TableNames="[tablename]" Type="DbEX" />
+      <Children Column="朝向" Connector="SQLite数据库" Enabled="False" ExecuteType="OnlyInsert" Group="Executor" ObjectID="写入数据库_朝向_18" Table="[tablename]" TableNames="[tablename]" Type="DbEX" />
     </Children>
     <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="小区采集器" Remark="" RootFormat="XPath" RootXPath="/html[1]/body[1]/div[4]/div[1]/ul[1]/li" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="https://hz.lianjia.com/xiaoqu/">
       <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;Cookie:select_city=330100;expires=Tue, 24-Oct-28 13:15:30 GMT;Max-Age=315360000;path=/;domain=.lianjia.com;all-lj=26155dc0ee17bc7dec4aa8e464d36efd;Path=/,lianjia_ssid=23f382b2-c973-48b0-bffc-b5a8c6f4a572;=&#xA;" Postdata="" URL="" />
