@@ -1,5 +1,5 @@
 <root>
-  <Doc Author="" Description="没有描述" ImgURL="http://www.qq3721.com/d/file/gexing/fzltupian/20111115/50eb4ad266abdf7cc719d1f99d3e3fcf.jpg" Name="搜狐新闻" ParameterName="" PublishTime="2018/10/28 17:18:15" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\网易新闻.xml" ShortDescription="" Version="0">
+  <Doc Author="" Description="没有描述" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-0b84afa59939835c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="搜狐新闻" ParameterName="" PublishTime="2018/10/28 17:18:15" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\网易新闻.xml" ShortDescription="" Version="0">
     <DataCollections />
     <DBConnections>
       <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />

@@ -1,0 +1,81 @@
+<root>
+  <Doc Author="" Description="没有描述" ImgURL="https://upload-images.jianshu.io/upload_images/9608527-0b84afa59939835c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" Name="东方财富网" PublishTime="2019/1/6 19:23:52" SavePath="D:\TopCoder\Hawk-Projects\Hawk3\东方财富网.xml" ShortDescription="" Version="0">
+    <DataCollections />
+    <DBConnections>
+      <Children AutoConnect="True" ConnectString="" DBName="" Name="最近打开的文件" TypeName="FileManager" />
+      <Children AutoConnect="False" ConnectString="" DBName="hawk" Name="MongoDB连接器" TypeName="MongoDBConnector" />
+      <Children AutoConnect="False" ConnectString="" DBName="hawk-sqlite" Name="SQLite数据库" TypeName="SQLiteDatabase" />
+    </DBConnections>
+    <Parameters />
+    <RunningTasks>
+      <Children GenerateMode="ParallelMode" Level="1" MapperIndex1="50" MapperIndex2="1" Name="任务" OutputIndex="37" Publisher="研报下载">
+        <Seeds>
+          <Children id="63" />
+        </Seeds>
+      </Children>
+      <Children GenerateMode="ParallelMode" Level="1" MapperIndex1="10" MapperIndex2="1" Name="任务" OutputIndex="9" Publisher="研报下载">
+        <Seeds>
+          <Children id="64" />
+        </Seeds>
+      </Children>
+      <Children GenerateMode="ParallelMode" Level="1" MapperIndex1="11" MapperIndex2="1" Name="任务" OutputIndex="10" Publisher="研报下载">
+        <Seeds>
+          <Children id="65" />
+        </Seeds>
+      </Children>
+      <Children GenerateMode="ParallelMode" Level="1" MapperIndex1="9" MapperIndex2="1" Name="任务" OutputIndex="8" Publisher="研报下载">
+        <Seeds>
+          <Children id="66" />
+        </Seeds>
+      </Children>
+      <Children GenerateMode="ParallelMode" Level="1" MapperIndex1="4" MapperIndex2="1" Name="任务" OutputIndex="3" Publisher="研报下载">
+        <Seeds>
+          <Children id="67" />
+        </Seeds>
+      </Children>
+      <Children GenerateMode="ParallelMode" Level="0" MapperIndex1="67" MapperIndex2="0" Name="数据清洗并行任务" OutputIndex="65" Publisher="研报下载" />
+    </RunningTasks>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="True" Name="个股行研" Remark="" RootFormat="XPath" RootXPath="/root[1]/body[1]/item[1]/declarations[1]/item[1]/init[1]/data[1]/elements[1]/item" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&amp;sty=DCARQRQB&amp;st=z&amp;sr=&amp;p=&amp;ps=&amp;token=1942f5da9b46b069953c873404aad4b5&amp;cmd=6035071&amp;cb=jsonpHqDataTotEKDuO&amp;_=1546774814126">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="Accept: */*&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0&#xA;Cookie: st_pvi=11481381655766; st_sp=2019-01-06%2017%3A19%3A29; st_si=21190780572383; qgqp_b_id=d4f6f0ce451e45448a13c466707c342e; st_sn=14; st_psi=20190106193607462-119131301057-2173906799; st_asi=delete&#xA;Referer: http://data.eastmoney.com/report/20190102/APPJ4gNwPSHEASearchReport.html&#xA;Host: nufm.dfcfw.com&#xA;Accept-Encoding: gzip, deflate, sdch&#xA;Accept-Language: zh-CN,zh;q=0.8&#xA;" Postdata="" URL="http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&amp;sty=DCARQRQB&amp;st=z&amp;sr=&amp;p=&amp;ps=&amp;token=1942f5da9b46b069953c873404aad4b5&amp;cmd=6035071&amp;cb=jsonpHqDataTotEKDuO&amp;_=1546774814126" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="author" XPath="/author[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="change" XPath="/change[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="companycode" XPath="/companycode[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="datetime" XPath="/datetime[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="infocode" XPath="/infocode[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="inscode" XPath="/inscode[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="insname" XPath="/insname[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="insstar" XPath="/insstar[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="item" XPath="/jlrs[1]/elements[1]/item[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性9" XPath="/jlrs[1]/elements[1]/item[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性10" XPath="/jlrs[1]/elements[1]/item[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="rate" XPath="/rate[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="secufullcode" XPath="/secufullcode[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="secuname" XPath="/secuname[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="sratingname" XPath="/sratingname[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="sy" XPath="/sy[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性16" XPath="/syls[1]/elements[1]/item[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性17" XPath="/syls[1]/elements[1]/item[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性18" XPath="/sys[1]/elements[1]/item[1]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性19" XPath="/sys[1]/elements[1]/item[2]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="属性20" XPath="/sys[1]/elements[1]/item[3]" />
+      <Children CrawlType="InnerText" Format="XPath" IsEnabled="True" Name="title" XPath="/title[1]" />
+    </Children>
+    <Children __KeppOrder="True" DelayTime="0" Description="任务描述" GenerateMode="ParallelMode" MaxThreadCount="5" Name="研报下载" Remark="" SampleMount="10" ScriptPath="" Type="SmartETLTool">
+      <Children Column="id" Enabled="True" Group="Generator" Interval="1" MaxValue="251" MergeType="Cross" MinValue="1" ObjectID="生成区间数_id_1" Type="RangeGE" />
+      <Children Column="id" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="NewColumn" NewValue="datainterface.eastmoney.com//EM_DataCenter/js.aspx?type=SR&amp;sty=GGSR&amp;js=var%20YbfmlkIj=%7B%22data%22:[(x)],%22pages%22:%22(pc)%22,%22update%22:%22(ud)%22,%22count%22:%22(count)%22%7D&amp;ps=50&amp;p=5&amp;mkt=0&amp;stat=0&amp;cmd=2&amp;code=&amp;rt=51559152" ObjectID="添加新列_id_3" OneOutput="True" Type="AddNewTF" />
+      <Children Column="id" Enabled="True" Format="p={0}" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" ObjectID="合并多列_id_4" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="NewColumn" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则替换_url_5" OneOutput="True" ReplaceText="[url]" Script="p=5" Type="ReReplaceTF" />
+      <Children Column="NewColumn" CrawlerSelector="个股行研" Enabled="True" Group="Transformer" IsMultiYield="True" NewColumn="" ObjectID="从爬虫转换_NewColumn_6" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="datetime" Enabled="True" Group="Transformer" Index="0" IsMultiYield="False" NewColumn="" ObjectID="字符串分割_datetime_7" OneOutput="False" ShouldSplitChars="False" SplitChar="T" SplitPause="False" Type="SplitTF" />
+      <Children Column="datetime" Enabled="True" Group="Transformer" Index="0" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="正则替换_datetime_8" OneOutput="True" ReplaceText="" Script="-" Type="ReReplaceTF" />
+      <Children Column="infocode" Enabled="True" Format="http://data.eastmoney.com/report/[datetime]/{0}.html" Group="Transformer" IsMultiYield="False" MergeWith="" NewColumn="url" ObjectID="合并多列_infocode_7" OneOutput="True" ReferFormat="" Type="MergeTF" />
+      <Children Column="url" CrawlerSelector="网页采集器" Enabled="True" Group="Transformer" IsMultiYield="False" NewColumn="" ObjectID="从爬虫转换_url_9" OneOutput="False" Type="CrawlerTF" />
+      <Children Column="Content" CrawlType="InnerText" Enabled="True" GetText="False" Group="Transformer" IsManyData="One" IsMultiYield="False" NewColumn="" ObjectID="XPath转换器_Content_10" OneOutput="True" SelectorFormat="XPath" Type="XPathTF" XPath="/html[1]/body[1]/div[3]/div[2]/div[3]/div[1]/div[1]/div[1]/span[5]/a[1]/@href[1]" />
+      <Children Column="Content" Enabled="True" FilterWorkMode="ByItem" Group="Filter" IsDebugFilter="True" ObjectID="空对象过滤器_Content_12" Revert="False" Type="NullFT" />
+      <Children Column="Content" CrawlerSelector="网页采集器" Enabled="True" Group="Executor" IsAsync="False" ObjectID="保存超链接文件_Content_11" SavePath="D:\PDF\" Type="SaveFileEX" />
+    </Children>
+    <Children Description="任务描述" IsMultiData="List" IsSuperMode="False" Name="网页采集器" Remark="" RootFormat="XPath" RootXPath="" ScriptPath="" ShareCookie="" Type="SmartCrawler" URL="http://data.eastmoney.com/report/20181229/APPIT2ntqgbNASearchReport.html">
+      <HttpSet Allowautoredirect="True" Encoding="Unknown" Method="GET" Parameters="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36&#xA;" Postdata="" URL="" />
+    </Children>
+  </Doc>
+</root>
